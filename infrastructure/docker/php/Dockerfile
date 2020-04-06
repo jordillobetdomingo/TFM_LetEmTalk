@@ -13,10 +13,3 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-RUN wget https://get.symfony.com/cli/installer -O - | bash; \
-    mv /root/.symfony/bin/symfony /usr/local/bin/symfony; \
-    rm -rf /root/.symfony/; \
-    addgroup --force-badname _www; \
-    adduser --no-create-home --force-badname --disabled-login --disabled-password --system _www; \
-    addgroup _www _www
-

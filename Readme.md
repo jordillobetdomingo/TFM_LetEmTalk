@@ -1,15 +1,14 @@
-Para ejecutar el docker compose. Primero levantar los servicios
+Project LetEmTalk
+
+Command for starting the services
 
 	sudo docker-compose up -d
 
-Ejecutar composer para instalar los componentes necesarios
+
+Command for installing packages for the project
 
 	sudo docker exec -it project_php_1 composer update -d /code
 
-Ejecutar el servidor de symfony
-
-	sudo docker exec -it project_php_1 symfony server:start --dir=/code
-
-Aturar las maquinas del docker compose.
+Command for ending the services
 
 	sudo docker-compose down
