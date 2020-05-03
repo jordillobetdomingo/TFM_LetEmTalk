@@ -6,14 +6,15 @@ namespace App\Component\ApiLet\Application\AuthenticationLet\UserCase;
 
 use App\Component\ApiLet\Application\AuthenticationLet\Request\CreateAuthenticationRequest;
 use App\Component\ApiLet\Domain\AuthenticationLet\Entity\Authentication;
+use App\Component\ApiLet\Domain\AuthenticationLet\Repository\AuthenticationRepository;
 
 class CreateAuthenticationUser
 {
     private $authenticationRepository;
 
-    public function __construct(Authentication $authentication)
+    public function __construct(AuthenticationRepository $authenticationRepository)
     {
-        $this->authenticationRepository = $authentication;
+        $this->authenticationRepository = $authenticationRepository;
     }
 
     public function execute(CreateAuthenticationRequest $request): void
