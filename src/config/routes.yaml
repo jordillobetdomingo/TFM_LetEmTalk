@@ -5,4 +5,4 @@
 create_user:
   path: /user/
   controller: 'App\Bundle\ApiLet\Controller\User\CreateUserController::execute'
-  methods: POST
+  methods: GET
