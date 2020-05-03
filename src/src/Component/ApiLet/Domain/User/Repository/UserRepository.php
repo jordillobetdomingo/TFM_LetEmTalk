@@ -10,5 +10,5 @@ interface UserRepository
 {
     public function save(User $user);
 
-    public function dalete(int $userId);
+    public function delete(int $userId);
 }

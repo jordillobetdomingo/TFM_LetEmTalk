@@ -20,6 +20,13 @@ class CreateUserTest extends TestCase
         $this->createUser = new CreateUser($this->userRepository);
     }
 
+    protected function tearDown(): void
+    {
+        $this->userRepository = null;
+        $this->createUserRequest = null;
+        $this->createUser = null;
+    }
+
     /** @test */
     public function shouldSaveAUser()
     {
