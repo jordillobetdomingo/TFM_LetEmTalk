@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Component\ApiLet\Domain\AuthenticationLet\Entity;
+namespace App\Component\ApiLet\Application\AuthenticationLet\Request;
 
 
 use App\Component\ApiLet\Domain\User\Entity\User;
 
-class Authentication
+class CreateAuthenticationRequest
 {
     private $username;
     private $password;
@@ -17,6 +17,16 @@ class Authentication
         $this->username = $username;
         $this->password = $password;
         $this->user = $user;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 
     public function getUser(): User

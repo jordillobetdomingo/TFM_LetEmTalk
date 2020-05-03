@@ -9,5 +9,5 @@ use App\Component\ApiLet\Domain\User\Entity\User;
 
 interface Login
 {
-    public function login(LoginRequest $loginRequest): User;
+    public function login(LoginRequest $loginRequest): ?User;
 }
