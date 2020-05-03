@@ -25,3 +25,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Bundle/ApiLet/Persistence/Migrations/User'
                 prefix: 'App\Component\ApiLet\Domain\User\Entity'
                 alias: User
+            AuthenticationLet:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/src/Bundle/ApiLet/Persistence/Migrations/AuthenticationLet'
+                prefix: 'App\Component\ApiLet\Domain\AuthenticationLet\Entity'
+                alias: AuthenticationLet
+
+

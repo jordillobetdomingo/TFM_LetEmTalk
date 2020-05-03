@@ -9,7 +9,7 @@ class LoginRequest
     private $username;
     private $password;
 
-    pubilc function __construct(string $username, string $password)
+    public function __construct(string $username, string $password)
     {
         $this->username = $username;
         $this->password = $password;
@@ -17,11 +17,11 @@ class LoginRequest
 
     public function getUsername(): string
     {
-        $this->username;
+        return $this->username;
     }
 
     public function getPassword(): string
     {
-        $this->password;
+        return $this->password;
     }
 }
