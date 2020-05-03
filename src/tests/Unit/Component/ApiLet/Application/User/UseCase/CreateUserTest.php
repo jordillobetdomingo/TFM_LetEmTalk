@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Component\ApiLet\Application\UseCase;
+namespace App\Tests\Component\ApiLet\Application\User\UseCase;
 
-use App\Component\ApiLet\Application\Request\CreateUserRequest;
-use App\Component\ApiLet\Application\UseCase\CreateUser;
+use App\Component\ApiLet\Application\User\Request\CreateUserRequest;
+use App\Component\ApiLet\Application\User\UseCase\CreateUser;
 use App\Component\ApiLet\Domain\User\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 

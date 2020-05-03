@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Component\ApiLet\Application\UseCase;
+namespace App\Tests\Component\ApiLet\Application\User\UseCase;
 
-use App\Component\ApiLet\Application\Request\DeleteUserRequest;
-use App\Component\ApiLet\Application\UseCase\DeleteUser;
+use App\Component\ApiLet\Application\User\Request\DeleteUserRequest;
+use App\Component\ApiLet\Application\User\UseCase\DeleteUser;
 use App\Component\ApiLet\Domain\User\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 

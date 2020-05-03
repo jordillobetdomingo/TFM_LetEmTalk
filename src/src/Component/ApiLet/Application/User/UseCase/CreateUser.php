@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Component\ApiLet\Application\UseCase;
+namespace App\Component\ApiLet\Application\User\UseCase;
 
 
-use App\Component\ApiLet\Application\Request\CreateUserRequest;
+use App\Component\ApiLet\Application\User\Request\CreateUserRequest;
 use App\Component\ApiLet\Domain\User\Entity\User;
 use App\Component\ApiLet\Domain\User\Repository\UserRepository;
 

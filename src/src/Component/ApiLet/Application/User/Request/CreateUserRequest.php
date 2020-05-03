@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Component\ApiLet\Application\Request;
+namespace App\Component\ApiLet\Application\User\Request;
 
 
 class CreateUserRequest

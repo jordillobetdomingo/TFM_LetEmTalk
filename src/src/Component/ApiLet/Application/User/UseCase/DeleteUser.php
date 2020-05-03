@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Component\ApiLet\Application\UseCase;
+namespace App\Component\ApiLet\Application\User\UseCase;
 
 
-use App\Component\ApiLet\Application\Request\DeleteUserRequest;
+use App\Component\ApiLet\Application\User\Request\DeleteUserRequest;
 use App\Component\ApiLet\Domain\User\Repository\UserRepository;
 
 class DeleteUser
