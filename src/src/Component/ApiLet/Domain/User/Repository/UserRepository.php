@@ -9,4 +9,6 @@ use App\Component\ApiLet\Domain\User\Entity\User;
 interface UserRepository
 {
     public function save(User $user);
+
+    public function dalete(int $userId);
 }

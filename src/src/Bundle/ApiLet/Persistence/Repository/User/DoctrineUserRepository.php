@@ -15,4 +15,11 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+    public function delete(int $userId)
+    {
+        $userReference = $this->getEntityManager()->getReference($this->getClassName(), $userId);
+        $this->getEntityManager()->remove($userReference);
+        $this->getEntityManager()->flush();
+    }
 }
