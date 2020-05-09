@@ -8,8 +8,8 @@ parameters:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+         autowire: true      # Automatically injects dependencies in your services.
+         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -20,8 +20,48 @@ services:
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     #App\Controller\:
-    #    resource: '../src/Controller'
+    #    resource: '../src/Bundle/ApiLet/Controller/User'
     #    tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Bundle\ApiLet\Controller\User\CreateUserController:
+        arguments:
+            $createUser: '@apilet.usecase.createuser'
+        tags: ['controller.service_arguments']
+
+    App\Bundle\ApiLet\Controller\User\ReadUsersController:
+        arguments:
+            $readUsers: '@apilet.usecase.readusers'
+        tags: ['controller.service_arguments']
+
+    App\Bundle\ApiLet\Controller\User\DeleteUserController:
+        arguments:
+            $deleteUser: '@apilet.usecase.deleteuser'
+        tags: ['controller.service_arguments']
+
+    apilet.metadata.user:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ App\Component\ApiLet\Domain\User\Entity\User ]
+
+    apilet.repository.user:
+        class: App\Bundle\ApiLet\Persistence\Repository\User\DoctrineUserRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@apilet.metadata.user'
+
+    apilet.usecase.createuser:
+        class: App\Component\ApiLet\Application\User\UseCase\CreateUser
+        arguments:
+            - '@apilet.repository.user'
+
+    apilet.usecase.readusers:
+        class: App\Component\ApiLet\Application\User\UseCase\ReadUsers
+        arguments:
+            - '@apilet.repository.user'
+
+    apilet.usecase.deleteuser:
+        class: App\Component\ApiLet\Application\User\UseCase\DeleteUser
+        arguments:
+            - '@apilet.repository.user'
