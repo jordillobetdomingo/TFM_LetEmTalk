@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Component\ApiLet\Domain\User\Entity;
+namespace LetEmTalk\Tests\Component\Domain\User\Entity;
 
-use App\Component\ApiLet\Domain\User\Entity\User;
+use LetEmTalk\Component\Domain\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase

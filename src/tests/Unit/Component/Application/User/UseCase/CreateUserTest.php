@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Component\ApiLet\Application\User\UseCase;
+namespace LetEmTalk\Tests\Component\Application\User\UseCase;
 
-use App\Component\ApiLet\Application\User\Request\CreateUserRequest;
-use App\Component\ApiLet\Application\User\UseCase\CreateUserUseCase;
-use App\Component\ApiLet\Domain\User\Repository\UserRepository;
+use LetEmTalk\Component\Application\User\Request\CreateUserRequest;
+use LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase;
+use LetEmTalk\Component\Domain\User\Repository\UserOwnRepository;
 use PHPUnit\Framework\TestCase;
 
 class CreateUserTest extends TestCase
@@ -15,7 +15,7 @@ class CreateUserTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->userRepository = $this->createMock(UserRepository::class);
+        $this->userRepository = $this->createMock(UserOwnRepository::class);
         $this->createUserRequest = $this->createMock(CreateUserRequest::class);
         $this->createUser = new CreateUserUseCase($this->userRepository);
     }

@@ -14,8 +14,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="ApiLet">
-            <directory>tests/Unit/Component/ApiLet</directory>
+        <testsuite name="ApiLetEmTalk">
+            <directory>tests/Unit/Component</directory>
         </testsuite>
     </testsuites>
 
