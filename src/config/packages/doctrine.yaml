@@ -22,14 +22,14 @@ doctrine:
             User:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/src/Bundle/ApiLet/Persistence/Migrations/User'
-                prefix: 'App\Component\ApiLet\Domain\User\Entity'
+                dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/User'
+                prefix: 'LetEmTalk\Component\Domain\User\Entity'
                 alias: User
             AuthenticationLet:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/src/Bundle/ApiLet/Persistence/Migrations/AuthenticationLet'
-                prefix: 'App\Component\ApiLet\Domain\AuthenticationLet\Entity'
+                dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/AuthenticationLet'
+                prefix: 'LetEmTalk\Component\Domain\AuthenticationLet\Entity'
                 alias: AuthenticationLet
 
 

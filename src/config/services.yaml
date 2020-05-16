@@ -26,42 +26,42 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Bundle\ApiLet\Controller\User\CreateUserController:
+    LetEmTalk\Bundle\Api\Controller\User\CreateUserController:
         arguments:
-            $createUser: '@apilet.usecase.createuser'
+            $createUserUseCase: '@letemtalk.usecase.createuser'
         tags: ['controller.service_arguments']
 
-    App\Bundle\ApiLet\Controller\User\ReadUsersController:
+    LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
         arguments:
-            $readUsers: '@apilet.usecase.readusers'
+            $readUsersUseCase: '@letemtalk.usecase.readusers'
         tags: ['controller.service_arguments']
 
-    App\Bundle\ApiLet\Controller\User\DeleteUserController:
+    LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:
         arguments:
-            $deleteUser: '@apilet.usecase.deleteuser'
+            $deleteUserUseCase: '@letemtalk.usecase.deleteuser'
         tags: ['controller.service_arguments']
 
-    apilet.metadata.user:
+    letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
-        arguments: [ App\Component\ApiLet\Domain\User\Entity\User ]
+        arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
 
-    apilet.repository.user:
-        class: App\Bundle\ApiLet\Persistence\Repository\User\DoctrineUserRepository
+    letemtalk.repository.user:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@apilet.metadata.user'
+            - '@letemtalk.metadata.user'
 
-    apilet.usecase.createuser:
-        class: App\Component\ApiLet\Application\User\UseCase\CreateUser
+    letemtalk.usecase.createuser:
+        class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
         arguments:
-            - '@apilet.repository.user'
+            - '@letemtalk.repository.user'
 
-    apilet.usecase.readusers:
-        class: App\Component\ApiLet\Application\User\UseCase\ReadUsers
+    letemtalk.usecase.readusers:
+        class: LetEmTalk\Component\Application\User\UseCase\ReadUsersUseCase
         arguments:
-            - '@apilet.repository.user'
+            - '@letemtalk.repository.user'
 
-    apilet.usecase.deleteuser:
-        class: App\Component\ApiLet\Application\User\UseCase\DeleteUser
+    letemtalk.usecase.deleteuser:
+        class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase
         arguments:
-            - '@apilet.repository.user'
+            - '@letemtalk.repository.user'

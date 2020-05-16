@@ -1,0 +1,17 @@
+LetEmTalk\Component\Domain\AuthenticationLet\Entity\Authentication:
+  type: entity
+  table: authentication
+  id:
+    username:
+      type: string
+      lenght: 100
+  fields:
+    password:
+      type: string
+      lenght: 100
+  oneToOne:
+    user:
+      targetEntity: LetEmTalk\Component\Domain\User\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id

@@ -4,15 +4,15 @@
 
 create_user:
   path: /user/
-  controller: 'App\Bundle\ApiLet\Controller\User\CreateUserController::execute'
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\CreateUserController::execute'
   methods: POST
 
 read_users:
   path: /users/
-  controller: 'App\Bundle\ApiLet\Controller\User\ReadUsersController::execute'
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\ReadUsersController::execute'
   methods: GET
 
 delete_user:
   path: /user/{id}/
-  controller: 'App\Bundle\ApiLet\Controller\User\DeleteUserController:execute'
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:execute'
   methods: DELETE
