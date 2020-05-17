@@ -5,7 +5,7 @@ namespace LetEmTalk\Tests\Component\Application\User\UseCase;
 use LetEmTalk\Component\Application\User\Response\ReadUsersResponse;
 use LetEmTalk\Component\Application\User\UseCase\ReadUsersUseCase;
 use LetEmTalk\Component\Domain\User\Entity\User;
-use LetEmTalk\Component\Domain\User\Repository\UserOwnRepository;
+use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 
 class ReadUsersTest extends TestCase
@@ -19,7 +19,7 @@ class ReadUsersTest extends TestCase
     {
         $this->userOne = $this->createMock(User::class);
         $this->userTwo = $this->createMock(User::class);
-        $this->userRepository = $this->createMock(UserOwnRepository::class);
+        $this->userRepository = $this->createMock(UserRepository::class);
         $this->readUsers = new ReadUsersUseCase($this->userRepository);
     }
 

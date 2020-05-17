@@ -4,7 +4,7 @@ namespace LetEmTalk\Tests\Component\Application\User\UseCase;
 
 use LetEmTalk\Component\Application\User\Request\DeleteUserRequest;
 use LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase;
-use LetEmTalk\Component\Domain\User\Repository\UserOwnRepository;
+use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 
 class DeleteUserTest extends TestCase
@@ -15,7 +15,7 @@ class DeleteUserTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->userRepository = $this->createMock(UserOwnRepository::class);
+        $this->userRepository = $this->createMock(UserRepository::class);
         $this->deleteUserRequest = $this->createMock(DeleteUserRequest::class);
         $this->deleteUser = new DeleteUserUseCase($this->userRepository);
     }

@@ -5,7 +5,7 @@ namespace LetEmTalk\Component\Domain\User\Repository;
 
 use LetEmtalk\Component\Domain\User\Entity\User;
 
-interface UserOwnRepository
+interface UserRepository
 {
     public function save(User $user): void;
 

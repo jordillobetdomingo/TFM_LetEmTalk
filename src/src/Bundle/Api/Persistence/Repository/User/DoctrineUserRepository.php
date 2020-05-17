@@ -5,10 +5,10 @@ namespace LetEmTalk\Bundle\Api\Persistence\Repository\User;
 
 
 use LetEmTalk\Component\Domain\User\Entity\User;
-use LetEmTalk\Component\Domain\User\Repository\UserOwnRepository;
+use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
 
-class DoctrineUserRepository extends EntityRepository implements UserOwnRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
     public function save(User $user): void
     {

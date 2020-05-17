@@ -5,13 +5,13 @@ namespace LetEmTalk\Component\Application\User\UseCase;
 
 
 use LetEmTalk\Component\Application\User\Response\ReadUsersResponse;
-use LetEmTalk\Component\Domain\User\Repository\UserOwnRepository;
+use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class ReadUsersUseCase
 {
-    private UserOwnRepository $userRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(UserOwnRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
