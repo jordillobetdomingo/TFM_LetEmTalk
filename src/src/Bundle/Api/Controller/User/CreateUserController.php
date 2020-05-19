@@ -36,7 +36,7 @@ class CreateUserController
 
         if (isset($json["username"]) && isset($json["password"])) {
             $this->createUserCredentialsUseCase->execute(
-                new CreateUserCredentialsRequest($json["username"], $json["password"], $userResponse->getUser())
+                new CreateUserCredentialsRequest($json["username"], $json["password"], $userResponse->getUser()->getId())
             );
         }
 

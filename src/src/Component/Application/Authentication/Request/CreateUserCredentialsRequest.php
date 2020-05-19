@@ -4,15 +4,13 @@
 namespace LetEmTalk\Component\Application\Authentication\Request;
 
 
-use LetEmTalk\Component\Domain\User\Entity\User;
-
 class CreateUserCredentialsRequest
 {
     private string $username;
     private string $password;
-    private User $user;
+    private int $userId;
 
-    public function __construct(string $username, string $password, User $user)
+    public function __construct(string $username, string $password, int $userId)
     {
         $this->username = $username;
         $this->password = $password;
@@ -29,8 +27,8 @@ class CreateUserCredentialsRequest
         return $this->password;
     }
 
-    public function getUser(): User
+    public function getUser(): int
     {
-        return $this->user;
+        return $this->userId;
     }
 }

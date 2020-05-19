@@ -20,4 +20,4 @@ delete_user:
 login:
   path: /login/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
-  method: POST
+  methods: GET|POST

@@ -26,7 +26,7 @@ class CreateUserCredentialsUseCase
         $userCredentials = new UserCredentials(
             $request->getUsername(),
             $request->getPassword(),
-            $request->getUser(),
+            $request->getUserId(),
             $this->passwordEncoder
         );
         $this->authenticationRepository->save($userCredentials);
