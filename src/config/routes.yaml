@@ -16,3 +16,8 @@ delete_user:
   path: /user/{id}/
   controller: 'LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:execute'
   methods: DELETE
+
+login:
+  path: /login/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
+  method: POST

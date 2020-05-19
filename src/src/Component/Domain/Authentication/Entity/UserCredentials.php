@@ -5,6 +5,7 @@ namespace LetEmTalk\Component\Domain\Authentication\Entity;
 
 
 use LetEmTalk\Component\Domain\User\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserCredentials implements UserInterface
@@ -13,10 +14,10 @@ class UserCredentials implements UserInterface
     private string $password;
     private User $user;
 
-    public function __construct(string $username, string $password, User $user)
+    public function __construct(string $username, string $password, User $user, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->username = $username;
-        $this->password = $password;
+        $this->password = $passwordEncoder->encodePassword($this, $password);
         $this->user = $user;
     }
 
