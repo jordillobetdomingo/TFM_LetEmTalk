@@ -29,6 +29,7 @@ services:
     LetEmTalk\Bundle\Api\Controller\User\CreateUserController:
         arguments:
             $createUserUseCase: '@letemtalk.usecase.createuser'
+            $createUserCredentialsUseCase: '@letemtalk.usercase.createusercredentials'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
@@ -45,11 +46,21 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
 
+    letemtalk.metadata.usercredentials:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials ]
+
     letemtalk.repository.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.user'
+
+    letemtalk.repository.usercredentials:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\DoctrineUserCredentialsRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.usercredentials'
 
     letemtalk.usecase.createuser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
@@ -65,3 +76,8 @@ services:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase
         arguments:
             - '@letemtalk.repository.user'
+
+    letemtalk.usercase.createusercredentials:
+        class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
+        arguments:
+            - '@letemtalk.repository.usercredentials'

@@ -4,6 +4,8 @@ LetEmTalk\Component\Domain\User\Entity\User:
   id:
     id:
       type: integer
+      generator:
+        strategy: AUTO
   fields:
     firstName:
       type: string

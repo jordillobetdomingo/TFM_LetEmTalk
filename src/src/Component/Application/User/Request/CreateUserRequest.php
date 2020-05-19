@@ -11,17 +11,11 @@ class CreateUserRequest
     private string $lastName;
     private string $email;
 
-    public function __construct(int $id, string $firstName, string $lastName, string $email)
+    public function __construct(string $firstName, string $lastName, string $email)
     {
-        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getFirstName(): string

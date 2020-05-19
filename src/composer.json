@@ -13,10 +13,12 @@
         "symfony/orm-pack": "^1.0",
         "symfony/psr-http-message-bridge": "^2.0",
         "symfony/routing": "5.0.*",
+        "symfony/security-bundle": "5.0.*",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.15"
+        "symfony/maker-bundle": "^1.15",
+        "symfony/profiler-pack": "^1.0"
     },
     "config": {
         "preferred-install": {

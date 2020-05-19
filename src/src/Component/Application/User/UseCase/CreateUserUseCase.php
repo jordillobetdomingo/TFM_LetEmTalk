@@ -5,6 +5,7 @@ namespace LetEmTalk\Component\Application\User\UseCase;
 
 
 use LetEmTalk\Component\Application\User\Request\CreateUserRequest;
+use LetEmTalk\Component\Application\User\Response\CreateUserResponse;
 use LetEmTalk\Component\Domain\User\Entity\User;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
@@ -17,10 +18,12 @@ class CreateUserUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(CreateUserRequest $request)
+    public function execute(CreateUserRequest $request): CreateUserResponse
     {
-        $user = new User($request->getId(), $request->getFirstName(), $request->getLastName(), $request->getEmail());
+        $user = new User($request->getFirstName(), $request->getLastName(), $request->getEmail());
 
         $this->userRepository->save($user);
+
+        return new CreateUserResponse($user);
     }
 }

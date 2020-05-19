@@ -1,12 +1,12 @@
 <?php
 
 
-namespace LetEmTalk\Component\Application\AuthenticationLet\Request;
+namespace LetEmTalk\Component\Application\Authentication\Request;
 
 
 use LetEmTalk\Component\Domain\User\Entity\User;
 
-class CreateAuthenticationRequest
+class CreateUserCredentialsRequest
 {
     private string $username;
     private string $password;

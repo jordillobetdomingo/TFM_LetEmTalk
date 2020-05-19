@@ -11,9 +11,8 @@ class User
     private string $lastName;
     private string $email;
 
-    public function __construct(int $id, string $firstName, string $lastName, string $email)
+    public function __construct(string $firstName, string $lastName, string $email)
     {
-        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
