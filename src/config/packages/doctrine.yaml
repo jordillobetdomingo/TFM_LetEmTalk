@@ -23,7 +23,7 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/User'
-                prefix: 'LetEmTalk\Component\Domain\User\Entity'
+                prefix: 'LetEmTalk\Component\Domain\User'
                 alias: User
             Authentication:
                 is_bundle: false

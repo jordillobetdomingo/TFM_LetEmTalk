@@ -11,7 +11,6 @@
 
         <field name="firstName" column="first_name" type="string" length="100" />
         <field name="lastName" column="last_name" type="string" length="100" />
-        <field name="email" column="email" type="string" length="100" />
+        <embedded name="email" class="LetEmTalk\Component\Domain\User\ValueObject\Email"/>
     </entity>
-
 </doctrine-mapping>

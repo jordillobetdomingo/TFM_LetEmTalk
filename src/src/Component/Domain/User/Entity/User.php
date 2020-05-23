@@ -4,14 +4,16 @@
 namespace LetEmTalk\Component\Domain\User\Entity;
 
 
+use LetEmTalk\Component\Domain\User\ValueObject\Email;
+
 class User
 {
     private int $id;
     private string $firstName;
     private string $lastName;
-    private string $email;
+    private Email $email;
 
-    public function __construct(string $firstName, string $lastName, string $email)
+    public function __construct(string $firstName, string $lastName, Email $email)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -33,7 +35,7 @@ class User
         return $this->lastName;
     }
 
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }

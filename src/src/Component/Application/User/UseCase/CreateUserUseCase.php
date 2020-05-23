@@ -8,6 +8,7 @@ use LetEmTalk\Component\Application\User\Request\CreateUserRequest;
 use LetEmTalk\Component\Application\User\Response\CreateUserResponse;
 use LetEmTalk\Component\Domain\User\Entity\User;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
+use LetEmTalk\Component\Domain\User\ValueObject\Email;
 
 class CreateUserUseCase
 {
@@ -20,7 +21,7 @@ class CreateUserUseCase
 
     public function execute(CreateUserRequest $request): CreateUserResponse
     {
-        $user = new User($request->getFirstName(), $request->getLastName(), $request->getEmail());
+        $user = new User($request->getFirstName(), $request->getLastName(), new Email($request->getEmail()));
 
         $this->userRepository->save($user);
 

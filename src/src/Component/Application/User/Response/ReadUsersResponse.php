@@ -28,7 +28,7 @@ class ReadUsersResponse
             "id" => $user->getId(),
             "first_name" => $user->getFirstName(),
             "last_name" => $user->getLastName(),
-            "email" => $user->getEmail()
+            "email" => $user->getEmail()->getEmail()
         ];
     }
 }
