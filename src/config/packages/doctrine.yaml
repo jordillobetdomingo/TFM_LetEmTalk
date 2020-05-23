@@ -21,13 +21,13 @@ doctrine:
         mappings:
             User:
                 is_bundle: false
-                type: yml
+                type: xml
                 dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/User'
                 prefix: 'LetEmTalk\Component\Domain\User\Entity'
                 alias: User
             Authentication:
                 is_bundle: false
-                type: yml
+                type: xml
                 dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/Authentication'
                 prefix: 'LetEmTalk\Component\Domain\Authentication\Entity'
                 alias: Authentication

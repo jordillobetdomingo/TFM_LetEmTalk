@@ -14,7 +14,7 @@ class CreateUserCredentialsRequest
     {
         $this->username = $username;
         $this->password = $password;
-        $this->user = $user;
+        $this->userId = $userId;
     }
 
     public function getUsername(): string
@@ -27,7 +27,7 @@ class CreateUserCredentialsRequest
         return $this->password;
     }
 
-    public function getUser(): int
+    public function getUserId(): int
     {
         return $this->userId;
     }
