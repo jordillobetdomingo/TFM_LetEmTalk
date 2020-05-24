@@ -1,0 +1,23 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="LetEmTalk\Component\Domain\Chat\Entity\Pill" table="pill">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="text" column="title" type="string" />
+        <field name="created" column="created" type="datetime" />
+
+        <many-to-one field="issue" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Issue">
+            <join-column name="issue_id" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="author" target-entity="LetEmTalk\Component\Domain\User\Entity\User">
+            <join-column name="author_id" referenced-column-name="id" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

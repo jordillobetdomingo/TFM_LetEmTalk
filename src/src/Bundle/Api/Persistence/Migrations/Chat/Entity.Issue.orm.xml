@@ -9,8 +9,14 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <field name="title" column="title" type="string" length="255" />
+
         <many-to-one field="room" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Room">
             <join-column name="room_id" referenced-column-name="id" />
         </many-to-one>
+
+        <one-to-one field="firstPill" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Pill">
+            <join-column name="first_pill" referenced-column-name="id" />
+        </one-to-one>
     </entity>
 </doctrine-mapping>
