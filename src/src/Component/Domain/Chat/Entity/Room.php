@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\Entity\Chat;
+namespace LetEmTalk\Component\Domain\Chat\Entity;
 
 
 use LetEmTalk\Component\Domain\User\Entity\User;
