@@ -13,4 +13,12 @@ class Pill
     private string $text;
     private User $author;
     private \DateTime $created;
+
+    public function __construct(Issue $issue, string $text, User $author)
+    {
+        $this->issue = $issue;
+        $this->text = $text;
+        $this->authod = $author;
+        $this->created = time();
+    }
 }
