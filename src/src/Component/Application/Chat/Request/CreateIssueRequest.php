@@ -1,17 +1,15 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\Chat\Entity;
+namespace LetEmTalk\Component\Application\Chat\Request;
 
 
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
-class Issue
+class CreateIssueRequest
 {
-    private int $id;
     private Room $room;
     private string $title;
-    private Pill $firstPill;
 
     public function __construct(Room $room, string $title)
     {
@@ -19,8 +17,13 @@ class Issue
         $this->title = $title;
     }
 
-    public function setFirstPill(Pill $pill)
+    public function getRoom(): Room
     {
-        $this->firstPill = $pill;
+        return $this->room;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 }
