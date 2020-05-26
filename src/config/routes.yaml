@@ -1,3 +1,23 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+create_user:
+  path: /user/
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\CreateUserController::execute'
+  methods: POST
+
+read_users:
+  path: /users/
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\ReadUsersController::execute'
+  methods: GET
+
+delete_user:
+  path: /user/{id}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:execute'
+  methods: DELETE
+
+login:
+  path: /login/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
+  methods: GET|POST

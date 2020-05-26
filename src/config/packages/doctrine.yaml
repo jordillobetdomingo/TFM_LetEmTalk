@@ -19,9 +19,17 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            User:
                 is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                type: xml
+                dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/User'
+                prefix: 'LetEmTalk\Component\Domain\User'
+                alias: User
+            Authentication:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/Authentication'
+                prefix: 'LetEmTalk\Component\Domain\Authentication\Entity'
+                alias: Authentication
+
+
