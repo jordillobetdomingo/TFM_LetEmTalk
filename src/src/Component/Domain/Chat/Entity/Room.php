@@ -15,4 +15,9 @@ class Room
     {
         $this->user = $user;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

@@ -52,6 +52,11 @@ services:
             - '@letemtalk.useCase.createIssue'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Chat\ReadIssueWithPillsController:
+        arguments:
+            - '@letemtalk.useCase.readIssueWithPills'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController:
         arguments:
             - '@letemtalk.useCase.updateIssue'
@@ -156,6 +161,12 @@ services:
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.user'
+
+    letemtalk.useCase.readIssueWithPills:
+        class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.pill'
 
     letemtalk.useCase.updateIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase

@@ -22,6 +22,16 @@ class Issue
         return $this->id;
     }
 
+    public function getRoom(): Room
+    {
+        return $this->room;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
     public function setTitle(string $title): void
     {
         $this->title = $title;

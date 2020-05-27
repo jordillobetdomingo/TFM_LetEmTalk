@@ -27,8 +27,23 @@ class Pill
         return $this->id;
     }
 
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
     public function setText(string $text): void
     {
         $this->text = $text;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function getCreated(): \DateTime
+    {
+        return $this->created;
     }
 }
