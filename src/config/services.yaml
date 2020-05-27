@@ -28,28 +28,33 @@ services:
 
     LetEmTalk\Bundle\Api\Controller\User\CreateUserController:
         arguments:
-            $createUserUseCase: '@letemtalk.useCase.createUser'
-            $createUserCredentialsUseCase: '@letemtalk.useCase.createUserCredentials'
+            - '@letemtalk.useCase.createUser'
+            - '@letemtalk.useCase.createUserCredentials'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
         arguments:
-            $readUsersUseCase: '@letemtalk.useCase.readUsers'
+            - '@letemtalk.useCase.readUsers'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:
         arguments:
-            $deleteUserUseCase: '@letemtalk.useCase.deleteUser'
+            - '@letemtalk.useCase.deleteUser'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController:
         arguments:
-            $createRoomUseCase: '@letemtalk.useCase.createRoom'
+            - '@letemtalk.useCase.createRoom'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\Chat\CreateIssueController:
         arguments:
             - '@letemtalk.useCase.createIssue'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController:
+        arguments:
+            - '@letemtalk.useCase.createPill'
         tags: ['controller.service_arguments']
 
     letemtalk.metadata.user:
@@ -134,4 +139,11 @@ services:
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.user'
+
+    letemtalk.useCase.createPill:
+        class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase
+        arguments:
+            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.issue'
             - '@letemtalk.repository.user'

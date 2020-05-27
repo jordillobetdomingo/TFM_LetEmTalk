@@ -9,20 +9,20 @@ use LetEmTalk\Component\Domain\User\Entity\User;
 
 class CreatePillRequest
 {
-    private Issue $issue;
+    private int $issueId;
     private string $text;
-    private User $author;
+    private int $authorId;
 
-    public function __construct(Issue $issue, string $text, User $author)
+    public function __construct(int $issueId, string $text, int $authorId)
     {
-        $this->issue = $issue;
+        $this->issueId = $issueId;
         $this->text = $text;
-        $this->author = $author;
+        $this->authorId = $authorId;
     }
 
-    public function getIssue(): Issue
+    public function getIssueId(): int
     {
-        return $this->issue;
+        return $this->issueId;
     }
 
     public function getText(): string
@@ -30,9 +30,9 @@ class CreatePillRequest
         return $this->text;
     }
 
-    public function getAuthor(): User
+    public function getAuthorId(): int
     {
-        return $this->author;
+        return $this->authorId;
     }
 
 }

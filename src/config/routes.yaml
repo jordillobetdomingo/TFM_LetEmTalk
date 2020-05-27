@@ -31,3 +31,8 @@ create_issue:
   path: /issue/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateIssueController::execute'
   methods: POST
+
+create_pill:
+  path: /pill/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController::execute'
+  methods: POST

@@ -9,4 +9,6 @@ use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 Interface IssueRepository
 {
     public function save(Issue $issue): void;
+
+    public function getIssue(int $issueId): Issue;
 }
