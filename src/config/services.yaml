@@ -29,7 +29,7 @@ services:
     LetEmTalk\Bundle\Api\Controller\User\CreateUserController:
         arguments:
             $createUserUseCase: '@letemtalk.usecase.createuser'
-            $createUserCredentialsUseCase: '@letemtalk.usercase.createusercredentials'
+            $createUserCredentialsUseCase: '@letemtalk.usecase.createusercredentials'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
@@ -42,6 +42,11 @@ services:
             $deleteUserUseCase: '@letemtalk.usecase.deleteuser'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController:
+        arguments:
+            $createRoomUseCase: '@letemtalk.usecase.createroom'
+        tags: ['controller.service_arguments']
+
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
@@ -49,6 +54,10 @@ services:
     letemtalk.metadata.usercredentials:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials ]
+
+    letemtalk.metadata.room:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Chat\Entity\Room ]
 
     letemtalk.repository.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
@@ -61,6 +70,12 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.usercredentials'
+
+    letemtalk.repository.room:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineRoomRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.room'
 
     letemtalk.usecase.createuser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
@@ -77,7 +92,13 @@ services:
         arguments:
             - '@letemtalk.repository.user'
 
-    letemtalk.usercase.createusercredentials:
+    letemtalk.usecase.createusercredentials:
         class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
         arguments:
             - '@letemtalk.repository.usercredentials'
+
+    letemtalk.usecase.createroom:
+        class: LetEmTalk\Component\Application\Chat\UseCase\CreateRoomUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.user'

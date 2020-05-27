@@ -21,3 +21,8 @@ login:
   path: /login/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
   methods: GET|POST
+
+create_room:
+  path: /room/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController::execute'
+  methods: POST

@@ -10,7 +10,7 @@ use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
 
 class CreatePillUseCase
 {
-    private PillRepository $pillRepository
+    private PillRepository $pillRepository;
 
     public function __construct(PillRepository $pillRepository)
     {

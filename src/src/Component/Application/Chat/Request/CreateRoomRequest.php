@@ -8,16 +8,16 @@ use LetEmTalk\Component\Domain\User\Entity\User;
 
 class CreateRoomRequest
 {
-    private User $user;
+    private int $userId;
 
-    public function __construct(User $user)
+    public function __construct(int $userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
     }
 
-    public function getUser(): User
+    public function getUserId(): int
     {
-        return $this->user;
+        return $this->userId;
     }
 
 }
