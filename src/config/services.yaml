@@ -62,6 +62,11 @@ services:
             - '@letemtalk.useCase.updateIssue'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Chat\DeleteIssueController:
+        arguments:
+            - '@letemtalk.useCase.deleteIssue'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController:
         arguments:
             - '@letemtalk.useCase.createPill'
@@ -173,6 +178,11 @@ services:
         arguments:
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.deleteIssue:
+        class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
 
     letemtalk.useCase.createPill:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase

@@ -11,4 +11,6 @@ Interface IssueRepository
     public function save(Issue $issue): void;
 
     public function getIssue(int $issueId): Issue;
+
+    public function delete(int $issueId): void;
 }

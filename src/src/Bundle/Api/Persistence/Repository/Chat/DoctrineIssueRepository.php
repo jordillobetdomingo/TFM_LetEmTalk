@@ -21,4 +21,11 @@ class DoctrineIssueRepository extends EntityRepository implements IssueRepositor
     {
         return $this->findOneBy(["id" => $issueId]);
     }
+
+    public function delete(int $issueId): void
+    {
+        $issueReference = $this->getEntityManager()->getReference($this->getClassName(), $issueId);
+        $this->getEntityManager()->remove($issueReference);
+        $this->getEntityManager()->flush();
+    }
 }

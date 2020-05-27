@@ -12,8 +12,8 @@
         <field name="text" column="title" type="string" />
         <field name="created" column="created" type="datetime" />
 
-        <many-to-one field="issue" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Issue">
-            <join-column name="issue_id" referenced-column-name="id" />
+        <many-to-one field="issue" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Issue" >
+            <join-column name="issue_id" referenced-column-name="id" on-delete="CASCADE" />
         </many-to-one>
 
         <many-to-one field="author" target-entity="LetEmTalk\Component\Domain\User\Entity\User">

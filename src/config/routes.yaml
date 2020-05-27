@@ -42,6 +42,11 @@ update_issue:
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController::execute'
   methods: POST
 
+delete_issue:
+  path: /issue/{issueId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteIssueController::execute'
+  methods: DELETE
+
 create_pill:
   path: /pill/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController::execute'
