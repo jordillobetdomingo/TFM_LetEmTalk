@@ -22,4 +22,11 @@ class DoctrineRoomRepository extends EntityRepository implements RoomRepository
     {
         return $this->findOneBy(["id" => $roomId]);
     }
+
+    public function delete(int $roomId): void
+    {
+        $roomReference = $this->getEntityManager()->getReference($this->getClassName(), $roomId);
+        $this->getEntityManager()->remove($roomReference);
+        $this->getEntityManager()->flush();
+    }
 }

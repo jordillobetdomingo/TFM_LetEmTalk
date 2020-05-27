@@ -11,4 +11,6 @@ interface RoomRepository
     public function save(Room $room): void;
 
     public function getRoom(int $roomId): Room;
+
+    public function delete(int $roomId): void;
 }
