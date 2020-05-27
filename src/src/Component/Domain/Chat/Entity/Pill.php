@@ -22,7 +22,12 @@ class Pill
         $this->created = new \DateTime("now");;
     }
 
-    public function setText(string $text)
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setText(string $text): void
     {
         $this->text = $text;
     }

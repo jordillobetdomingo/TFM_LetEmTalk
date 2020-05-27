@@ -4,8 +4,6 @@
 namespace LetEmTalk\Component\Domain\Chat\Entity;
 
 
-use LetEmTalk\Component\Domain\Chat\Entity\Room;
-
 class Issue
 {
     private int $id;
@@ -19,13 +17,24 @@ class Issue
         $this->title = $title;
     }
 
-    public function setFirstPill(Pill $pill)
-    {
-        $this->firstPill = $pill;
-    }
-
     public function getId(): int
     {
         return $this->id;
     }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function getFirstPill(): Pill
+    {
+        return $this->firstPill;
+    }
+
+    public function setFirstPill(Pill $pill): void
+    {
+        $this->firstPill = $pill;
+    }
+
 }
