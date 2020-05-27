@@ -16,4 +16,9 @@ class DoctrinePillRepository extends EntityRepository implements PillRepository
         $this->getEntityManager()->persist($pill);
         $this->getEntityManager()->flush();
     }
+
+    public function getPill(int $pillId): Pill
+    {
+        return $this->findOneBy(["id" => $pillId]);
+    }
 }

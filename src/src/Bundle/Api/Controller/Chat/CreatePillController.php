@@ -4,6 +4,7 @@
 namespace LetEmTalk\Bundle\Api\Controller\Chat;
 
 
+use LetEmTalk\Component\Application\Chat\Request\CreatePillRequest;
 use LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ class CreatePillController
         $text = $json["text"];
         $authorId = $json["authorId"];
 
+        $this->createPillUseCase->execute(new CreatePillRequest($issueId, $text, $authorId));
 
 
         return new Response("Pill has been created");

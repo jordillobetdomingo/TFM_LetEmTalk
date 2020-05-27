@@ -57,6 +57,12 @@ services:
             - '@letemtalk.useCase.createPill'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController:
+        arguments:
+            - '@letemtalk.useCase.updatePill'
+        tags: ['controller.service_arguments']
+
+
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
@@ -147,3 +153,8 @@ services:
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.user'
+
+    letemtalk.useCase.updatePill:
+        class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase
+        arguments:
+            - '@letemtalk.repository.pill'

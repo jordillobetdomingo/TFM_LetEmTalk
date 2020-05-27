@@ -36,3 +36,8 @@ create_pill:
   path: /pill/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController::execute'
   methods: POST
+
+update_pill:
+  path: /pill/{pillId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController::execute'
+  methods: POST

@@ -23,4 +23,9 @@ class Issue
     {
         $this->firstPill = $pill;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

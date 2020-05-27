@@ -21,4 +21,9 @@ class Pill
         $this->author = $author;
         $this->created = new \DateTime("now");;
     }
+
+    public function setText(string $text)
+    {
+        $this->text = $text;
+    }
 }

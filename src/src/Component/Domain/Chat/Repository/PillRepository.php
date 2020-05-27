@@ -9,4 +9,6 @@ use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 interface PillRepository
 {
     public function save(Pill $pill): void;
+
+    public function getPill(int $pillId): Pill;
 }
