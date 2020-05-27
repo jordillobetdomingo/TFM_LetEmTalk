@@ -21,4 +21,11 @@ class DoctrinePillRepository extends EntityRepository implements PillRepository
     {
         return $this->findOneBy(["id" => $pillId]);
     }
+
+    public function delete(int $pillId): void
+    {
+        $pillReference = $this->getEntityManager()->getReference($this->getClassName(), $pillId);
+        $this->getEntityManager()->remove($pillReference);
+        $this->getEntityManager()->flush();
+    }
 }

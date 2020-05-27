@@ -11,4 +11,6 @@ interface PillRepository
     public function save(Pill $pill): void;
 
     public function getPill(int $pillId): Pill;
+
+    public function delete(int $pillId): void;
 }

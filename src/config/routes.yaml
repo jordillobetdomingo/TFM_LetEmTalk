@@ -41,3 +41,8 @@ update_pill:
   path: /pill/{pillId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController::execute'
   methods: POST
+
+delete_pill:
+  path: /pill/{pillId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController::execute'
+  methods: DELETE
