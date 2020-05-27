@@ -17,4 +17,9 @@ class DoctrineRoomRepository extends EntityRepository implements RoomRepository
         $this->getEntityManager()->persist($room);
         $this->getEntityManager()->flush();
     }
+
+    public function getRoom(int $roomId): Room
+    {
+        return $this->findOneBy(["id" => $roomId]);
+    }
 }

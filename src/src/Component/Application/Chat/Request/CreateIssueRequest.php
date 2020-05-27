@@ -4,26 +4,38 @@
 namespace LetEmTalk\Component\Application\Chat\Request;
 
 
-use LetEmTalk\Component\Domain\Chat\Entity\Room;
-
 class CreateIssueRequest
 {
-    private Room $room;
+    private int $roomId;
     private string $title;
+    private string $text;
+    private int $authorId;
 
-    public function __construct(Room $room, string $title)
+    public function __construct(int $roomId, string $title, string $text, int $authorId)
     {
-        $this->room = $room;
+        $this->roomId = $roomId;
         $this->title = $title;
+        $this->text = $text;
+        $this->authorId = $authorId;
     }
 
-    public function getRoom(): Room
+    public function getRoomId(): int
     {
-        return $this->room;
+        return $this->roomId;
     }
 
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function getAuthorId(): int
+    {
+        return $this->authorId;
     }
 }

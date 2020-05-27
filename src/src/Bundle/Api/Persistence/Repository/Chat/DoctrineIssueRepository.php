@@ -13,7 +13,7 @@ class DoctrineIssueRepository extends EntityRepository implements IssueRepositor
 
     public function save(Issue $issue): void
     {
-        $this->getEntityManager()->save($issue);
+        $this->getEntityManager()->persist($issue);
         $this->getEntityManager()->flush();
     }
 }

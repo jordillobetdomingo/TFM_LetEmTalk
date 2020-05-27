@@ -13,7 +13,7 @@ class DoctrinePillRepository extends EntityRepository implements PillRepository
 
     public function save(Pill $pill): void
     {
-        $this->getEntityManager()->save($pill);
+        $this->getEntityManager()->persist($pill);
         $this->getEntityManager()->flush();
     }
 }

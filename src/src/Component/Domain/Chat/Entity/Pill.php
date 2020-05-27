@@ -18,7 +18,7 @@ class Pill
     {
         $this->issue = $issue;
         $this->text = $text;
-        $this->authod = $author;
-        $this->created = time();
+        $this->author = $author;
+        $this->created = new \DateTime("now");;
     }
 }
