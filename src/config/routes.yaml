@@ -27,6 +27,11 @@ create_room:
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController::execute'
   methods: POST
 
+read_room:
+  path: /room/{roomId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\ReadRoomWithIssuesController::execute'
+  methods: GET
+
 delete_room:
   path: /room/{roomId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteRoomController::execute'

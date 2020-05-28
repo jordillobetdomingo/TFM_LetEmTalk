@@ -6,6 +6,7 @@ namespace LetEmTalk\Bundle\Api\Persistence\Repository\Chat;
 
 use Doctrine\ORM\EntityRepository;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
+use LetEmTalk\Component\Domain\Chat\Entity\Room;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 
 class DoctrineIssueRepository extends EntityRepository implements IssueRepository
@@ -20,6 +21,11 @@ class DoctrineIssueRepository extends EntityRepository implements IssueRepositor
     public function getIssue(int $issueId): Issue
     {
         return $this->findOneBy(["id" => $issueId]);
+    }
+
+    public function getIssuesByRoom(Room $room): array
+    {
+        return $this->findBy(["room" => $room]);
     }
 
     public function delete(int $issueId): void

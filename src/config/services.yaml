@@ -47,6 +47,11 @@ services:
             - '@letemtalk.useCase.createRoom'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Chat\ReadRoomWithIssuesController:
+        arguments:
+            - '@letemtalk.useCase.readRoomWithIssues'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Chat\DeleteRoomController:
         arguments:
             - '@letemtalk.useCase.deleteRoom'
@@ -163,6 +168,12 @@ services:
         arguments:
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.user'
+
+    letemtalk.useCase.readRoomWithIssues:
+        class: LetEmTalk\Component\Application\Chat\UseCase\ReadRoomWithIssuesUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.issue'
 
     letemtalk.useCase.deleteRoom:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase
