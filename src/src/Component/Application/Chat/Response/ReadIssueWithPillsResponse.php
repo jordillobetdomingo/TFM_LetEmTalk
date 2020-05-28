@@ -18,16 +18,16 @@ class ReadIssueWithPillsResponse
         $this->pills = $pills;
     }
 
-    public function getIssueWithPills(): array
+    public function getIssueWithPillsAsArray(): array
     {
         return [
-            "issue" => $this->getIssue(),
+            "issue" => $this->getIssueAsArray(),
             "numberOfPills" => count($this->pills),
-            "pills" => array_map(array($this, "getPill"), $this->pills)
+            "pills" => array_map(array($this, "getPillAsArray"), $this->pills)
         ];
     }
 
-    private function getIssue(): array
+    private function getIssueAsArray(): array
     {
         return [
             "id" => $this->issue->getId(),
@@ -36,7 +36,7 @@ class ReadIssueWithPillsResponse
         ];
     }
 
-    private function getPill(Pill $pill): array
+    private function getPillAsArray(Pill $pill): array
     {
         return [
             "pillId" => $pill->getId(),
