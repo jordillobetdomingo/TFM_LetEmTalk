@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\User\Repository;
+namespace LetEmTalk\Component\Domain\Authorization\Repository;
 
 
 use LetEmTalk\Component\Domain\User\Entity\Role;

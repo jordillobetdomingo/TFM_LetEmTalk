@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\User\Entity;
+namespace LetEmTalk\Component\Domain\Authorization\Entity;
 
 
 class Role
