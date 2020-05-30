@@ -20,6 +20,6 @@ class DeleteRoomController
     public function execute(int $roomId): Response
     {
         $this->deleteRoomUseCase->execute(new DeleteRoomRequest($roomId));
-        return new Response("Room has been deleted");
+        return new Response("Room has been deleted", 204);
     }
 }

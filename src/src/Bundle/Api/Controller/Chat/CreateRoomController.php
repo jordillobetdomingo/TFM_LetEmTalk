@@ -25,6 +25,6 @@ class CreateRoomController
         $userId = $json["userId"];
         $this->createRoomUseCase->execute(new CreateRoomRequest($userId));
 
-        return new Response("Repository has been created");
+        return new Response("Repository has been created", 204);
     }
 }

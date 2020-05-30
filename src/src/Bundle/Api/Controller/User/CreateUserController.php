@@ -40,6 +40,6 @@ class CreateUserController
             );
         }
 
-        return new Response("Have saved a user");
+        return new Response("Have saved a user", 204);
     }
 }

@@ -25,7 +25,7 @@ class UpdatePillController
         $text = $json["text"];
         $this->updatePillUseCase->execute(new UpdatePillRequest($pillId, $text));
 
-        return new Response("Has been updated the pill");
+        return new Response("Has been updated the pill", 204);
     }
 
 }

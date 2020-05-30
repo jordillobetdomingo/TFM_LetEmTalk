@@ -31,7 +31,7 @@ class UpdateIssueController
             $this->updateIssueUseCase->execute(new UpdateIssueRequest($issueId, $title, $textFirstPill));
         }
 
-        return new Response("Issue has been updated");
+        return new Response("Issue has been updated", 204);
     }
 
 }

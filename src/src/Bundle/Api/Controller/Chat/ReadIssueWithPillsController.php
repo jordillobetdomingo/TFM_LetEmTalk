@@ -21,6 +21,6 @@ class ReadIssueWithPillsController
     public function execute(int $issueId): Response
     {
         $response = $this->readIssueWithPillsUseCase->execute(new ReadIssueWithPillsRequest($issueId));
-        return new JsonResponse($response->getIssueWithPillsAsArray());
+        return new JsonResponse($response->getIssueWithPillsAsArray(), 200);
     }
 }

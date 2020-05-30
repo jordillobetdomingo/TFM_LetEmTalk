@@ -29,7 +29,7 @@ class CreatePillController
         $this->createPillUseCase->execute(new CreatePillRequest($issueId, $text, $authorId));
 
 
-        return new Response("Pill has been created");
+        return new Response("Pill has been created", 204);
     }
 
 }

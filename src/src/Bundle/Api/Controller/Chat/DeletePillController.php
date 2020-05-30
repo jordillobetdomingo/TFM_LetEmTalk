@@ -21,7 +21,7 @@ class DeletePillController
     {
         $this->deletePillUseCase->execute(new DeletePillRequest($pillId));
 
-        return new Response("Has been deleted the pill");
+        return new Response("Has been deleted the pill", 204);
     }
 
 }

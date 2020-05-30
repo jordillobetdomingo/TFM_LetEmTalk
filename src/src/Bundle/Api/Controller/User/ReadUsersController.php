@@ -20,6 +20,6 @@ class ReadUsersController
     public function execute(): Response
     {
         $response = $this->readUsersUseCase->execute();
-        return new JsonResponse($response->getUsersAsArray());
+        return new JsonResponse($response->getUsersAsArray(), 200);
     }
 }

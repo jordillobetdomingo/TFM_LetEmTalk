@@ -29,7 +29,7 @@ class CreateIssueController
 
         $this->createIssueUseCase->execute(new CreateIssueRequest($roomId, $title, $text, $authorId));
 
-        return new Response ("Issue has been created");
+        return new Response("Issue has been created", 204);
     }
 
 }

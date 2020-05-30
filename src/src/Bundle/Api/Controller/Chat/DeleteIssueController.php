@@ -20,7 +20,7 @@ class DeleteIssueController
     public function execute(int $issueId): Response
     {
         $this->deleteIssueUseCase->execute(new DeleteIssueRequest($issueId));
-        return new Response("The issue has been deleted");
+        return new Response("The issue has been deleted", 204);
     }
 
 }

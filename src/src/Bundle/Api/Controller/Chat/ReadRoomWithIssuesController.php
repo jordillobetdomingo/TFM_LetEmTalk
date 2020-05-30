@@ -22,6 +22,6 @@ class ReadRoomWithIssuesController
     public function execute(int $roomId): Response
     {
         $response = $this->readRoomWithIssuesUseCase->execute(new ReadRoomWithIssuesRequest($roomId));
-        return new JsonResponse($response->getRoomWithIssuesAsArray());
+        return new JsonResponse($response->getRoomWithIssuesAsArray(), 200);
     }
 }
