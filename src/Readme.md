@@ -104,3 +104,31 @@ Delete Pill:
 
     URL: http://localhost:8000/pill/{pillId}/
     method: DELETE
+    
+Read roles:
+
+    URL: http://localhost:8000/roles/
+    method: GET
+    Return JSON
+    
+Create User To Room Permission
+
+    URL: http://localhost:8000/permission/room/
+    method: POST
+    Body json (example):
+    {
+        "userId": 1,
+        "roomId": 2,
+        "roleId": 2 
+    }
+    
+ Create User To Issue Permission
+ 
+     URL: http://localhost:8000/permission/issue/
+     method: POST
+     Body json (example):
+     {
+         "userId": 1,
+         "issueId": 2,
+         "roleId": 2 
+     }
