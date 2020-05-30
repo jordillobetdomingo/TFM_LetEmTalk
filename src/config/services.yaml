@@ -92,6 +92,15 @@ services:
             - '@letemtalk.useCase.deletePill'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController:
+        arguments:
+            - '@letemtalk.useCase.createUserToRoomPermission'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToIssuePermissionController:
+        arguments:
+            - '@letemtalk.useCase.createUserToIssuePermission'
+        tags: ['controller.service_arguments']
 
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
@@ -112,6 +121,18 @@ services:
     letemtalk.metadata.pill:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Chat\Entity\Pill ]
+
+    letemtalk.metadata.role:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\Role ]
+
+    letemtalk.metadata.UserToRoomPermission:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UesrToRoomPermission ]
+
+    letemtalk.metadata.UserToIssuePermission:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission ]
 
     letemtalk.repository.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
@@ -142,6 +163,24 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.pill'
+
+    letemtalk.repository.role:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineRoleRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.role'
+
+    letemtalk.repository.userToRoomPermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToRoomPermissionRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.UserToRoomPermission'
+
+    letemtalk.repository.userToIssuePermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToIssuePermissionRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.UserToIssuePermission'
 
     letemtalk.useCase.createUser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
@@ -221,3 +260,19 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
         arguments:
             - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.createUserToRoomPermission:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionsUseCase
+        arguments:
+            - '@letemtalk.repository.userToRoomPermission'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.role'
+
+    letemtalk.useCase.createUserToIssuePermission:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionsUseCase
+        arguments:
+            - '@letemtalk.repository.userToIssuePermission'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.role'

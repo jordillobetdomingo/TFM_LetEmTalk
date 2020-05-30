@@ -71,3 +71,14 @@ delete_pill:
   path: /pill/{pillId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController::execute'
   methods: DELETE
+
+create_room_permission:
+  path: /permission/room/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController::execute'
+  methods: POST
+
+create_issue_permission:
+  path: /permission/issue/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToIssuePermissionController::execute'
+  methods: POST
+

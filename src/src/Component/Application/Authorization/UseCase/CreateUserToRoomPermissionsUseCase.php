@@ -21,8 +21,8 @@ class CreateUserToRoomPermissionsUseCase
     public function __construct(
         UserToRoomPermissionRepository $userToRoomPermissionRepository,
         UserRepository $userRepository,
-        RoleRepository $roleRepository,
-        RoomRepository $roomRepository
+        RoomRepository $roomRepository,
+        RoleRepository $roleRepository
     ) {
         $this->userToRoomPermissionRepository = $userToRoomPermissionRepository;
         $this->userRepository = $userRepository;
