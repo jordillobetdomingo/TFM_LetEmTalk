@@ -25,6 +25,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/Authentication'
                 prefix: 'LetEmTalk\Component\Domain\Authentication'
                 alias: Authentication
+            Authorization:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Bundle/Api/Persistence/Migrations/Authorization'
+                prefix: 'LetEmTalk\Component\Domain\Authorization'
+                alias: Authorization
             Chat:
                 is_bundle: false
                 type: xml
