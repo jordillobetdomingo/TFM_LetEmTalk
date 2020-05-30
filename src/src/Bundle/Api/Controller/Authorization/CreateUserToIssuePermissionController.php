@@ -4,16 +4,16 @@
 namespace LetEmTalk\Bundle\Api\Controller\Authorization;
 
 
-use LetEmTalk\Component\Application\Authorization\Request\CreateUserToIssuePermissionsRequest;
-use LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionsUseCase;
+use LetEmTalk\Component\Application\Authorization\Request\CreateUserToIssuePermissionRequest;
+use LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionUseCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserToIssuePermissionController
 {
-    private CreateUserToIssuePermissionsUseCase $createUserToIssuePermissionsUseCase;
+    private CreateUserToIssuePermissionUseCase $createUserToIssuePermissionsUseCase;
 
-    public function __construct(CreateUserToIssuePermissionsUseCase $createUserToIssuePermissionsUseCase)
+    public function __construct(CreateUserToIssuePermissionUseCase $createUserToIssuePermissionsUseCase)
     {
         $this->createUserToIssuePermissionsUseCase = $createUserToIssuePermissionsUseCase;
     }
@@ -27,7 +27,7 @@ class CreateUserToIssuePermissionController
         $roleId = $json["roleId"];
 
         $this->createUserToIssuePermissionsUseCase->execute(
-            new CreateUserToIssuePermissionsRequest($userId, $issueId, $roleId)
+            new CreateUserToIssuePermissionRequest($userId, $issueId, $roleId)
         );
 
         return new Response("Permissions has been created", 204);

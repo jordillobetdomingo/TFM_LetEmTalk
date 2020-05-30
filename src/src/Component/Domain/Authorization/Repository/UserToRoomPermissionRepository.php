@@ -10,4 +10,6 @@ interface UserToRoomPermissionRepository
 {
     public function save(UserToRoomPermission $userToRoomPermission): void;
 
+    public function delete(int $userId, int $roomId): void;
+
 }

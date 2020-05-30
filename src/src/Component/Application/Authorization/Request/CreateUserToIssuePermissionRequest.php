@@ -4,7 +4,7 @@
 namespace LetEmTalk\Component\Application\Authorization\Request;
 
 
-class CreateUserToIssuePermissionsRequest
+class CreateUserToIssuePermissionRequest
 {
     private int $userId;
     private int $issueId;

@@ -4,16 +4,16 @@
 namespace LetEmTalk\Bundle\Api\Controller\Authorization;
 
 
-use LetEmTalk\Component\Application\Authorization\Request\CreateUserToRoomPermissionsRequest;
-use LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionsUseCase;
+use LetEmTalk\Component\Application\Authorization\Request\CreateUserToRoomPermissionRequest;
+use LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionUseCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateUserToRoomPermissionController
 {
-    private CreateUserToRoomPermissionsUseCase $createUserToRoomPermissionsUseCase;
+    private CreateUserToRoomPermissionUseCase $createUserToRoomPermissionsUseCase;
 
-    public function __construct(CreateUserToRoomPermissionsUseCase $createUserToRoomPermissionsUseCase)
+    public function __construct(CreateUserToRoomPermissionUseCase $createUserToRoomPermissionsUseCase)
     {
         $this->createUserToRoomPermissionsUseCase = $createUserToRoomPermissionsUseCase;
     }
@@ -27,7 +27,7 @@ class CreateUserToRoomPermissionController
         $roleId = $json["roleId"];
 
         $this->createUserToRoomPermissionsUseCase->execute(
-            new CreateUserToRoomPermissionsRequest($userId, $roomId, $roleId)
+            new CreateUserToRoomPermissionRequest($userId, $roomId, $roleId)
         );
 
         return new Response("Permissions has been created", 204);

@@ -4,14 +4,14 @@
 namespace LetEmTalk\Component\Application\Authorization\UseCase;
 
 
-use LetEmTalk\Component\Application\Authorization\Request\CreateUserToIssuePermissionsRequest;
+use LetEmTalk\Component\Application\Authorization\Request\CreateUserToIssuePermissionRequest;
 use LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission;
 use LetEmTalk\Component\Domain\Authorization\Repository\RoleRepository;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRepository;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
-class CreateUserToIssuePermissionsUseCase
+class CreateUserToIssuePermissionUseCase
 {
     private UserToIssuePermissionRepository $userToIssuePermissionRepository;
     private UserRepository $userRepository;
@@ -31,7 +31,7 @@ class CreateUserToIssuePermissionsUseCase
         $this->roleRepository = $roleRepository;
     }
 
-    public function execute(CreateUserToIssuePermissionsRequest $request): void
+    public function execute(CreateUserToIssuePermissionRequest $request): void
     {
         $user = $this->userRepository->getUser($request->getUserId());
         $issue = $this->issueRepository->getIssue($request->getIssueId());

@@ -15,4 +15,11 @@ class DoctrineUserToRoomPermissionRepository extends EntityRepository implements
         $this->getEntityManager()->persist($userToRoomPermission);
         $this->getEntityManager()->flush();
     }
+
+    public function delete(int $userId, int $roomId): void
+    {
+        $userToRoomPermission = $this->findOneBy(["user" => $userId, "room" => $roomId]);
+        $this->getEntityManager()->remove($userToRoomPermission);
+        $this->getEntityManager()->flush();
+    }
 }

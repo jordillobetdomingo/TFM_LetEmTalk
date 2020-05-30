@@ -102,6 +102,11 @@ services:
             - '@letemtalk.useCase.createUserToRoomPermission'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToRoomPermissionController:
+        arguments:
+            - '@letemtalk.useCase.deleteUserToRoomPermission'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToIssuePermissionController:
         arguments:
             - '@letemtalk.useCase.createUserToIssuePermission'
@@ -133,7 +138,7 @@ services:
 
     letemtalk.metadata.UserToRoomPermission:
         class: Doctrine\ORM\Mapping\ClassMetadata
-        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UesrToRoomPermission ]
+        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UserToRoomPermission ]
 
     letemtalk.metadata.UserToIssuePermission:
         class: Doctrine\ORM\Mapping\ClassMetadata
@@ -272,15 +277,20 @@ services:
             - '@letemtalk.repository.role'
 
     letemtalk.useCase.createUserToRoomPermission:
-        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionsUseCase
+        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionUseCase
         arguments:
             - '@letemtalk.repository.userToRoomPermission'
             - '@letemtalk.repository.user'
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.role'
 
+    letemtalk.useCase.deleteUserToRoomPermission:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToRoomPermissionUseCase
+        arguments:
+            - '@letemtalk.repository.userToRoomPermission'
+
     letemtalk.useCase.createUserToIssuePermission:
-        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionsUseCase
+        class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionUseCase
         arguments:
             - '@letemtalk.repository.userToIssuePermission'
             - '@letemtalk.repository.user'

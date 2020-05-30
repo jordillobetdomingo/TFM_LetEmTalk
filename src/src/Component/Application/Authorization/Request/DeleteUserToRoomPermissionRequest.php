@@ -4,17 +4,15 @@
 namespace LetEmTalk\Component\Application\Authorization\Request;
 
 
-class CreateUserToRoomPermissionsRequest
+class DeleteUserToRoomPermissionRequest
 {
     private int $userId;
     private int $roomId;
-    private int $roleId;
 
-    public function __construct(int $userId, int $roomId, int $roleId)
+    public function __construct(int $userId, int $roomId)
     {
         $this->userId = $userId;
         $this->roomId = $roomId;
-        $this->roleId = $roleId;
     }
 
     public function getUserId(): int
@@ -27,8 +25,4 @@ class CreateUserToRoomPermissionsRequest
         return $this->roomId;
     }
 
-    public function getRoleId(): int
-    {
-        return $this->roleId;
-    }
 }

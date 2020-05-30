@@ -11,11 +11,11 @@
         <field name="permissionManage" column="permission_manage" type="boolean" />
 
         <many-to-one field="user" target-entity="LetEmTalk\Component\Domain\User\Entity\User">
-            <join-column name="user_id" referenced-column-name="id" />
+            <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>
 
         <many-to-one field="room" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Room">
-            <join-column name="room_id" referenced-column-name="id" />
+            <join-column name="room_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>
 
     </entity>
