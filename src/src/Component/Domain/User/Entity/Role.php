@@ -8,10 +8,20 @@ class Role
 {
     private int $id;
     private string $name;
-    private bool $permissionRepositoryWrite;
-    private bool $permissionRepositoryManage;
+    private bool $permissionRoomWrite;
+    private bool $permissionRoomManage;
     private bool $permissionIssueRead;
     private bool $permissionIssueWrite;
     private bool $permissionIssueManage;
-    private bool $createRepository;
+    private bool $createRoom;
+
+    public function getPermissionRoomWrite(): bool
+    {
+        return $this->permissionRoomWrite;
+    }
+
+    public function getPermissionRoomManage(): bool
+    {
+        return $this->permissionRoomManage;
+    }
 }
