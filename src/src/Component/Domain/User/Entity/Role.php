@@ -24,4 +24,19 @@ class Role
     {
         return $this->permissionRoomManage;
     }
+
+    public function getPermissionIssueRead(): bool
+    {
+        return $this->permissionIssueRead;
+    }
+
+    public function getPermissionIssueWrite(): bool
+    {
+        return $this->permissionIssueWrite;
+    }
+
+    public function getPermissionIssueManage(): bool
+    {
+        return $this->permissionIssueManage;
+    }
 }
