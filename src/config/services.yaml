@@ -112,6 +112,11 @@ services:
             - '@letemtalk.useCase.createUserToIssuePermission'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToIssuePermissionController:
+        arguments:
+            - '@letemtalk.useCase.deleteUserToIssuePermission'
+        tags: ['controller.service_arguments']
+
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
@@ -296,3 +301,8 @@ services:
             - '@letemtalk.repository.user'
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.role'
+
+    letemtalk.useCase.deleteUserToIssuePermission:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToIssuePermissionUseCase
+        arguments:
+            - '@letemtalk.repository.userToIssuePermission'

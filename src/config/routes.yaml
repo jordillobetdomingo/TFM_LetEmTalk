@@ -83,7 +83,7 @@ create_room_permission:
   methods: POST
 
 delete_room_permission:
-  path: /permission/{userId}/{roomId}/
+  path: /permission/room/{userId}/{roomId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToRoomPermissionController::execute'
   methods: DELETE
 
@@ -92,3 +92,7 @@ create_issue_permission:
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToIssuePermissionController::execute'
   methods: POST
 
+delete_issue_permission:
+  path: /permission/issue/{userId}/{issueId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToIssuePermissionController::execute'
+  methods: DELETE
