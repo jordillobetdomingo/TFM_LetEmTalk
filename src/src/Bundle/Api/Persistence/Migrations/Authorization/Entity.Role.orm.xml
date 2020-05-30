@@ -3,17 +3,17 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="LetEmTalk\Component\Domain\User\Entity\Role" table="role">
+    <entity name="LetEmTalk\Component\Domain\Authorization\Entity\Role" table="role">
 
         <id name="id" type="integer" column="id"></id>
 
         <field name="name" column="name" type="string" length="100" />
-        <field name="permissionRepositoryWrite" column="permission_repository_write" type="boolean" />
-        <field name="permissionRepositoryManage" column="permission_repository_manage" type="boolean" />
+        <field name="permissionRoomWrite" column="permission_room_write" type="boolean" />
+        <field name="permissionRoomManage" column="permission_room_manage" type="boolean" />
         <field name="permissionIssueRead" column="permission_issue_read" type="boolean" />
         <field name="permissionIssueWrite" column="permission_issue_write" type="boolean" />
         <field name="permissionIssueManage" column="permission_issue_manage" type="boolean" />
-        <field name="createRepository" column="create_repository" type="boolean" />
+        <field name="createRoom" column="create_room" type="boolean" />
     </entity>
 
 </doctrine-mapping>

@@ -5,7 +5,6 @@ namespace LetEmTalk\Component\Domain\Authorization\Entity;
 
 
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
-use LetEmTalk\Component\Domain\User\Entity\Role;
 use LetEmTalk\Component\Domain\User\Entity\User;
 
 class UserToRoomPermission
