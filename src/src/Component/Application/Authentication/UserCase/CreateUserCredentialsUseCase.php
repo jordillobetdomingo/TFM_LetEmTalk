@@ -6,6 +6,7 @@ namespace LetEmTalk\Component\ApiLet\Application\Authentication\UserCase;
 use LetEmTalk\Component\Application\Authentication\Request\CreateUserCredentialsRequest;
 use LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials;
 use LetEmTalk\Component\Domain\Authentication\Repository\UserCredentialsRepository;
+use LetEmTalk\Component\Domain\Authentication\ValueObject\Password;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class CreateUserCredentialsUseCase
@@ -25,7 +26,7 @@ class CreateUserCredentialsUseCase
     {
         $userCredentials = new UserCredentials(
             $request->getUsername(),
-            $request->getPassword(),
+            new Password($request->getPassword()),
             $request->getUserId(),
             $this->passwordEncoder
         );
