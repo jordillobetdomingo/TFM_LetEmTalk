@@ -92,6 +92,11 @@ services:
             - '@letemtalk.useCase.deletePill'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authorization\ReadRolesController:
+        arguments:
+            - '@letemtalk.useCase.readRoles'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController:
         arguments:
             - '@letemtalk.useCase.createUserToRoomPermission'
@@ -260,6 +265,11 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
         arguments:
             - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.readRoles:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\ReadRolesUseCase
+        arguments:
+            - '@letemtalk.repository.role'
 
     letemtalk.useCase.createUserToRoomPermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionsUseCase

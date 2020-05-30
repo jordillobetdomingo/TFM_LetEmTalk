@@ -15,6 +15,16 @@ class Role
     private bool $permissionIssueManage;
     private bool $createRoom;
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function getPermissionRoomWrite(): bool
     {
         return $this->permissionRoomWrite;
@@ -38,5 +48,10 @@ class Role
     public function getPermissionIssueManage(): bool
     {
         return $this->permissionIssueManage;
+    }
+
+    public function getCreateRoom(): bool
+    {
+        return $this->createRoom;
     }
 }

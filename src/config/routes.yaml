@@ -72,6 +72,11 @@ delete_pill:
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController::execute'
   methods: DELETE
 
+read_roles:
+  path: /roles/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\ReadRolesController::execute'
+  methods: GET
+
 create_room_permission:
   path: /permission/room/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController::execute'

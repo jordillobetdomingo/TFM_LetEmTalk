@@ -10,4 +10,6 @@ interface RoleRepository
 {
     public function getRole(int $roleId): Role;
 
+    public function getAllRoles(): array;
+
 }

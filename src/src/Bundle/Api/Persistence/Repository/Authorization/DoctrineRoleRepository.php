@@ -15,4 +15,9 @@ class DoctrineRoleRepository extends EntityRepository implements RoleRepository
     {
         return $this->findOneBy(["id" => $roleId]);
     }
+
+    public function getAllRoles(): array
+    {
+        return $this->findAll();
+    }
 }
