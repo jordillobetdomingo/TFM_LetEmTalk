@@ -21,3 +21,53 @@ login:
   path: /login/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
   methods: GET|POST
+
+create_room:
+  path: /room/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController::execute'
+  methods: POST
+
+read_room:
+  path: /room/{roomId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\ReadRoomWithIssuesController::execute'
+  methods: GET
+
+delete_room:
+  path: /room/{roomId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteRoomController::execute'
+  methods: DELETE
+
+create_issue:
+  path: /issue/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateIssueController::execute'
+  methods: POST
+
+read_issue:
+  path: /issue/{issueId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\ReadIssueWithPillsController::execute'
+  methods: GET
+
+update_issue:
+  path: /issue/{issueId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController::execute'
+  methods: POST
+
+delete_issue:
+  path: /issue/{issueId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteIssueController::execute'
+  methods: DELETE
+
+create_pill:
+  path: /pill/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController::execute'
+  methods: POST
+
+update_pill:
+  path: /pill/{pillId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController::execute'
+  methods: POST
+
+delete_pill:
+  path: /pill/{pillId}/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController::execute'
+  methods: DELETE

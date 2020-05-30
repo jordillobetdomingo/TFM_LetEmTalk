@@ -28,27 +28,90 @@ services:
 
     LetEmTalk\Bundle\Api\Controller\User\CreateUserController:
         arguments:
-            $createUserUseCase: '@letemtalk.usecase.createuser'
-            $createUserCredentialsUseCase: '@letemtalk.usercase.createusercredentials'
+            - '@letemtalk.useCase.createUser'
+            - '@letemtalk.useCase.createUserCredentials'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
         arguments:
-            $readUsersUseCase: '@letemtalk.usecase.readusers'
+            - '@letemtalk.useCase.readUsers'
         tags: ['controller.service_arguments']
 
     LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:
         arguments:
-            $deleteUserUseCase: '@letemtalk.usecase.deleteuser'
+            - '@letemtalk.useCase.deleteUser'
         tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController:
+        arguments:
+            - '@letemtalk.useCase.createRoom'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\ReadRoomWithIssuesController:
+        arguments:
+            - '@letemtalk.useCase.readRoomWithIssues'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\DeleteRoomController:
+        arguments:
+            - '@letemtalk.useCase.deleteRoom'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\CreateIssueController:
+        arguments:
+            - '@letemtalk.useCase.createIssue'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\ReadIssueWithPillsController:
+        arguments:
+            - '@letemtalk.useCase.readIssueWithPills'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController:
+        arguments:
+            - '@letemtalk.useCase.updateIssue'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\DeleteIssueController:
+        arguments:
+            - '@letemtalk.useCase.deleteIssue'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController:
+        arguments:
+            - '@letemtalk.useCase.createPill'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController:
+        arguments:
+            - '@letemtalk.useCase.updatePill'
+        tags: ['controller.service_arguments']
+
+    LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController:
+        arguments:
+            - '@letemtalk.useCase.deletePill'
+        tags: ['controller.service_arguments']
+
 
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]
 
-    letemtalk.metadata.usercredentials:
+    letemtalk.metadata.userCredentials:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials ]
+
+    letemtalk.metadata.room:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Chat\Entity\Room ]
+
+    letemtalk.metadata.issue:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Chat\Entity\Issue ]
+
+    letemtalk.metadata.pill:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Chat\Entity\Pill ]
 
     letemtalk.repository.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
@@ -56,28 +119,105 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.user'
 
-    letemtalk.repository.usercredentials:
+    letemtalk.repository.userCredentials:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\DoctrineUserCredentialsRepository
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@letemtalk.metadata.usercredentials'
+            - '@letemtalk.metadata.userCredentials'
 
-    letemtalk.usecase.createuser:
+    letemtalk.repository.room:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineRoomRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.room'
+
+    letemtalk.repository.issue:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineIssueRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.issue'
+
+    letemtalk.repository.pill:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrinePillRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.pill'
+
+    letemtalk.useCase.createUser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
         arguments:
             - '@letemtalk.repository.user'
 
-    letemtalk.usecase.readusers:
+    letemtalk.useCase.readUsers:
         class: LetEmTalk\Component\Application\User\UseCase\ReadUsersUseCase
         arguments:
             - '@letemtalk.repository.user'
 
-    letemtalk.usecase.deleteuser:
+    letemtalk.useCase.deleteUser:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase
         arguments:
             - '@letemtalk.repository.user'
 
-    letemtalk.usercase.createusercredentials:
+    letemtalk.useCase.createUserCredentials:
         class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
         arguments:
-            - '@letemtalk.repository.usercredentials'
+            - '@letemtalk.repository.userCredentials'
+
+    letemtalk.useCase.createRoom:
+        class: LetEmTalk\Component\Application\Chat\UseCase\CreateRoomUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.user'
+
+    letemtalk.useCase.readRoomWithIssues:
+        class: LetEmTalk\Component\Application\Chat\UseCase\ReadRoomWithIssuesUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.issue'
+
+    letemtalk.useCase.deleteRoom:
+        class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+
+    letemtalk.useCase.createIssue:
+        class: LetEmTalk\Component\Application\Chat\UseCase\CreateIssueUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.user'
+
+    letemtalk.useCase.readIssueWithPills:
+        class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.updateIssue:
+        class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.deleteIssue:
+        class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase
+        arguments:
+            - '@letemtalk.repository.issue'
+
+    letemtalk.useCase.createPill:
+        class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase
+        arguments:
+            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.user'
+
+    letemtalk.useCase.updatePill:
+        class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase
+        arguments:
+            - '@letemtalk.repository.pill'
+
+    letemtalk.useCase.deletePill:
+        class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
+        arguments:
+            - '@letemtalk.repository.pill'

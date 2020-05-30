@@ -12,4 +12,6 @@ interface UserRepository
     public function delete(int $userId): void;
 
     public function findAllUsers(): array;
+
+    public function getUser(int $userId): User;
 }

@@ -20,7 +20,7 @@ class DeleteUserController
     public function execute(int $id): Response
     {
         $this->deleteUserUseCase->execute(new DeleteUserRequest($id));
-        return new Response('The user has been deleted');
+        return new Response('The user has been deleted', 204);
     }
 
 }
