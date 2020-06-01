@@ -23,4 +23,9 @@ class DoctrineUserToIssuePermissionRepository extends EntityRepository implement
         $this->getEntityManager()->remove($userToIssuePermission);
         $this->getEntityManager()->flush();
     }
+
+    public function getIssuePermission(int $userId, int $issueId): ?UserToIssuePermission
+    {
+        return $this->findOneBy(["user" => $userId, "issue" => $issueId]);
+    }
 }

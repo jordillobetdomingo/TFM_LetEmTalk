@@ -14,5 +14,5 @@ interface UserToRoomPermissionRepository
 
     public function exist(int $userId, int $roomId): bool;
 
-    public function getRoomPermission(int $userId, int $roomId): UserToRoomPermission;
+    public function getRoomPermission(int $userId, int $roomId): ?UserToRoomPermission;
 }
