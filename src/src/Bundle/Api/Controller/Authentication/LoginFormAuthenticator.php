@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -33,6 +34,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+
+    private SessionInterface $session;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -59,10 +62,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
+
+        $this->session = $request->getSession();
+        $this->session->set(Security::LAST_USERNAME,
+                            $credentials['username']);
+        /*
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['username']
-        );
+        );*/
 
         return $credentials;
     }
@@ -81,6 +89,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (!$user) {
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
+
+        $this->session->set("userId", $user->getUserId());
 
         return $user;
     }

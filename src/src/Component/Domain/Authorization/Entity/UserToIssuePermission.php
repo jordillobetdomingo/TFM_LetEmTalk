@@ -24,4 +24,19 @@ class UserToIssuePermission
         $this->permissionManage = $role->getPermissionIssueManage();
     }
 
+    public function hasIssueReadPermission(): bool
+    {
+        return $this->permissionRead;
+    }
+
+    public function hasIssueWritePermission(): bool
+    {
+        return $this->permissionWrite;
+    }
+
+    public function hasIssueManagePermission(): bool
+    {
+        return $this->permissionManage;
+    }
+
 }

@@ -21,4 +21,14 @@ class UserToRoomPermission
         $this->permissionWrite = $role->getPermissionRoomWrite();
         $this->permissionManage = $role->getPermissionRoomManage();
     }
+
+    public function hasRoomWritePermission(): bool
+    {
+        return $this->permissionWrite;
+    }
+
+    public function hasRoomManagePermission(): bool
+    {
+        return $this->permissionManage;
+    }
 }
