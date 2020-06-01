@@ -141,11 +141,11 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\Role ]
 
-    letemtalk.metadata.UserToRoomPermission:
+    letemtalk.metadata.userToRoomPermission:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UserToRoomPermission ]
 
-    letemtalk.metadata.UserToIssuePermission:
+    letemtalk.metadata.userToIssuePermission:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission ]
 
@@ -189,13 +189,13 @@ services:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToRoomPermissionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@letemtalk.metadata.UserToRoomPermission'
+            - '@letemtalk.metadata.userToRoomPermission'
 
     letemtalk.repository.userToIssuePermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToIssuePermissionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@letemtalk.metadata.UserToIssuePermission'
+            - '@letemtalk.metadata.userToIssuePermission'
 
     letemtalk.useCase.createUser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
@@ -241,6 +241,7 @@ services:
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.user'
+            - '@letemtalk.userAuthentication'
 
     letemtalk.useCase.readIssueWithPills:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
@@ -305,4 +306,10 @@ services:
     letemtalk.useCase.deleteUserToIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToIssuePermissionUseCase
         arguments:
+            - '@letemtalk.repository.userToIssuePermission'
+
+    letemtalk.userAuthentication:
+        class: LetEmTalk\Component\Domain\Authorization\UserAuthorization\UserAuthorization
+        arguments:
+            - '@letemtalk.repository.userToRoomPermission'
             - '@letemtalk.repository.userToIssuePermission'

@@ -8,14 +8,18 @@ use LetEmTalk\Component\Application\Chat\Request\CreateIssueRequest;
 use LetEmTalk\Component\Application\Chat\UseCase\CreateIssueUseCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CreateIssueController
 {
     private CreateIssueUseCase $createIssueUseCase;
+    private Security $security;
 
-    public function __construct(CreateIssueUseCase $createIssueUseCase)
+    public function __construct(CreateIssueUseCase $createIssueUseCase, Security $security)
     {
         $this->createIssueUseCase = $createIssueUseCase;
+        $this->security = $security;
     }
 
     public function execute(Request $request): Response
@@ -25,7 +29,7 @@ class CreateIssueController
         $roomId = $json["roomId"];
         $title = $json["title"];
         $text = $json["text"];
-        $authorId = $json["authorId"];
+        $authorId = $this->security->getUser()->getUserId();
 
         $this->createIssueUseCase->execute(new CreateIssueRequest($roomId, $title, $text, $authorId));
 

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -82,17 +83,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(UserCredentials::class)->findOneBy(
+        $userCredentials = $this->entityManager->getRepository(UserCredentials::class)->findOneBy(
             ['username' => $credentials['username']]
         );
 
-        if (!$user) {
+        if (!$userCredentials) {
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
-        $this->session->set("userId", $user->getUserId());
+        $this->session->set("userId", $userCredentials->getUserId());
 
-        return $user;
+        return $userCredentials;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
@@ -106,7 +107,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('read_users'));
+        return new RedirectResponse($this->urlGenerator->generate('read_roles'));
     }
 
     protected function getLoginUrl()
