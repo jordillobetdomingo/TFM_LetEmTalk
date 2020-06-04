@@ -47,24 +47,24 @@ class UserAuthorization
 
     public function hasIssueAccess(User $user, int $issueId, int $action): bool
     {
-        if ($action == self::ACTION_READ) {
-            return $this->userToIssuePermissionRepository->getIssuePermission(
-                $user->getId(),
-                $issueId
-            )->hasIssueReadPermission();
+        switch ($action) {
+            case self::ACTION_READ:
+                return $this->userToIssuePermissionRepository->getIssuePermission(
+                    $user->getId(),
+                    $issueId
+                )->hasIssueReadPermission();
+            case self::ACTION_WRITE:
+                return $this->userToIssuePermissionRepository->getIssuePermission(
+                    $user->getId(),
+                    $issueId
+                )->hasIssueWritePermission();
+            case self::ACTION_MANAGE:
+                return $this->userToIssuePermissionRepository->getIssuePermission(
+                    $user->getId(),
+                    $issueId
+                )->hasIssueManagePermission();
+            default:
+                throw new \InvalidArgumentException();
         }
-        if ($action == self::ACTION_WRITE) {
-            return $this->userToIssuePermissionRepository->getIssuePermission(
-                $user->getId(),
-                $issueId
-            )->hasIssueWritePermission();
-        }
-        if ($action == self::ACTION_MANAGE) {
-            return $this->userToIssuePermissionRepository->getIssuePermission(
-                $user->getId(),
-                $issueId
-            )->hasIssueManagePermission();
-        }
-        throw new \InvalidArgumentException();
     }
 }
