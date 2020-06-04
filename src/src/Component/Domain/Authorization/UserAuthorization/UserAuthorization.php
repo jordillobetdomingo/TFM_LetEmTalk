@@ -27,22 +27,22 @@ class UserAuthorization
 
     public function hasRoomAccess(User $user, int $roomId, int $action): bool
     {
-        if ($action == self::ACTION_READ) {
-            return $this->userToRoomPermissionRepository->exist($user->getId(), $roomId);
+        switch ($action) {
+            case self::ACTION_READ:
+                return $this->userToRoomPermissionRepository->exist($user->getId(), $roomId);
+            case self::ACTION_WRITE:
+                return $this->userToRoomPermissionRepository->getRoomPermission(
+                    $user->getId(),
+                    $roomId
+                )->hasRoomWritePermission();
+            case self::ACTION_MANAGE:
+                return $this->userToRoomPermissionRepository->getRoomPermission(
+                    $user->getId(),
+                    $roomId
+                )->hasRoomManagePermission();
+            default:
+                throw new \InvalidArgumentException();
         }
-        if ($action == self::ACTION_WRITE) {
-            return $this->userToRoomPermissionRepository->getRoomPermission(
-                $user->getId(),
-                $roomId
-            )->hasRoomWritePermission();
-        }
-        if ($action == self::ACTION_MANAGE) {
-            return $this->userToRoomPermissionRepository->getRoomPermission(
-                $user->getId(),
-                $roomId
-            )->hasRoomManagePermission();
-        }
-        throw new \InvalidArgumentException();
     }
 
     public function hasIssueAccess(User $user, int $issueId, int $action): bool
