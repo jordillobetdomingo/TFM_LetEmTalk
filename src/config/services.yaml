@@ -149,6 +149,10 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission ]
 
+    letemtalk.metadata.adminPermission:
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\AdminPermission ]
+
     letemtalk.repository.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
         arguments:
@@ -196,6 +200,12 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userToIssuePermission'
+
+    letemtalk.repository.adminPermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineAdminPermission
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@letemtalk.metadata.adminPermission'
 
     letemtalk.useCase.createUser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
@@ -317,4 +327,10 @@ services:
         arguments:
             - '@letemtalk.repository.userToRoomPermission'
             - '@letemtalk.repository.userToIssuePermission'
+            - '@letemtalk.repository.user'
+
+    letemtalk.adminAuthorization:
+        class: LetEmTalk\Component\Domain\Authorization\Service\AdminAuthorization
+        arguments:
+            - '@letemtalk.repository.adminPermission'
             - '@letemtalk.repository.user'

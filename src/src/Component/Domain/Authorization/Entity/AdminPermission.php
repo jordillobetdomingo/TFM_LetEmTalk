@@ -11,4 +11,8 @@ class AdminPermission
     private User $user;
     private bool $adminPermission;
 
+    public function getAdminPermission(): bool
+    {
+        return $this->adminPermission;
+    }
 }
