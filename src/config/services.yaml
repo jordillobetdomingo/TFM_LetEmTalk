@@ -253,7 +253,8 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase
         arguments:
             - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.deleteIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase

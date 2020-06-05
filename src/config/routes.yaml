@@ -50,7 +50,7 @@ read_issue:
 update_issue:
   path: /issue/{issueId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController::execute'
-  methods: POST
+  methods: PUT
 
 delete_issue:
   path: /issue/{issueId}/

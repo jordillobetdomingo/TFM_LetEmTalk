@@ -8,13 +8,13 @@ class UpdateIssueRequest
 {
     private int $issueId;
     private string $title;
-    private ?string $textFirstPill;
+    private int $userId;
 
-    public function __construct(int $issueId, string $title, ?string $textFirstPill = null)
+    public function __construct(int $issueId, string $title, $userId)
     {
         $this->issueId = $issueId;
         $this->title = $title;
-        $this->textFirstPill = $textFirstPill;
+        $this->userId = $userId;
     }
 
     public function getIssueId(): int
@@ -27,9 +27,8 @@ class UpdateIssueRequest
         return $this->title;
     }
 
-    public function getTextFirstPill(): ?string
+    public function getUserId(): int
     {
-        return $this->textFirstPill;
+        return $this->userId;
     }
-
 }
