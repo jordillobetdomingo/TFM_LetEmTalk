@@ -279,6 +279,8 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
         arguments:
             - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.readRoles:
         class: LetEmTalk\Component\Application\Authorization\UseCase\ReadRolesUseCase

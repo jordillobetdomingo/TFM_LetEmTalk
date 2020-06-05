@@ -27,6 +27,11 @@ class Pill
         return $this->id;
     }
 
+    public function getIssue(): Issue
+    {
+        return $this->issue;
+    }
+
     public function getText(): string
     {
         return $this->text;
