@@ -4,7 +4,7 @@
 namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\CreateIssueRequest;
-use LetEmTalk\Component\Domain\Authorization\UserAuthorization\UserAuthorization;
+use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
@@ -36,7 +36,7 @@ class CreateIssueUseCase
 
     public function execute(CreateIssueRequest $request)
     {
-        $user = $this->userRepository->getUser($request->getAuthorId());
+        $user = $this->userRepository->getUser($request->getUserId());
         if ($user == null) {
             throw new \InvalidArgumentException();
         }

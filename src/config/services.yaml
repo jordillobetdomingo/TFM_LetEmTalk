@@ -309,7 +309,7 @@ services:
             - '@letemtalk.repository.userToIssuePermission'
 
     letemtalk.userAuthentication:
-        class: LetEmTalk\Component\Domain\Authorization\UserAuthorization\UserAuthorization
+        class: LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization
         arguments:
             - '@letemtalk.repository.userToRoomPermission'
             - '@letemtalk.repository.userToIssuePermission'

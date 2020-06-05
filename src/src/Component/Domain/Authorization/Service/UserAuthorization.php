@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\Authorization\UserAuthorization;
+namespace LetEmTalk\Component\Domain\Authorization\Service;
 
 
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRepository;
@@ -27,20 +27,19 @@ class UserAuthorization
 
     public function hasRoomAccess(User $user, int $roomId, int $action): bool
     {
+        $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission(
+            $user->getId(),
+            $roomId
+        );
+        if ($roomPermission == null) {
+            return false;
+        }
         switch ($action) {
             case self::ACTION_READ:
-                return $this->userToRoomPermissionRepository->exist($user->getId(), $roomId);
+                return true;
             case self::ACTION_WRITE:
-                return $this->userToRoomPermissionRepository->getRoomPermission(
-                    $user->getId(),
-                    $roomId
-                )->hasRoomWritePermission();
+                return $roomPermission->hasRoomWritePermission();
             case self::ACTION_MANAGE:
-                return $this->userToRoomPermissionRepository->getRoomPermission(
-                    $user->getId(),
-                    $roomId
-                )->hasRoomManagePermission();
-            default:
                 throw new \InvalidArgumentException();
         }
     }
