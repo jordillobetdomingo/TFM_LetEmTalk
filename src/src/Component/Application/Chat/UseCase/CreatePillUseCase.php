@@ -31,12 +31,11 @@ class CreatePillUseCase
 
     public function execute(CreatePillRequest $request): void
     {
-        $user = $this->userRepository->getUser($request->getUserId());
-        if ($user == null) {
-            throw new \InvalidArgumentException();
-        }
-
-        if (!$this->userAuthorization->hasIssueAccess($user, $request->getIssueId(), UserAuthorization::ACTION_WRITE)) {
+        if (!$this->userAuthorization->hasIssueAccess(
+            $request->getUserId(),
+            $request->getIssueId(),
+            UserAuthorization::ACTION_WRITE
+        )) {
             throw new \InvalidArgumentException();
         }
 

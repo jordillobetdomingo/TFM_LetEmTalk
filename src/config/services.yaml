@@ -253,14 +253,12 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase
         arguments:
             - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.user'
             - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.deleteIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase
         arguments:
             - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.user'
             - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.createPill:
@@ -275,12 +273,12 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase
         arguments:
             - '@letemtalk.repository.pill'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.deletePill:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
         arguments:
             - '@letemtalk.repository.pill'
-            - '@letemtalk.repository.user'
             - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.readRoles:
@@ -319,3 +317,4 @@ services:
         arguments:
             - '@letemtalk.repository.userToRoomPermission'
             - '@letemtalk.repository.userToIssuePermission'
+            - '@letemtalk.repository.user'

@@ -36,18 +36,17 @@ class CreateIssueUseCase
 
     public function execute(CreateIssueRequest $request)
     {
-        $user = $this->userRepository->getUser($request->getUserId());
-        if ($user == null) {
-            throw new \InvalidArgumentException();
-        }
-
-        if (!$this->userAuthorization->hasRoomAccess($user, $request->getRoomId(), UserAuthorization::ACTION_WRITE)) {
+        if (!$this->userAuthorization->hasRoomAccess(
+            $request->getUserId(),
+            $request->getRoomId(),
+            UserAuthorization::ACTION_WRITE
+        )) {
             throw new \InvalidArgumentException();
         }
 
         $issue = new Issue($this->roomRepository->getRoom($request->getRoomId()), $request->getTitle());
         $this->issueRepository->save($issue);
-        $firstPill = new Pill($issue, $request->getText(), $user);
+        $firstPill = new Pill($issue, $request->getText(), $this->userRepository->getUser($request->getAuthorId()));
         $this->pillRepository->save($firstPill);
         $issue->setFirstPill($firstPill);
         $this->issueRepository->save($issue);

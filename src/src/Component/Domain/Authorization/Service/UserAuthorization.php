@@ -7,6 +7,7 @@ namespace LetEmTalk\Component\Domain\Authorization\Service;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRepository;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToRoomPermissionRepository;
 use LetEmTalk\Component\Domain\User\Entity\User;
+use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class UserAuthorization
 {
@@ -16,18 +17,24 @@ class UserAuthorization
 
     private UserToRoomPermissionRepository $userToRoomPermissionRepository;
     private UserToIssuePermissionRepository $userToIssuePermissionRepository;
+    private UserRepository $userRepository;
 
     public function __construct(
         UserToRoomPermissionRepository $userToRoomPermissionRepository,
-        UserToIssuePermissionRepository $userToIssuePermissionRepository
+        UserToIssuePermissionRepository $userToIssuePermissionRepository,
+        UserRepository $userRepository
     ) {
         $this->userToRoomPermissionRepository = $userToRoomPermissionRepository;
         $this->userToIssuePermissionRepository = $userToIssuePermissionRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function hasRoomAccess(User $user, int $roomId, int $action): bool
+    public function hasRoomAccess(int $userId, int $roomId, int $action): bool
     {
-        $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission($user->getId(), $roomId);
+        if (!$this->existUser($userId)) {
+            return false;
+        }
+        $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission($userId, $roomId);
         if ($roomPermission == null) {
             return false;
         }
@@ -43,9 +50,12 @@ class UserAuthorization
         }
     }
 
-    public function hasIssueAccess(User $user, int $issueId, int $action): bool
+    public function hasIssueAccess(int $userId, int $issueId, int $action): bool
     {
-        $issuePermission = $this->userToIssuePermissionRepository->getIssuePermission($user->getId(), $issueId);
+        if (!$this->existUser($userId)) {
+            return false;
+        }
+        $issuePermission = $this->userToIssuePermissionRepository->getIssuePermission($userId, $issueId);
         if ($issuePermission == null) {
             return false;
         }
@@ -59,5 +69,10 @@ class UserAuthorization
             default:
                 throw new \InvalidArgumentException();
         }
+    }
+
+    private function existUser(int $userId): bool
+    {
+        return $this->userRepository->getUser($userId) == null;
     }
 }

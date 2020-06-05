@@ -14,27 +14,23 @@ use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 class UpdateIssueUseCase
 {
     private IssueRepository $issueRepository;
-    private UserRepository $userRepository;
     private UserAuthorization $userAuthorization;
 
     public function __construct(
         IssueRepository $issueRepository,
-        UserRepository $userRepository,
         UserAuthorization $userAuthorization
     ) {
         $this->issueRepository = $issueRepository;
-        $this->userRepository = $userRepository;
         $this->userAuthorization = $userAuthorization;
     }
 
     public function execute(UpdateIssueRequest $request): void
     {
-        $user = $this->userRepository->getUser($request->getUserId());
-        if ($user == null) {
-            throw new \InvalidArgumentException();
-        }
-
-        if (!$this->userAuthorization->hasIssueAccess($user, $request->getIssueId(), UserAuthorization::ACTION_WRITE)) {
+        if (!$this->userAuthorization->hasIssueAccess(
+            $request->getUserId(),
+            $request->getIssueId(),
+            UserAuthorization::ACTION_WRITE
+        )) {
             throw new \InvalidArgumentException();
         }
 
