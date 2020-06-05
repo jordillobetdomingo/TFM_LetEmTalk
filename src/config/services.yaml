@@ -266,6 +266,7 @@ services:
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.user'
+            - '@letemtalk.userAuthentication'
 
     letemtalk.useCase.updatePill:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase

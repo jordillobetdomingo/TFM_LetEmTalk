@@ -27,10 +27,7 @@ class UserAuthorization
 
     public function hasRoomAccess(User $user, int $roomId, int $action): bool
     {
-        $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission(
-            $user->getId(),
-            $roomId
-        );
+        $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission($user->getId(), $roomId);
         if ($roomPermission == null) {
             return false;
         }
@@ -40,28 +37,25 @@ class UserAuthorization
             case self::ACTION_WRITE:
                 return $roomPermission->hasRoomWritePermission();
             case self::ACTION_MANAGE:
+                return $roomPermission->hasRoomManagePermission();
+            default:
                 throw new \InvalidArgumentException();
         }
     }
 
     public function hasIssueAccess(User $user, int $issueId, int $action): bool
     {
+        $issuePermission = $this->userToIssuePermissionRepository->getIssuePermission($user->getId(), $issueId);
+        if ($issuePermission == null) {
+            return false;
+        }
         switch ($action) {
             case self::ACTION_READ:
-                return $this->userToIssuePermissionRepository->getIssuePermission(
-                    $user->getId(),
-                    $issueId
-                )->hasIssueReadPermission();
+                return $issuePermission->hasIssueReadPermission();
             case self::ACTION_WRITE:
-                return $this->userToIssuePermissionRepository->getIssuePermission(
-                    $user->getId(),
-                    $issueId
-                )->hasIssueWritePermission();
+                return $issuePermission->hasIssueWritePermission();
             case self::ACTION_MANAGE:
-                return $this->userToIssuePermissionRepository->getIssuePermission(
-                    $user->getId(),
-                    $issueId
-                )->hasIssueManagePermission();
+                return $issuePermission->hasIssueManagePermission();
             default:
                 throw new \InvalidArgumentException();
         }
