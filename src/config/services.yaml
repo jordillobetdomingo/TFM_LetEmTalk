@@ -241,7 +241,7 @@ services:
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.user'
-            - '@letemtalk.userAuthentication'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.readIssueWithPills:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
@@ -259,6 +259,8 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase
         arguments:
             - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.createPill:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase
@@ -266,7 +268,7 @@ services:
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.user'
-            - '@letemtalk.userAuthentication'
+            - '@letemtalk.userAuthorization'
 
     letemtalk.useCase.updatePill:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase
@@ -309,7 +311,7 @@ services:
         arguments:
             - '@letemtalk.repository.userToIssuePermission'
 
-    letemtalk.userAuthentication:
+    letemtalk.userAuthorization:
         class: LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization
         arguments:
             - '@letemtalk.repository.userToRoomPermission'

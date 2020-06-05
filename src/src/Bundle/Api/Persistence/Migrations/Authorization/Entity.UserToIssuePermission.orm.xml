@@ -5,7 +5,7 @@
 
     <entity name="LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission" table="userToIssuePermission">
         <id name="user" association-key="true" />
-        <id name="Issue" association-key="true" />
+        <id name="issue" association-key="true" />
 
         <field name="permissionRead" column="permission_read" type="boolean" />
         <field name="permissionWrite" column="permission_write" type="boolean" />
