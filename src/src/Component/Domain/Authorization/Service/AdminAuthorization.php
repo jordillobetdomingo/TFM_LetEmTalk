@@ -24,6 +24,9 @@ class AdminAuthorization
             return false;
         }
         $adminPermission = $this->adminPermissionRepository->getAdminPermission($userId);
+        if ($adminPermission == null) {
+            return false;
+        }
         return $adminPermission->getAdminPermission();
     }
 

@@ -8,5 +8,5 @@ use LetEmTalk\Component\Domain\Authorization\Entity\AdminPermission;
 
 interface AdminPermissionRepository
 {
-    public function getAdminPermission(int $userId): AdminPermission;
+    public function getAdminPermission(int $userId): ?AdminPermission;
 }
