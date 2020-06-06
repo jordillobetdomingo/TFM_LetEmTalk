@@ -10,11 +10,15 @@ class Issue
     private Room $room;
     private string $title;
     private Pill $firstPill;
+    private \DateTime $createdAt;
+    private \DateTime $updatedAt;
 
     public function __construct(Room $room, string $title)
     {
         $this->room = $room;
         $this->title = $title;
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
     }
 
     public function getId(): int
@@ -35,6 +39,7 @@ class Issue
     public function setTitle(string $title): void
     {
         $this->title = $title;
+        $this->updatedAt = new \DateTime("now");
     }
 
     public function getFirstPill(): Pill
@@ -45,6 +50,6 @@ class Issue
     public function setFirstPill(Pill $pill): void
     {
         $this->firstPill = $pill;
+        $this->updatedAt = new \DateTime("now");
     }
-
 }
