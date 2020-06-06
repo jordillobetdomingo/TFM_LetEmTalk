@@ -2,18 +2,18 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-create_user:
-  path: /user/
+api_create_user:
+  path: /api/user/
   controller: 'LetEmTalk\Bundle\Api\Controller\User\CreateUserController::execute'
   methods: POST
 
-read_users:
-  path: /users/
+api_read_users:
+  path: /api/users/
   controller: 'LetEmTalk\Bundle\Api\Controller\User\ReadUsersController::execute'
   methods: GET
 
-delete_user:
-  path: /user/{id}/
+api_delete_user:
+  path: /api/user/{id}/
   controller: 'LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:execute'
   methods: DELETE
 
@@ -22,77 +22,77 @@ login:
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
   methods: GET|POST
 
-create_room:
-  path: /room/
+api_create_room:
+  path: /api/room/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateRoomController::execute'
   methods: POST
 
-read_room:
-  path: /room/{roomId}/
+api_read_room:
+  path: /api/room/{roomId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\ReadRoomWithIssuesController::execute'
   methods: GET
 
-delete_room:
-  path: /room/{roomId}/
+api_delete_room:
+  path: /api/room/{roomId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteRoomController::execute'
   methods: DELETE
 
-create_issue:
-  path: /issue/
+api_create_issue:
+  path: /api/issue/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreateIssueController::execute'
   methods: POST
 
-read_issue:
-  path: /issue/{issueId}/
+api_read_issue:
+  path: /api/issue/{issueId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\ReadIssueWithPillsController::execute'
   methods: GET
 
-update_issue:
-  path: /issue/{issueId}/
+api_update_issue:
+  path: /api/issue/{issueId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdateIssueController::execute'
   methods: PUT
 
-delete_issue:
-  path: /issue/{issueId}/
+api_delete_issue:
+  path: /api/issue/{issueId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeleteIssueController::execute'
   methods: DELETE
 
-create_pill:
-  path: /pill/
+api_create_pill:
+  path: /api/pill/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\CreatePillController::execute'
   methods: POST
 
-update_pill:
-  path: /pill/{pillId}/
+api_update_pill:
+  path: /api/pill/{pillId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\UpdatePillController::execute'
   methods: PUT
 
-delete_pill:
-  path: /pill/{pillId}/
+api_delete_pill:
+  path: /api/pill/{pillId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Chat\DeletePillController::execute'
   methods: DELETE
 
-read_roles:
-  path: /roles/
+api_read_roles:
+  path: /api/roles/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\ReadRolesController::execute'
   methods: GET
 
-create_room_permission:
-  path: /permission/room/
+api_create_room_permission:
+  path: /api/permission/room/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController::execute'
   methods: POST
 
-delete_room_permission:
-  path: /permission/room/{userId}/{roomId}/
+api_delete_room_permission:
+  path: /api/permission/room/{userId}/{roomId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToRoomPermissionController::execute'
   methods: DELETE
 
-create_issue_permission:
-  path: /permission/issue/
+api_create_issue_permission:
+  path: /api/permission/issue/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToIssuePermissionController::execute'
   methods: POST
 
-delete_issue_permission:
+api_delete_issue_permission:
   path: /permission/issue/{userId}/{issueId}/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\DeleteUserToIssuePermissionController::execute'
   methods: DELETE
