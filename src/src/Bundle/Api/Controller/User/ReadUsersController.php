@@ -4,27 +4,31 @@
 namespace LetEmTalk\Bundle\Api\Controller\User;
 
 
+use LetEmTalk\Component\Application\User\Request\ReadUsersRequest;
 use LetEmTalk\Component\Application\User\UseCase\ReadUsersUseCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ReadUsersController
 {
     private ReadUsersUseCase $readUsersUseCase;
+    private Security $security;
 
-    private SessionInterface $session;
-
-    public function __construct(ReadUsersUseCase $readUsersUseCase, SessionInterface $session)
+    public function __construct(ReadUsersUseCase $readUsersUseCase, Security $security)
     {
         $this->readUsersUseCase = $readUsersUseCase;
-        $this->session = $session;
+        $this->security = $security;
     }
 
-    public function execute(Request $request): Response
+    public function execute(): Response
     {
-        $response = $this->readUsersUseCase->execute();
-        return new JsonResponse($response->getUsersAsArray(), 200);
+        $userIdentified = $this->security->getUser()->getUserId();
+        try {
+            $response = $this->readUsersUseCase->execute(new ReadUsersRequest($userIdentified));
+        } catch (\InvalidArgumentException $argumentException) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
+        return new JsonResponse($response->getUsersAsArray(), Response::HTTP_OK);
     }
 }

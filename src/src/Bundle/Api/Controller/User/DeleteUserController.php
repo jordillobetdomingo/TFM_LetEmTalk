@@ -28,7 +28,7 @@ class DeleteUserController
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-        return new Response('The user has been deleted', 204);
+        return new Response('The user has been deleted', Response::HTTP_NO_CONTENT);
     }
 
 }
