@@ -263,6 +263,7 @@ services:
         arguments:
             - '@letemtalk.repository.issue'
             - '@letemtalk.repository.pill'
+            - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.updateIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase

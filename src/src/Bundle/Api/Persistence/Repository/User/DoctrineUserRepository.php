@@ -29,7 +29,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
         return $users;
     }
 
-    public function getUser(int $userId): User
+    public function getUser(int $userId): ?User
     {
         return $this->findOneBy(["id" => $userId]);
     }

@@ -73,6 +73,6 @@ class UserAuthorization
 
     private function existUser(int $userId): bool
     {
-        return $this->userRepository->getUser($userId) == null;
+        return $this->userRepository->getUser($userId) != null;
     }
 }

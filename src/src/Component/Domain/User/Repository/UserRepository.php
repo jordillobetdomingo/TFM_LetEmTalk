@@ -13,5 +13,5 @@ interface UserRepository
 
     public function findAllUsers(): array;
 
-    public function getUser(int $userId): User;
+    public function getUser(int $userId): ?User;
 }
