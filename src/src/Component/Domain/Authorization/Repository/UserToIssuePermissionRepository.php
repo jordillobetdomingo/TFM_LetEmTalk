@@ -13,4 +13,6 @@ interface UserToIssuePermissionRepository
     public function delete(int $userId, int $issueId): void;
 
     public function getIssuePermission(int $userId, int $issueId): ?UserToIssuePermission;
+
+    public function getIssuesPermissionByUser(int $userId): array;
 }

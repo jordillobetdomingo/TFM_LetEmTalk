@@ -6,6 +6,7 @@ namespace LetEmTalk\Component\Domain\Authorization\Service;
 
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRepository;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToRoomPermissionRepository;
+use LetEmTalk\Component\Domain\Chat\Entity\Room;
 use LetEmTalk\Component\Domain\User\Entity\User;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
@@ -69,6 +70,18 @@ class UserAuthorization
             default:
                 throw new \InvalidArgumentException();
         }
+    }
+
+    public function getIssuesFromRoom(int $userId, Room $room): array
+    {
+        $userToIssuePermissions = $this->userToIssuePermissionRepository->getIssuesPermissionByUser($userId);
+        $issues = array();
+        foreach ($userToIssuePermissions as $userToIssuePermission) {
+            if ($userToIssuePermission->getIssue()->getRoom() == $room) {
+                $issues[] = $userToIssuePermission->getIssue();
+            }
+        }
+        return $issues;
     }
 
     private function existUser(int $userId): bool

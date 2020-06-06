@@ -243,6 +243,7 @@ services:
         arguments:
             - '@letemtalk.repository.room'
             - '@letemtalk.repository.issue'
+            - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.deleteRoom:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase

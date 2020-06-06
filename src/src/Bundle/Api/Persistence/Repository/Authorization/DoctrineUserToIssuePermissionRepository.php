@@ -28,4 +28,9 @@ class DoctrineUserToIssuePermissionRepository extends EntityRepository implement
     {
         return $this->findOneBy(["user" => $userId, "issue" => $issueId]);
     }
+
+    public function getIssuesPermissionByUser(int $userId): array
+    {
+        return $this->findBy(["user" => $userId]);
+    }
 }
