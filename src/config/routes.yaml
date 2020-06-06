@@ -18,9 +18,14 @@ api_delete_user:
   methods: DELETE
 
 login:
-  path: /login/
+  path: /login
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
-  methods: GET|POST
+  methods: POST|GET
+
+logout:
+  path: /logout
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::logout'
+  methods: POST
 
 api_create_room:
   path: /api/room/

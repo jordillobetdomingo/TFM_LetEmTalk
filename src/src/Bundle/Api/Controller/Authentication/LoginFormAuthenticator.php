@@ -58,12 +58,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function getCredentials(Request $request)
     {
+        $credentials = json_decode($request->getContent(), true);
+        /*
         $credentials = [
             'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-
+        */
         $this->session = $request->getSession();
         $this->session->set(Security::LAST_USERNAME,
                             $credentials['username']);
@@ -78,10 +80,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        /*$token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
-        }
+        }*/
 
         $userCredentials = $this->entityManager->getRepository(UserCredentials::class)->findOneBy(
             ['username' => $credentials['username']]
@@ -91,7 +93,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
-        $this->session->set("userId", $userCredentials->getUserId());
+        //$this->session->set("userId", $userCredentials->getUserId());
 
         return $userCredentials;
     }
@@ -107,7 +109,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('read_roles'));
+        return new RedirectResponse($this->urlGenerator->generate('login'));
     }
 
     protected function getLoginUrl()
