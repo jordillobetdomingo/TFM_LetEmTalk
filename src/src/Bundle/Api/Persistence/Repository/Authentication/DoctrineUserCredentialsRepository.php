@@ -16,4 +16,9 @@ class DoctrineUserCredentialsRepository extends EntityRepository implements User
         $this->getEntityManager()->persist($userCredentials);
         $this->getEntityManager()->flush();
     }
+
+    public function getUserCredentialsByUsername(string $username): ?UserCredentials
+    {
+        return $this->findOneBy(['username' => $username]);
+    }
 }

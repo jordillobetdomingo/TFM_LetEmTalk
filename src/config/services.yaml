@@ -117,6 +117,10 @@ services:
             - '@letemtalk.useCase.deleteUserToIssuePermission'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authentication\LoginAuthenticator:
+        arguments:
+            - '@letemtalk.repository.userCredentials'
+
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\User\Entity\User ]

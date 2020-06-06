@@ -17,13 +17,13 @@ api_delete_user:
   controller: 'LetEmTalk\Bundle\Api\Controller\User\DeleteUserController:execute'
   methods: DELETE
 
-login:
-  path: /login
+api_login:
+  path: /api/login
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
   methods: POST|GET
 
-logout:
-  path: /logout
+api_logout:
+  path: /api/logout
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::logout'
   methods: POST
 

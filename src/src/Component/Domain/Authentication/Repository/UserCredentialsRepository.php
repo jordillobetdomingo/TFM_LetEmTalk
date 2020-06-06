@@ -10,5 +10,5 @@ interface UserCredentialsRepository
 {
     public function save(UserCredentials $userCredentials): void;
 
-    //public function getAuthentication(string $username, string $password): ?UserCredentials;
+    public function getUserCredentialsByUsername(string $username): ?UserCredentials;
 }
