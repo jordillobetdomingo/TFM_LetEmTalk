@@ -223,6 +223,7 @@ services:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase
         arguments:
             - '@letemtalk.repository.user'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserCredentials:
         class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
