@@ -84,6 +84,17 @@ class UserAuthorization
         return $issues;
     }
 
+    public function getRoomsByUser(int $userId): ?array
+    {
+        if (!$this->existUser($userId)) {
+            return null;
+        }
+        $userToRoomPermissions = $this->userToRoomPermissionRepository->getRoomsPermission($userId);
+        return array_map(function($userToRoomPermission) {
+            return $userToRoomPermission->getRoom();
+        }, $userToRoomPermissions);
+    }
+
     private function existUser(int $userId): bool
     {
         return $this->userRepository->getUser($userId) != null;

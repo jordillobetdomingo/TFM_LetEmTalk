@@ -32,4 +32,9 @@ class DoctrineUserToRoomPermissionRepository extends EntityRepository implements
     {
         return $this->findOneBy(["user" => $userId, "room" => $roomId]);
     }
+
+    public function getRoomsPermission(int $userId): array
+    {
+        return $this->findBy(["user" => $userId]);
+    }
 }
