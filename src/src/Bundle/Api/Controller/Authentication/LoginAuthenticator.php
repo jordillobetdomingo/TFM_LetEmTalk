@@ -6,6 +6,7 @@ namespace LetEmTalk\Bundle\Api\Controller\Authentication;
 use LetEmTalk\Component\Domain\Authentication\Repository\UserCredentialsRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -75,7 +76,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate(self::LOGIN_ROUTE));
+        return new Response("", Response::HTTP_NO_CONTENT);
     }
 
     protected function getLoginUrl()
