@@ -38,6 +38,18 @@ class ReadIssueWithPillsUseCase
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
         $pills = $this->pillRepository->getPillsByIssue($issue);
-        return new ReadIssueWithPillsResponse($issue, $pills);
+        $issuePermissions = [
+            'write' => $this->userAuthorization->hasIssueAccess(
+                $request->getUserId(),
+                $request->getIssueId(),
+                UserAuthorization::ACTION_WRITE
+            ),
+            'manage' => $this->userAuthorization->hasIssueAccess(
+                $request->getUserId(),
+                $request->getIssueId(),
+                UserAuthorization::ACTION_MANAGE
+            )
+        ];
+        return new ReadIssueWithPillsResponse($issue, $pills, $issuePermissions);
     }
 }

@@ -11,11 +11,13 @@ class ReadIssueWithPillsResponse
 {
     private Issue $issue;
     private array $pills;
+    private array $issuePermissions;
 
-    public function __construct(Issue $issue, array $pills)
+    public function __construct(Issue $issue, array $pills, array $issuePermissions)
     {
         $this->issue = $issue;
         $this->pills = $pills;
+        $this->issuePermissions = $issuePermissions;
     }
 
     public function getIssueWithPillsAsArray(): array
@@ -23,7 +25,8 @@ class ReadIssueWithPillsResponse
         return [
             "issue" => $this->getIssueAsArray(),
             "numberOfPills" => count($this->pills),
-            "pills" => array_map(array($this, "getPillAsArray"), $this->pills)
+            "pills" => array_map(array($this, "getPillAsArray"), $this->pills),
+            "permissions" => $this->issuePermissions
         ];
     }
 
