@@ -32,7 +32,8 @@ class ReadRoomWithIssuesResponse
         return [
             "roomId" => $room->getId(),
             "userId" => $room->getUser()->getId(),
-            "userName" => $room->getUser()->getFirstName() . " " . $room->getUser()->getLastName()
+            "firstName" => $room->getUser()->getFirstName(),
+            "lastName" => $room->getUser()->getLastName()
         ];
     }
 
@@ -41,9 +42,11 @@ class ReadRoomWithIssuesResponse
         return [
             "issueId" => $issue->getId(),
             "title" => $issue->getTitle(),
-            "userId" => $issue->getFirstPill()->getAuthor()->getId(),
-            "userName" => $issue->getFirstPill()->getAuthor()->getFirstName(),
-            "created" => $issue->getFirstPill()->getCreated()
+            "text" => $issue->getFirstPill()->getText(),
+            "authorId" => $issue->getFirstPill()->getAuthor()->getId(),
+            "firstNameAuthor" => $issue->getFirstPill()->getAuthor()->getFirstName(),
+            "lastNameAuthor" => $issue->getFirstPill()->getAuthor()->getLastName(),
+            "createdAt" => $issue->getFirstPill()->getCreated()
         ];
     }
 

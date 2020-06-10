@@ -21,6 +21,9 @@ class ReadRoomsController extends AbstractController
 
     public function execute(): Response
     {
+        if ($this->getUser() == null) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
         $userId = $this->getUser()->getUserId();
         try {
             $roomsResponse = $this->readRoomsUseCase->execute(new ReadRoomsRequest($userId));

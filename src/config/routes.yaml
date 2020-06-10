@@ -20,7 +20,7 @@ api_delete_user:
 api_login:
   path: /api/login
   controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::login'
-  methods: POST|GET
+  methods: POST
 
 api_logout:
   path: /api/logout

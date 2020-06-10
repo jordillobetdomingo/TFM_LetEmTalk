@@ -42,7 +42,8 @@ class ReadIssueWithPillsResponse
             "pillId" => $pill->getId(),
             "text" => $pill->getText(),
             "authorId" => $pill->getAuthor()->getId(),
-            "authorName" => $pill->getAuthor()->getFirstName() . " " . $pill->getAuthor()->getLastName(),
+            "firstNameAuthor" => $pill->getAuthor()->getFirstName(),
+            "lastNameAuthor". " " . $pill->getAuthor()->getLastName(),
             "created" => $pill->getCreated()
         ];
     }

@@ -24,9 +24,9 @@ class SecurityController extends AbstractController
         );
     }
 
-    public function logout()
+    public function logout(): Response
     {
-        //
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
 }
