@@ -7,6 +7,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 use LetEmTalk\Component\Application\Chat\Request\ReadIssueWithPillsRequest;
 use LetEmTalk\Component\Application\Chat\Response\ReadIssueWithPillsResponse;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
 
@@ -38,18 +39,7 @@ class ReadIssueWithPillsUseCase
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
         $pills = $this->pillRepository->getPillsByIssue($issue);
-        $issuePermissions = [
-            'write' => $this->userAuthorization->hasIssueAccess(
-                $request->getUserId(),
-                $request->getIssueId(),
-                UserAuthorization::ACTION_WRITE
-            ),
-            'manage' => $this->userAuthorization->hasIssueAccess(
-                $request->getUserId(),
-                $request->getIssueId(),
-                UserAuthorization::ACTION_MANAGE
-            )
-        ];
-        return new ReadIssueWithPillsResponse($issue, $pills, $issuePermissions);
+        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
+        return new ReadIssueWithPillsResponse($issue, $pills, $userPermissions);
     }
 }
