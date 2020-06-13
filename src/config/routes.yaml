@@ -24,8 +24,11 @@ api_login:
 
 api_logout:
   path: /api/logout
-  controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::logout'
   methods: POST
+
+api_logout_response:
+  path: /api/logout/response/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authentication\SecurityController::logout'
 
 api_create_room:
   path: /api/room/

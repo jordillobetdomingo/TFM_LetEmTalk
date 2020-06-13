@@ -19,6 +19,7 @@ security:
               check_path: /api/login
             logout:
               path: api_logout
+              target: "/api/logout/response/"
             guard:
               authenticators:
                 - LetEmTalk\Bundle\Api\Controller\Authentication\LoginAuthenticator

@@ -360,4 +360,4 @@ services:
     letemtalk.event.ResponseHeaders:
         class: LetEmTalk\Bundle\Api\Service\ResponseHeadersListener
         tags:
-          - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
