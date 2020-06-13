@@ -5,6 +5,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\CreatePillRequest;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
@@ -31,16 +32,17 @@ class CreatePillUseCase
 
     public function execute(CreatePillRequest $request): void
     {
-        if (!$this->userAuthorization->hasIssueAccess(
-            $request->getUserId(),
-            $request->getIssueId(),
-            UserAuthorization::ACTION_WRITE
-        )) {
+        $userPermission = new UserPermissions($this->userAuthorization, $request->getUserId());
+
+        $issue = $this->issueRepository->getIssue($request->getIssueId());
+
+
+        if (!$userPermission->allowCreatePill($issue)) {
             throw new \InvalidArgumentException();
         }
 
         $pill = new Pill(
-            $this->issueRepository->getIssue($request->getIssueId()),
+            $issue,
             $request->getText(),
             $this->userRepository->getUser($request->getAuthorId())
         );

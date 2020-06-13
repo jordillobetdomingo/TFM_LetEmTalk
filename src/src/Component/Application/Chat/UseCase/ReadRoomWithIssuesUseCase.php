@@ -7,6 +7,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 use LetEmTalk\Component\Application\Chat\Request\ReadRoomWithIssuesRequest;
 use LetEmTalk\Component\Application\Chat\Response\ReadRoomWithIssuesResponse;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\Chat\Repository\RoomRepository;
 
@@ -28,25 +29,15 @@ class ReadRoomWithIssuesUseCase
 
     public function execute(ReadRoomWithIssuesRequest $request): ReadRoomWithIssuesResponse
     {
-        if (!$this->userAuthorization->hasRoomAccess(
-            $request->getUserId(),
-            $request->getRoomId(),
-            UserAuthorization::ACTION_READ
-        )) {
-            throw new \InvalidArgumentException();
-        }
+        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
-        if ($this->userAuthorization->hasRoomAccess(
-            $request->getUserId(),
-            $request->getRoomId(),
-            UserAuthorization::ACTION_MANAGE
-        )) {
-            $issues = $this->issueRepository->getIssuesByRoom($room);
-        } else {
-            $issues = $this->userAuthorization->getIssuesFromRoom($request->getUserId(), $room);
+
+        if (!$userPermissions->allowReadRoom($room)) {
+            throw new \InvalidArgumentException();
         }
-        return new ReadRoomWithIssuesResponse($room, $issues);
+        $issues = $this->userAuthorization->getIssuesFromRoom($request->getUserId(), $room);
+        return new ReadRoomWithIssuesResponse($room, $issues, $userPermissions);
     }
 
 }

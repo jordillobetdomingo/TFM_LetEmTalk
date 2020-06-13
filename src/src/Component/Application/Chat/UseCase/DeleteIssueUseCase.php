@@ -6,6 +6,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\DeleteIssueRequest;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
@@ -24,11 +25,11 @@ class DeleteIssueUseCase
 
     public function execute(DeleteIssueRequest $request)
     {
-        if (!$this->userAuthorization->hasIssueAccess(
-            $request->getUserId(),
-            $request->getIssueId(),
-            UserAuthorization::ACTION_MANAGE
-        )) {
+        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
+
+        $issue = $this->issueRepository->getIssue($request->getIssueId());
+
+        if (!$userPermissions->allowDeleteIssue($issue)) {
             throw new \InvalidArgumentException();
         }
 

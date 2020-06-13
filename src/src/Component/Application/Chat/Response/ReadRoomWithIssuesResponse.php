@@ -4,6 +4,7 @@
 namespace LetEmTalk\Component\Application\Chat\Response;
 
 
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
@@ -11,11 +12,13 @@ class ReadRoomWithIssuesResponse
 {
     private Room $room;
     private array $issues;
+    private UserPermissions $userPermissions;
 
-    public function __construct(Room $room, array $issues)
+    public function __construct(Room $room, array $issues, UserPermissions $userPermissions)
     {
         $this->room = $room;
         $this->issues = $issues;
+        $this->userPermissions = $userPermissions;
     }
 
     public function getRoomWithIssuesAsArray(): array
@@ -33,7 +36,8 @@ class ReadRoomWithIssuesResponse
             "roomId" => $room->getId(),
             "userId" => $room->getUser()->getId(),
             "firstName" => $room->getUser()->getFirstName(),
-            "lastName" => $room->getUser()->getLastName()
+            "lastName" => $room->getUser()->getLastName(),
+            "allowCreateIssues" => $this->userPermissions->allowCreateIssue($room)
         ];
     }
 
@@ -46,7 +50,9 @@ class ReadRoomWithIssuesResponse
             "authorId" => $issue->getFirstPill()->getAuthor()->getId(),
             "firstNameAuthor" => $issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $issue->getFirstPill()->getAuthor()->getLastName(),
-            "createdAt" => $issue->getFirstPill()->getCreated()
+            "createdAt" => $issue->getFirstPill()->getCreatedAt(),
+            "allowUpdate" => $this->userPermissions->allowUpdateIssue($issue),
+            "allowDelete" => $this->userPermissions->allowDeleteIssue($issue)
         ];
     }
 

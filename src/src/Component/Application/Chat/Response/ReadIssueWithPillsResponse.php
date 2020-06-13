@@ -36,8 +36,9 @@ class ReadIssueWithPillsResponse
             "id" => $this->issue->getId(),
             "roomId" => $this->issue->getRoom()->getId(),
             "title" => $this->issue->getTitle(),
-            "canEdit" => $this->userPermissions->getEditIssue($this->issue),
-            "canAddPill" => $this->userPermissions->getAddPill($this->issue)
+            "allowUpdate" => $this->userPermissions->allowUpdateIssue($this->issue),
+            "allowDelete" => $this->userPermissions->allowDeleteIssue($this->issue),
+            "allowCreatePills" => $this->userPermissions->allowCreatePill($this->issue)
         ];
     }
 
@@ -50,7 +51,8 @@ class ReadIssueWithPillsResponse
             "firstNameAuthor" => $pill->getAuthor()->getFirstName(),
             "lastNameAuthor" => $pill->getAuthor()->getLastName(),
             "createdAt" => $pill->getCreatedAt(),
-            "canEdit" => $this->userPermissions->getEditPill($pill)
+            "allowUpdate" => $this->userPermissions->allowUpdatePill($pill),
+            "allowDelete" => $this->userPermissions->allowDeletePill($pill)
         ];
     }
 
