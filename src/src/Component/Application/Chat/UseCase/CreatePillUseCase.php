@@ -6,7 +6,6 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 use LetEmTalk\Component\Application\Chat\Request\CreatePillRequest;
 use LetEmTalk\Component\Application\Chat\Response\CreatePillResponse;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
@@ -33,7 +32,7 @@ class CreatePillUseCase
 
     public function execute(CreatePillRequest $request): CreatePillResponse
     {
-        $userPermission = new UserPermissions($this->userAuthorization, $request->getUserId());
+        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 

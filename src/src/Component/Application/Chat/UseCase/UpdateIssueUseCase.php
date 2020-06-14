@@ -5,12 +5,8 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 
 use LetEmTalk\Component\Application\Chat\Request\UpdateIssueRequest;
-use LetEmTalk\Component\Application\Chat\Response\UpdateIssueResponse;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
-use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
-use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class UpdateIssueUseCase
 {
@@ -27,7 +23,7 @@ class UpdateIssueUseCase
 
     public function execute(UpdateIssueRequest $request): void
     {
-        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
+        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 

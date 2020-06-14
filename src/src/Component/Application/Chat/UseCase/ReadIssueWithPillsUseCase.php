@@ -29,7 +29,7 @@ class ReadIssueWithPillsUseCase
 
     public function execute(ReadIssueWithPillsRequest $request): ReadIssueWithPillsResponse
     {
-        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
+        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 

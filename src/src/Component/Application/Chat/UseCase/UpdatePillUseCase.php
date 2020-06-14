@@ -7,7 +7,6 @@ use LetEmTalk\Component\Application\Chat\Request\UpdatePillRequest;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
 use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
-use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class UpdatePillUseCase
 {
@@ -22,7 +21,7 @@ class UpdatePillUseCase
 
     public function execute(UpdatePillRequest $request): void
     {
-        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
+        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
 
         $pill = $this->pillRepository->getPill($request->getPillId());
 

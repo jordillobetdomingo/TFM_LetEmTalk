@@ -32,9 +32,6 @@ class UserAuthorization
 
     public function hasRoomAccess(int $userId, int $roomId, int $action): bool
     {
-        /*if (!$this->existUser($userId)) {
-            return false;
-        }*/
         $roomPermission = $this->userToRoomPermissionRepository->getRoomPermission($userId, $roomId);
         if ($roomPermission == null) {
             return false;
@@ -53,9 +50,6 @@ class UserAuthorization
 
     public function hasIssueAccess(int $userId, int $issueId, int $action): bool
     {
-        /*if (!$this->existUser($userId)) {
-            return false;
-        }*/
         $issuePermission = $this->userToIssuePermissionRepository->getIssuePermission($userId, $issueId);
         if ($issuePermission == null) {
             return false;
@@ -98,5 +92,10 @@ class UserAuthorization
     public function existUser(int $userId): bool
     {
         return $this->userRepository->getUser($userId) != null;
+    }
+
+    public function forUser(int $userId): UserPermissions
+    {
+        return new UserPermissions($this, $userId);
     }
 }
