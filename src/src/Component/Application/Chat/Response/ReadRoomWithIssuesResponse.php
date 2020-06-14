@@ -33,7 +33,7 @@ class ReadRoomWithIssuesResponse
     private function getRoomAsArray(Room $room): array
     {
         return [
-            "roomId" => $room->getId(),
+            "id" => $room->getId(),
             "userId" => $room->getUser()->getId(),
             "firstName" => $room->getUser()->getFirstName(),
             "lastName" => $room->getUser()->getLastName(),
