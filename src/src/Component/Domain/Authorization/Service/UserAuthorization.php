@@ -94,8 +94,8 @@ class UserAuthorization
         return $this->userRepository->getUser($userId) != null;
     }
 
-    public function forUser(int $userId): UserPermissions
+    public function forUser(int $userId): UserPermission
     {
-        return new UserPermissions($this, $userId);
+        return new UserPermission($this, $userId);
     }
 }

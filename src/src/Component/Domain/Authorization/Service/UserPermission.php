@@ -8,7 +8,7 @@ use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
-class UserPermissions
+class UserPermission
 {
     private UserAuthorization $userAuthorization;
     private int $userId;
@@ -55,6 +55,9 @@ class UserPermissions
 
     public function allowDeletePill(Pill $pill): bool
     {
+        // if the pill is the first of the issue it isn't be able to delete
+        if ($pill === $pill->getIssue()->getFirstPill()) return false;
+
         return $this->userAuthorization->hasIssueAccess(
                 $this->userId,
                 $pill->getIssue()->getId(),

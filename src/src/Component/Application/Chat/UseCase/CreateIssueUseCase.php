@@ -41,11 +41,11 @@ class CreateIssueUseCase
 
     public function execute(CreateIssueRequest $request): CreateIssueResponse
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission= $this->userAuthorization->forUser($request->getUserId());
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
 
-        if (!$userPermissions->allowCreateIssue($room)) {
+        if (!$userPermission->allowCreateIssue($room)) {
             throw new \InvalidArgumentException();
         }
 
@@ -58,6 +58,6 @@ class CreateIssueUseCase
 
         $this->manageIssuePermission->addIssuePermissions($issue);
 
-        return new CreateIssueResponse($issue, $userPermissions);
+        return new CreateIssueResponse($issue, $userPermission);
     }
 }

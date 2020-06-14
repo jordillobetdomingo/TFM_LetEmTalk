@@ -32,12 +32,12 @@ class CreatePillUseCase
 
     public function execute(CreatePillRequest $request): CreatePillResponse
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 
 
-        if (!$userPermissions->allowCreatePill($issue)) {
+        if (!$userPermission->allowCreatePill($issue)) {
             throw new \InvalidArgumentException();
         }
 
@@ -48,6 +48,6 @@ class CreatePillUseCase
         );
         $this->pillRepository->save($pill);
 
-        return new CreatePillResponse($pill, $userPermissions);
+        return new CreatePillResponse($pill, $userPermission);
     }
 }

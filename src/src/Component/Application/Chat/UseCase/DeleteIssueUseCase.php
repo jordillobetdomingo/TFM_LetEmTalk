@@ -23,11 +23,11 @@ class DeleteIssueUseCase
 
     public function execute(DeleteIssueRequest $request): void
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 
-        if (!$userPermissions->allowDeleteIssue($issue)) {
+        if (!$userPermission->allowDeleteIssue($issue)) {
             throw new \InvalidArgumentException();
         }
 

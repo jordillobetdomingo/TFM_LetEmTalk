@@ -5,7 +5,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\UpdatePillRequest;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermission;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
 
 class UpdatePillUseCase
@@ -21,11 +21,11 @@ class UpdatePillUseCase
 
     public function execute(UpdatePillRequest $request): void
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $pill = $this->pillRepository->getPill($request->getPillId());
 
-        if (!$userPermissions->allowUpdatePill($pill)) {
+        if (!$userPermission->allowUpdatePill($pill)) {
             throw new \InvalidArgumentException();
         }
 

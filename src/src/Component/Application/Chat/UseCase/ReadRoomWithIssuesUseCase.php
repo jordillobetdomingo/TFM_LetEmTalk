@@ -28,15 +28,15 @@ class ReadRoomWithIssuesUseCase
 
     public function execute(ReadRoomWithIssuesRequest $request): ReadRoomWithIssuesResponse
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
 
-        if (!$userPermissions->allowReadRoom($room)) {
+        if (!$userPermission->allowReadRoom($room)) {
             throw new \InvalidArgumentException();
         }
         $issues = $this->userAuthorization->getIssuesFromRoom($request->getUserId(), $room);
-        return new ReadRoomWithIssuesResponse($room, $issues, $userPermissions);
+        return new ReadRoomWithIssuesResponse($room, $issues, $userPermission);
     }
 
 }

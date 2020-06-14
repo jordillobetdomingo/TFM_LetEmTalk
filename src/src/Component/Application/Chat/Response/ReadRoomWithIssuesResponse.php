@@ -4,7 +4,7 @@
 namespace LetEmTalk\Component\Application\Chat\Response;
 
 
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermission;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
@@ -12,9 +12,9 @@ class ReadRoomWithIssuesResponse
 {
     private Room $room;
     private array $issues;
-    private UserPermissions $userPermissions;
+    private UserPermission $userPermissions;
 
-    public function __construct(Room $room, array $issues, UserPermissions $userPermissions)
+    public function __construct(Room $room, array $issues, UserPermission $userPermissions)
     {
         $this->room = $room;
         $this->issues = $issues;

@@ -4,15 +4,15 @@
 namespace LetEmTalk\Component\Application\Chat\Response;
 
 
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermission;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 
 class CreatePillResponse
 {
     private Pill $pill;
-    private UserPermissions $userPermissions;
+    private UserPermission $userPermissions;
 
-    public function __construct(Pill $pill, UserPermissions $userPermissions)
+    public function __construct(Pill $pill, UserPermission $userPermissions)
     {
         $this->pill = $pill;
         $this->userPermissions = $userPermissions;

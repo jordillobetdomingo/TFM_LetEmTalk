@@ -23,11 +23,11 @@ class UpdateIssueUseCase
 
     public function execute(UpdateIssueRequest $request): void
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 
-        if (!$userPermissions->allowUpdateIssue($issue)) {
+        if (!$userPermission->allowUpdateIssue($issue)) {
             throw new \InvalidArgumentException();
         }
 

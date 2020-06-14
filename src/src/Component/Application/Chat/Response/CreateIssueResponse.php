@@ -4,15 +4,15 @@
 namespace LetEmTalk\Component\Application\Chat\Response;
 
 
-use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
+use LetEmTalk\Component\Domain\Authorization\Service\UserPermission;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 
 class CreateIssueResponse
 {
     private Issue $issue;
-    private UserPermissions $userPermissions;
+    private UserPermission $userPermissions;
 
-    public function __construct(Issue $issue, UserPermissions $userPermissions)
+    public function __construct(Issue $issue, UserPermission $userPermissions)
     {
         $this->issue = $issue;
         $this->userPermissions = $userPermissions;

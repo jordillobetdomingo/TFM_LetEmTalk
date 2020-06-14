@@ -23,11 +23,11 @@ class DeletePillUseCase
 
     public function execute(DeletePillRequest $request): void
     {
-        $userPermissions = $this->userAuthorization->forUser($request->getUserId());
+        $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
         $pill = $this->pillRepository->getPill($request->getPillId());
 
-        if (!$userPermissions->allowDeletePill($pill)) {
+        if (!$userPermission->allowDeletePill($pill)) {
             throw new \InvalidArgumentException();
         }
 
