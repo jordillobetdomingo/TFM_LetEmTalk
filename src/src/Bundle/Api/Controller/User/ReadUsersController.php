@@ -23,12 +23,16 @@ class ReadUsersController
 
     public function execute(): Response
     {
-        $userIdentified = $this->security->getUser()->getUserId();
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
+
         try {
-            $response = $this->readUsersUseCase->execute(new ReadUsersRequest($userIdentified));
+            $response = $this->readUsersUseCase->execute(new ReadUsersRequest($user->getUserId()));
+            return new JsonResponse($response->getUsersAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
-        return new JsonResponse($response->getUsersAsArray(), Response::HTTP_OK);
     }
 }

@@ -27,6 +27,7 @@ class ReadUserController
         if (!$user) {
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
+
         try {
             $response = $this->readUserUseCase->execute(new ReadUserRequest($user->getUserId()));
             return new JsonResponse($response->getUserAsArray(), Response::HTTP_OK);

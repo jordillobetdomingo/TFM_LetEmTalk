@@ -30,15 +30,26 @@ class CreatePillController
     {
         $json = json_decode($request->getContent(), true);
 
+        if (!isset($json[self::INPUT_ISSUE_ID]) || !isset($json[self::INPUT_TEXT])
+            || !isset($json[self::INPUT_AUTHOR_ID])) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
+
         $issueId = $json[self::INPUT_ISSUE_ID];
         $text = $json[self::INPUT_TEXT];
         $authorId = $json[self::INPUT_AUTHOR_ID];
-        $userId = $this->security->getUser()->getUserId();
 
         try {
-            $response = $this->createPillUseCase->execute(new CreatePillRequest($issueId, $text, $authorId, $userId));
+            $response = $this->createPillUseCase->execute(
+                new CreatePillRequest($issueId, $text, $authorId, $user->getUserId())
+            );
             return new JSONResponse($response->getPillAsArray(), Response::HTTP_OK);
-        } catch (\InvalidArgumentException $argumentException){
+        } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
     }

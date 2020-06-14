@@ -22,13 +22,17 @@ class DeleteUserController
 
     public function execute(int $id): Response
     {
-        $userIdentified = $this->security->getUser()->getUserId();
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
+
         try {
-            $this->deleteUserUseCase->execute(new DeleteUserRequest($id, $userIdentified));
+            $this->deleteUserUseCase->execute(new DeleteUserRequest($id, $user->getUserId()));
+            return new Response('', Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-        return new Response('The user has been deleted', Response::HTTP_NO_CONTENT);
     }
 
 }

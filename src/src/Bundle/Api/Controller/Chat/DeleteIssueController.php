@@ -22,14 +22,18 @@ class DeleteIssueController
 
     public function execute(int $issueId): Response
     {
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
         try {
             $this->deleteIssueUseCase->execute(
-                new DeleteIssueRequest($issueId, $this->security->getUser()->getUserId())
+                new DeleteIssueRequest($issueId, $user->getUserId())
             );
+            return new Response("", Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-        return new Response("The issue has been deleted", 204);
     }
 
 }

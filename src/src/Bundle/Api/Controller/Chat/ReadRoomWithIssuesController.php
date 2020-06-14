@@ -24,15 +24,18 @@ class ReadRoomWithIssuesController
 
     public function execute(int $roomId): Response
     {
-        $userId = $this->security->getUser()->getUserId();
-        if ($userId == null) {
-            return new Response('', Response::HTTP_UNAUTHORIZED);
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
         }
+
         try {
-            $response = $this->readRoomWithIssuesUseCase->execute(new ReadRoomWithIssuesRequest($roomId, $userId));
+            $response = $this->readRoomWithIssuesUseCase->execute(
+                new ReadRoomWithIssuesRequest($roomId, $user->getUserId())
+            );
+            return new JsonResponse($response->getRoomWithIssuesAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
-        return new JsonResponse($response->getRoomWithIssuesAsArray(), Response::HTTP_OK);
     }
 }

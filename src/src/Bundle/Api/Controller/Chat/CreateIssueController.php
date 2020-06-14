@@ -33,19 +33,26 @@ class CreateIssueController
     {
         $json = json_decode($request->getContent(), true);
 
+        if (!isset($json[self::INPUT_ROOM_ID]) || !isset($json[self::INPUT_TITLE]) || !isset($json[self::INPUT_TEXT])
+            || !isset($json[self::INPUT_AUTHOR_ID])) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response('', Response::HTTP_UNAUTHORIZED);
+        }
+
         $roomId = $json[self::INPUT_ROOM_ID];
         $title = $json[self::INPUT_TITLE];
         $text = $json[self::INPUT_TEXT];
         $authorId = $json[self::INPUT_AUTHOR_ID];
-        $userId = $this->security->getUser()->getUserId();
         try {
             $response = $this->createIssueUseCase->execute(
-                new CreateIssueRequest($roomId, $title, $text, $authorId, $userId)
+                new CreateIssueRequest($roomId, $title, $text, $authorId, $user->getUserId())
             );
             return new JsonResponse($response->getIssueAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
-            return new Response("Not access", Response::HTTP_UNAUTHORIZED);
+            return new Response("", Response::HTTP_UNAUTHORIZED);
         }
     }
-
 }

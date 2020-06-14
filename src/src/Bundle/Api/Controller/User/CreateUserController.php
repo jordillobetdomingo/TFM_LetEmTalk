@@ -38,14 +38,23 @@ class CreateUserController
     {
         $json = json_decode($request->getContent(), true);
 
+        if(!isset($json[self::INPUT_FIRST_NAME]) || !isset($json[self::INPUT_LAST_NAME])
+            || !isset($json[self::INPUT_EMAIL])) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
+
         $firstName = $json[self::INPUT_FIRST_NAME];
         $lastName = $json[self::INPUT_LAST_NAME];
         $email = $json[self::INPUT_EMAIL];
-        $idUserIdentified = $this->security->getUser()->getUserId();
 
         try {
             $userResponse = $this->createUserUseCase->execute(
-                new CreateUserRequest($firstName, $lastName, $email, $idUserIdentified)
+                new CreateUserRequest($firstName, $lastName, $email, $user->getUserId())
             );
 
             if (isset($json[self::INPUT_USERNAME]) && isset($json[self::INPUT_PASSWORD])) {
@@ -54,14 +63,13 @@ class CreateUserController
                         $json[self::INPUT_USERNAME],
                         $json[self::INPUT_PASSWORD],
                         $userResponse->getUser()->getId(),
-                        $idUserIdentified
+                        $user->getUserId()
                     )
                 );
             }
+            return new Response("", Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-
-        return new Response("Have saved a user", Response::HTTP_NO_CONTENT);
     }
 }

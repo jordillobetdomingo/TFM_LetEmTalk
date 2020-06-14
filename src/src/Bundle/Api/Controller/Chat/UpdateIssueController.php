@@ -27,16 +27,23 @@ class UpdateIssueController
     {
         $json = json_decode($request->getContent(), true);
 
-        $title = $json[self::INPUT_TITLE];
-        $userId = $this->security->getUser()->getUserId();
+        if(!isset($json[self::INPUT_TITLE])) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
 
-        try {
-            $this->updateIssueUseCase->execute(new UpdateIssueRequest($issueId, $title, $userId));
-        } catch (\InvalidArgumentException $argumentException) {
+        $user = $this->security->getUser();
+        if (!$user) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
 
-        return new Response("Issue has been updated", 204);
+        $title = $json[self::INPUT_TITLE];
+
+        try {
+            $this->updateIssueUseCase->execute(new UpdateIssueRequest($issueId, $title, $user->getUserId()));
+            return new Response("", Response::HTTP_NO_CONTENT);
+        } catch (\InvalidArgumentException $argumentException) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
     }
 
 }

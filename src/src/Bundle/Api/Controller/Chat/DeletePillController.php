@@ -22,13 +22,17 @@ class DeletePillController
 
     public function execute(int $pillId): Response
     {
-        $userId = $this->security->getUser()->getUserId();
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
+
         try {
-            $this->deletePillUseCase->execute(new DeletePillRequest($pillId, $userId));
+            $this->deletePillUseCase->execute(new DeletePillRequest($pillId, $user->getUserId()));
+            return new Response("", Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-        return new Response("Has been deleted the pill", 204);
     }
 
 }

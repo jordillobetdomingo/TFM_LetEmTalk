@@ -25,12 +25,18 @@ class ReadIssueWithPillsController
 
     public function execute(int $issueId): Response
     {
-        $userId = $this->security->getUser()->getUserId();
+        $user = $this->security->getUser();
+        if (!$user) {
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
+
         try {
-            $response = $this->readIssueWithPillsUseCase->execute(new ReadIssueWithPillsRequest($issueId, $userId));
+            $response = $this->readIssueWithPillsUseCase->execute(
+                new ReadIssueWithPillsRequest($issueId, $user->getUserId())
+            );
+            return new JsonResponse($response->getIssueWithPillsAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response('', Response::HTTP_UNAUTHORIZED);
         }
-        return new JsonResponse($response->getIssueWithPillsAsArray(), Response::HTTP_OK);
     }
 }
