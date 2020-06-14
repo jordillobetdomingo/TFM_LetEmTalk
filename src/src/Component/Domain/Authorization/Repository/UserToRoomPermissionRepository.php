@@ -5,6 +5,7 @@ namespace LetEmTalk\Component\Domain\Authorization\Repository;
 
 
 use LetEmTalk\Component\Domain\Authorization\Entity\UserToRoomPermission;
+use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
 interface UserToRoomPermissionRepository
 {
@@ -17,4 +18,6 @@ interface UserToRoomPermissionRepository
     public function getRoomPermission(int $userId, int $roomId): ?UserToRoomPermission;
 
     public function getRoomsPermission(int $userId): array;
+
+    public function getUserByManageRoom(Room $room): array;
 }

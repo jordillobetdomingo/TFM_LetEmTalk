@@ -5,6 +5,7 @@ namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\CreateIssueRequest;
 use LetEmTalk\Component\Application\Chat\Response\CreateIssueResponse;
+use LetEmTalk\Component\Domain\Authorization\Service\ManageIssuePermission;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
@@ -20,19 +21,22 @@ class CreateIssueUseCase
     private PillRepository $pillRepository;
     private UserRepository $userRepository;
     private UserAuthorization $userAuthorization;
+    private ManageIssuePermission $manageIssuePermission;
 
     public function __construct(
         IssueRepository $issueRepository,
         RoomRepository $roomRepository,
         PillRepository $pillRepository,
         UserRepository $userRepository,
-        UserAuthorization $userAuthorization
+        UserAuthorization $userAuthorization,
+        ManageIssuePermission $manageIssuePermission
     ) {
         $this->issueRepository = $issueRepository;
         $this->roomRepository = $roomRepository;
         $this->pillRepository = $pillRepository;
         $this->userRepository = $userRepository;
         $this->userAuthorization = $userAuthorization;
+        $this->manageIssuePermission = $manageIssuePermission;
     }
 
     public function execute(CreateIssueRequest $request): CreateIssueResponse
@@ -51,6 +55,8 @@ class CreateIssueUseCase
         $this->pillRepository->save($firstPill);
         $issue->setFirstPill($firstPill);
         $this->issueRepository->save($issue);
+
+        $this->manageIssuePermission->addIssuePermissions($issue);
 
         return new CreateIssueResponse($issue, $userPermissions);
     }

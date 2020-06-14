@@ -22,6 +22,11 @@ class UserToRoomPermission
         $this->managePermission = $managePermission;
     }
 
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
     public function getRoom(): Room
     {
         return $this->room;

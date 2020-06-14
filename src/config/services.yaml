@@ -272,6 +272,7 @@ services:
             - '@letemtalk.repository.pill'
             - '@letemtalk.repository.user'
             - '@letemtalk.service.userAuthorization'
+            - '@letemtalk.service.manageIssuePermission'
 
     letemtalk.useCase.readIssueWithPills:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
@@ -355,6 +356,12 @@ services:
         arguments:
             - '@letemtalk.repository.adminPermission'
             - '@letemtalk.repository.user'
+
+    letemtalk.service.manageIssuePermission:
+        class: LetEmTalk\Component\Domain\Authorization\Service\ManageIssuePermission
+        arguments:
+            - '@letemtalk.repository.userToIssuePermission'
+            - '@letemtalk.repository.userToRoomPermission'
 
 
     letemtalk.event.ResponseHeaders:

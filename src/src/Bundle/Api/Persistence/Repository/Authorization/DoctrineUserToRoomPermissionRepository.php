@@ -7,6 +7,7 @@ namespace LetEmTalk\Bundle\Api\Persistence\Repository\Authorization;
 use Doctrine\ORM\EntityRepository;
 use LetEmTalk\Component\Domain\Authorization\Entity\UserToRoomPermission;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToRoomPermissionRepository;
+use LetEmTalk\Component\Domain\Chat\Entity\Room;
 
 class DoctrineUserToRoomPermissionRepository extends EntityRepository implements UserToRoomPermissionRepository
 {
@@ -36,5 +37,10 @@ class DoctrineUserToRoomPermissionRepository extends EntityRepository implements
     public function getRoomsPermission(int $userId): array
     {
         return $this->findBy(["user" => $userId]);
+    }
+
+    public function getUserByManageRoom(Room $room): array
+    {
+        return $this->findBy(["room" => $room, "managePermission" => true]);
     }
 }
