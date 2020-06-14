@@ -6,6 +6,8 @@ namespace LetEmTalk\Bundle\Api\Controller\Chat;
 
 use LetEmTalk\Component\Application\Chat\Request\CreateIssueRequest;
 use LetEmTalk\Component\Application\Chat\UseCase\CreateIssueUseCase;
+use PHPUnit\Util\Json;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -37,11 +39,13 @@ class CreateIssueController
         $authorId = $json[self::INPUT_AUTHOR_ID];
         $userId = $this->security->getUser()->getUserId();
         try {
-            $this->createIssueUseCase->execute(new CreateIssueRequest($roomId, $title, $text, $authorId, $userId));
+            $response = $this->createIssueUseCase->execute(
+                new CreateIssueRequest($roomId, $title, $text, $authorId, $userId)
+            );
+            return new JsonResponse($response->getIssueAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("Not access", Response::HTTP_UNAUTHORIZED);
         }
-        return new Response("Issue has been created", Response::HTTP_NO_CONTENT);
     }
 
 }

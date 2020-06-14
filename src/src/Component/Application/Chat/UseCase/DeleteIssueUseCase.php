@@ -8,7 +8,6 @@ use LetEmTalk\Component\Application\Chat\Request\DeleteIssueRequest;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
 use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
-use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class DeleteIssueUseCase
 {
@@ -23,7 +22,7 @@ class DeleteIssueUseCase
         $this->userAuthorization = $userAuthorization;
     }
 
-    public function execute(DeleteIssueRequest $request)
+    public function execute(DeleteIssueRequest $request): void
     {
         $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
 

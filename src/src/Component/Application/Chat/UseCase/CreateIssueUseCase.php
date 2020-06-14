@@ -4,6 +4,7 @@
 namespace LetEmTalk\Component\Application\Chat\UseCase;
 
 use LetEmTalk\Component\Application\Chat\Request\CreateIssueRequest;
+use LetEmTalk\Component\Application\Chat\Response\CreateIssueResponse;
 use LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization;
 use LetEmTalk\Component\Domain\Authorization\Service\UserPermissions;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
@@ -35,13 +36,13 @@ class CreateIssueUseCase
         $this->userAuthorization = $userAuthorization;
     }
 
-    public function execute(CreateIssueRequest $request)
+    public function execute(CreateIssueRequest $request): CreateIssueResponse
     {
-        $userPermission = new UserPermissions($this->userAuthorization, $request->getUserId());
+        $userPermissions = new UserPermissions($this->userAuthorization, $request->getUserId());
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
 
-        if (!$userPermission->allowCreateIssue($room)) {
+        if (!$userPermissions->allowCreateIssue($room)) {
             throw new \InvalidArgumentException();
         }
 
@@ -51,5 +52,7 @@ class CreateIssueUseCase
         $this->pillRepository->save($firstPill);
         $issue->setFirstPill($firstPill);
         $this->issueRepository->save($issue);
+
+        return new CreateIssueResponse($issue, $userPermissions);
     }
 }
