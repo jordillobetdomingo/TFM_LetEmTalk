@@ -11,17 +11,17 @@ class UserToIssuePermission
 {
     private User $user;
     private Issue $issue;
-    private bool $permissionRead;
-    private bool $permissionWrite;
-    private bool $permissionManage;
+    private bool $readPermission;
+    private bool $writePermission;
+    private bool $managePermission;
 
-    public function __construct(User $user, Issue $issue, Role $role)
+    public function __construct(User $user, Issue $issue, bool $readPermission, bool $writePermission, bool $managePermission)
     {
         $this->user = $user;
         $this->issue = $issue;
-        $this->permissionRead = $role->getPermissionIssueRead();
-        $this->permissionWrite = $role->getPermissionIssueWrite();
-        $this->permissionManage = $role->getPermissionIssueManage();
+        $this->readPermission = $readPermission;
+        $this->writePermission = $writePermission;
+        $this->managePermission = $managePermission;
     }
 
     public function getIssue(): Issue
@@ -31,17 +31,17 @@ class UserToIssuePermission
 
     public function hasIssueReadPermission(): bool
     {
-        return $this->permissionRead;
+        return $this->readPermission;
     }
 
     public function hasIssueWritePermission(): bool
     {
-        return $this->permissionWrite;
+        return $this->writePermission;
     }
 
     public function hasIssueManagePermission(): bool
     {
-        return $this->permissionManage;
+        return $this->managePermission;
     }
 
 }

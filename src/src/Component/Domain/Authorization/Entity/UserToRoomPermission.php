@@ -11,15 +11,15 @@ class UserToRoomPermission
 {
     private User $user;
     private Room $room;
-    private bool $permissionWrite;
-    private bool $permissionManage;
+    private bool $writePermission;
+    private bool $managePermission;
 
-    public function __construct(User $user, Room $room, Role $role)
+    public function __construct(User $user, Room $room, bool $writePermission, bool $managePermission)
     {
         $this->user = $user;
         $this->room = $room;
-        $this->permissionWrite = $role->getPermissionRoomWrite();
-        $this->permissionManage = $role->getPermissionRoomManage();
+        $this->writePermission = $writePermission;
+        $this->managePermission = $managePermission;
     }
 
     public function getRoom(): Room
@@ -29,11 +29,11 @@ class UserToRoomPermission
 
     public function hasRoomWritePermission(): bool
     {
-        return $this->permissionWrite;
+        return $this->writePermission;
     }
 
     public function hasRoomManagePermission(): bool
     {
-        return $this->permissionManage;
+        return $this->managePermission;
     }
 }

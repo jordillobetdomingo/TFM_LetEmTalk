@@ -35,7 +35,12 @@ class CreateUserToRoomPermissionUseCase
         $user = $this->userRepository->getUser($request->getUserId());
         $role = $this->roleRepository->getRole($request->getRoleId());
         $room = $this->roomRepository->getRoom($request->getRoomId());
-        $userToRoomPermission = new UserToRoomPermission($user, $room, $role);
+        $userToRoomPermission = new UserToRoomPermission(
+            $user,
+            $room,
+            $role->getPermissionRoomWrite(),
+            $role->getPermissionRoomManage()
+        );
         $this->userToRoomPermissionRepository->save($userToRoomPermission);
     }
 }

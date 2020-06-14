@@ -7,8 +7,8 @@
         <id name="user" association-key="true" />
         <id name="room" association-key="true" />
 
-        <field name="permissionWrite" column="permission_write" type="boolean" />
-        <field name="permissionManage" column="permission_manage" type="boolean" />
+        <field name="writePermission" column="permission_write" type="boolean" />
+        <field name="managePermission" column="permission_manage" type="boolean" />
 
         <many-to-one field="user" target-entity="LetEmTalk\Component\Domain\User\Entity\User">
             <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE"/>

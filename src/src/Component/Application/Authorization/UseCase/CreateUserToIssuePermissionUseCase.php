@@ -23,8 +23,7 @@ class CreateUserToIssuePermissionUseCase
         UserRepository $userRepository,
         IssueRepository $issueRepository,
         RoleRepository $roleRepository
-    )
-    {
+    ) {
         $this->userToIssuePermissionRepository = $userToIssuePermissionRepository;
         $this->userRepository = $userRepository;
         $this->issueRepository = $issueRepository;
@@ -36,7 +35,13 @@ class CreateUserToIssuePermissionUseCase
         $user = $this->userRepository->getUser($request->getUserId());
         $issue = $this->issueRepository->getIssue($request->getIssueId());
         $role = $this->roleRepository->getRole($request->getRoleId());
-        $userToIssuePermission = new UserToIssuePermission($user, $issue, $role);
+        $userToIssuePermission = new UserToIssuePermission(
+            $user,
+            $issue,
+            $role->getPermissionIssueRead(),
+            $role->getPermissionIssueWrite(),
+            $role->getPermissionIssueManage()
+        );
         $this->userToIssuePermissionRepository->save($userToIssuePermission);
     }
 
