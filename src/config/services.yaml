@@ -32,6 +32,11 @@ services:
             - '@letemtalk.useCase.createUserCredentials'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\User\ReadUserController:
+        arguments:
+            - '@letemtalk.useCase.readUser'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\User\ReadUsersController:
         arguments:
             - '@letemtalk.useCase.readUsers'
@@ -228,6 +233,11 @@ services:
         arguments:
             - '@letemtalk.repository.user'
             - '@letemtalk.service.adminAuthorization'
+
+    letemtalk.useCase.readUser:
+        class: LetEmTalk\Component\Application\User\UseCase\ReadUserUseCase
+        arguments:
+            - '@letemtalk.repository.user'
 
     letemtalk.useCase.deleteUser:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase

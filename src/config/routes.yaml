@@ -2,6 +2,11 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+api_read_user:
+  path: /api/user/
+  controller: 'LetEmTalk\Bundle\Api\Controller\User\ReadUserController::execute'
+  methods: GET
+
 api_create_user:
   path: /api/user/
   controller: 'LetEmTalk\Bundle\Api\Controller\User\CreateUserController::execute'

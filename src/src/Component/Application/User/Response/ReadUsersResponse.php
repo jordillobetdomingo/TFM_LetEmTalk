@@ -26,8 +26,8 @@ class ReadUsersResponse
     {
         return [
             "id" => $user->getId(),
-            "first_name" => $user->getFirstName(),
-            "last_name" => $user->getLastName(),
+            "firstName" => $user->getFirstName(),
+            "lastName" => $user->getLastName(),
             "email" => $user->getEmail()->getEmail()
         ];
     }
