@@ -6,6 +6,7 @@ namespace LetEmTalk\Bundle\Api\Controller\Chat;
 
 use LetEmTalk\Component\Application\Chat\Request\CreatePillRequest;
 use LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
@@ -35,12 +36,11 @@ class CreatePillController
         $userId = $this->security->getUser()->getUserId();
 
         try {
-            $this->createPillUseCase->execute(new CreatePillRequest($issueId, $text, $authorId, $userId));
+            $response = $this->createPillUseCase->execute(new CreatePillRequest($issueId, $text, $authorId, $userId));
+            return new JSONResponse($response->getPillAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException){
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }
-
-        return new Response("Pill has been created", 204);
     }
 
 }

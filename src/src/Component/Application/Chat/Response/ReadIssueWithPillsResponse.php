@@ -45,7 +45,7 @@ class ReadIssueWithPillsResponse
     private function getPillAsArray(Pill $pill): array
     {
         return [
-            "pillId" => $pill->getId(),
+            "id" => $pill->getId(),
             "text" => $pill->getText(),
             "authorId" => $pill->getAuthor()->getId(),
             "firstNameAuthor" => $pill->getAuthor()->getFirstName(),
