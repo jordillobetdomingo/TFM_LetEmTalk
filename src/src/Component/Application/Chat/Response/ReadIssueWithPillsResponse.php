@@ -50,7 +50,7 @@ class ReadIssueWithPillsResponse
             "authorId" => $pill->getAuthor()->getId(),
             "firstNameAuthor" => $pill->getAuthor()->getFirstName(),
             "lastNameAuthor" => $pill->getAuthor()->getLastName(),
-            "createdAt" => $pill->getCreatedAt(),
+            "createAt" => $pill->getCreatedAt(),
             "allowUpdate" => $this->userPermissions->allowUpdatePill($pill),
             "allowDelete" => $this->userPermissions->allowDeletePill($pill)
         ];

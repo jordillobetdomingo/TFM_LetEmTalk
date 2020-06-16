@@ -50,7 +50,7 @@ class ReadRoomWithIssuesResponse
             "authorId" => $issue->getFirstPill()->getAuthor()->getId(),
             "firstNameAuthor" => $issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $issue->getFirstPill()->getAuthor()->getLastName(),
-            "createdAt" => $issue->getFirstPill()->getCreatedAt(),
+            "createAt" => $issue->getFirstPill()->getCreatedAt(),
             "allowUpdate" => $this->userPermissions->allowUpdateIssue($issue),
             "allowDelete" => $this->userPermissions->allowDeleteIssue($issue)
         ];

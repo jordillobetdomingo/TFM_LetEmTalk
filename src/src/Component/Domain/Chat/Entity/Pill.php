@@ -12,16 +12,16 @@ class Pill
     private Issue $issue;
     private string $text;
     private User $author;
-    private \DateTime $createdAt;
-    private \DateTime $updatedAt;
+    private \DateTime $createAt;
+    private \DateTime $updateAt;
 
     public function __construct(Issue $issue, string $text, User $author)
     {
         $this->issue = $issue;
         $this->text = $text;
         $this->author = $author;
-        $this->createdAt = new \DateTime("now");
-        $this->updatedAt = new \DateTime("now");
+        $this->createAt = new \DateTime("now");
+        $this->updateAt = new \DateTime("now");
     }
 
     public function getId(): int
@@ -42,7 +42,7 @@ class Pill
     public function setText(string $text): void
     {
         $this->text = $text;
-        $this->updatedAt = new \DateTime("now");
+        $this->updateAt = new \DateTime("now");
     }
 
     public function getAuthor(): User
@@ -52,6 +52,6 @@ class Pill
 
     public function getCreatedAt(): \DateTime
     {
-        return $this->createdAt;
+        return $this->createAt;
     }
 }
