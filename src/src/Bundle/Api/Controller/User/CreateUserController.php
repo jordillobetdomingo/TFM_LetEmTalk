@@ -8,6 +8,7 @@ use LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCre
 use LetEmTalk\Component\Application\Authentication\Request\CreateUserCredentialsRequest;
 use LetEmTalk\Component\Application\User\Request\CreateUserRequest;
 use LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
@@ -67,7 +68,7 @@ class CreateUserController
                     )
                 );
             }
-            return new Response("", Response::HTTP_NO_CONTENT);
+            return new JsonResponse($userResponse->getUserAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
             return new Response("", Response::HTTP_UNAUTHORIZED);
         }

@@ -50,7 +50,7 @@ class Pill
         return $this->author;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreateAt(): \DateTime
     {
         return $this->createAt;
     }

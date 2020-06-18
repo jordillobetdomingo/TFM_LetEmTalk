@@ -19,4 +19,14 @@ class CreateUserResponse
     {
         return $this->user;
     }
+
+    public function getUserAsArray(): array
+    {
+        return [
+            "id" => $this->user->getId(),
+            "firstName" => $this->user->getFirstName(),
+            "lastName" => $this->user->getLastName(),
+            "email" => $this->user->getEmail()->getEmail()
+        ];
+    }
 }

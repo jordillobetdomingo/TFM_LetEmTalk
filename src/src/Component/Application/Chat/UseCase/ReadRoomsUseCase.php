@@ -20,7 +20,7 @@ class ReadRoomsUseCase
     public function execute(ReadRoomsRequest $request): ReadRoomsResponse
     {
         $rooms = $this->userAuthorization->getRoomsByUser($request->getUserId());
-        if ($rooms == null) {
+        if ($rooms === null) {
             throw new \InvalidArgumentException();
         }
         return new ReadRoomsResponse($rooms);

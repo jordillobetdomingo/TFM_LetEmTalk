@@ -238,6 +238,7 @@ services:
         class: LetEmTalk\Component\Application\User\UseCase\ReadUserUseCase
         arguments:
             - '@letemtalk.repository.user'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.deleteUser:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase

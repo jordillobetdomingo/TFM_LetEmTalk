@@ -27,7 +27,7 @@ class CreateIssueResponse
             "authorId" => $this->issue->getFirstPill()->getAuthor()->getId(),
             "firstNameAuthor" => $this->issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $this->issue->getFirstPill()->getAuthor()->getLastName(),
-            "createdAt" => $this->issue->getFirstPill()->getCreatedAt(),
+            "createAt" => $this->issue->getFirstPill()->getCreateAt(),
             "allowUpdate" => $this->userPermissions->allowUpdateIssue($this->issue),
             "allowDelete" => $this->userPermissions->allowDeleteIssue($this->issue)
         ];
