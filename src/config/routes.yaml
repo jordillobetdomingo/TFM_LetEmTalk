@@ -95,6 +95,11 @@ api_read_roles:
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\ReadRolesController::execute'
   methods: GET
 
+api_assign_role_user:
+  path: /api/role/user/
+  controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\AssignRoleToUserController::execute'
+  methods: POST
+
 api_create_room_permission:
   path: /api/permission/room/
   controller: 'LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController::execute'

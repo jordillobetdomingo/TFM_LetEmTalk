@@ -23,6 +23,11 @@ class DoctrineRoomRepository extends EntityRepository implements RoomRepository
         return $this->findOneBy(["id" => $roomId]);
     }
 
+    public function getAllRooms(): array
+    {
+        return $this->findAll();
+    }
+
     public function delete(int $roomId): void
     {
         $roomReference = $this->getEntityManager()->getReference($this->getClassName(), $roomId);

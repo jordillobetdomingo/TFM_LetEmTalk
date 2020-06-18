@@ -107,6 +107,11 @@ services:
             - '@letemtalk.useCase.readRoles'
         tags: ['controller.service_arguments']
 
+    LetEmTalk\Bundle\Api\Controller\Authorization\AssignRoleToUserController:
+        arguments:
+            - '@letemtalk.useCase.assignRoleToUser'
+        tags: ['controller.service_arguments']
+
     LetEmTalk\Bundle\Api\Controller\Authorization\CreateUserToRoomPermissionController:
         arguments:
             - '@letemtalk.useCase.createUserToRoomPermission'
@@ -269,6 +274,8 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadRoomsUseCase
         arguments:
             - '@letemtalk.service.userAuthorization'
+            - '@letemtalk.service.adminAuthorization'
+            - '@letemtalk.repository.room'
 
     letemtalk.useCase.deleteRoom:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase
@@ -328,6 +335,15 @@ services:
         class: LetEmTalk\Component\Application\Authorization\UseCase\ReadRolesUseCase
         arguments:
             - '@letemtalk.repository.role'
+
+    letemtalk.useCase.assignRoleToUser:
+        class: LetEmTalk\Component\Application\Authorization\UseCase\AssignRoleToUserUseCase
+        arguments:
+            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.role'
+            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.userToRoomPermission'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserToRoomPermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionUseCase
