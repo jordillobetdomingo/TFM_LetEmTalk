@@ -23,6 +23,7 @@ class ReadIssueWithPillsResponse
 
     public function getIssueWithPillsAsArray(): array
     {
+        usort($this->pills, array($this, "comparePillCreatedAt"));
         return [
             "issue" => $this->getIssueAsArray(),
             "numberOfPills" => count($this->pills),
@@ -50,10 +51,18 @@ class ReadIssueWithPillsResponse
             "authorId" => $pill->getAuthor()->getId(),
             "firstNameAuthor" => $pill->getAuthor()->getFirstName(),
             "lastNameAuthor" => $pill->getAuthor()->getLastName(),
-            "createAt" => $pill->getCreateAt(),
+            "createAt" => $pill->getCreateAt()->format(\DateTime::ATOM),
             "allowUpdate" => $this->userPermissions->allowUpdatePill($pill),
             "allowDelete" => $this->userPermissions->allowDeletePill($pill)
         ];
+    }
+
+    private function comparePillCreatedAt(Pill $a, Pill $b): int
+    {
+        if ($a->getCreateAt()->getTimestamp() == $b->getCreateAt()->getTimestamp()) {
+            return 0;
+        }
+        return $a->getCreateAt()->getTimestamp() > $b->getCreateAt()->getTimestamp() ? -1 : 1;
     }
 
 }

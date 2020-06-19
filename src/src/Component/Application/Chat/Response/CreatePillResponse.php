@@ -26,7 +26,7 @@ class CreatePillResponse
             "authorId" => $this->pill->getAuthor()->getId(),
             "firstNameAuthor" => $this->pill->getAuthor()->getFirstName(),
             "lastNameAuthor" => $this->pill->getAuthor()->getLastName(),
-            "createAt" => $this->pill->getCreateAt(),
+            "createAt" => $this->pill->getCreateAt()->format(\DateTime::ATOM),
             "allowUpdate" => $this->userPermissions->allowUpdatePill($this->pill),
             "allowDelete" => $this->userPermissions->allowDeletePill($this->pill)
         ];

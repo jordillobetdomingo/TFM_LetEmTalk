@@ -23,6 +23,7 @@ class ReadRoomWithIssuesResponse
 
     public function getRoomWithIssuesAsArray(): array
     {
+        usort($this->issues, array($this, "compareIssueCreatedAt"));
         return [
             "room" => $this->getRoomAsArray($this->room),
             "numberOfIssues" => count($this->issues),
@@ -50,10 +51,19 @@ class ReadRoomWithIssuesResponse
             "authorId" => $issue->getFirstPill()->getAuthor()->getId(),
             "firstNameAuthor" => $issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $issue->getFirstPill()->getAuthor()->getLastName(),
-            "createAt" => $issue->getFirstPill()->getCreateAt(),
+            "createAt" => $issue->getFirstPill()->getCreateAt()->format(\DateTime::ATOM),
             "allowUpdate" => $this->userPermissions->allowUpdateIssue($issue),
             "allowDelete" => $this->userPermissions->allowDeleteIssue($issue)
         ];
+    }
+
+    private function compareIssueCreatedAt(Issue $a, Issue $b): int
+    {
+        if ($a->getFirstPill()->getCreateAt()->getTimestamp() == $b->getFirstPill()->getCreateAt()->getTimestamp()) {
+            return 0;
+        }
+        return $a->getFirstPill()->getCreateAt()->getTimestamp() > $b->getFirstPill()->getCreateAt()->getTimestamp(
+        ) ? -1 : 1;
     }
 
 }
