@@ -10,8 +10,7 @@ use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class RedisUserRepository extends RedisRepository implements UserRepository
 {
-    const KEY_USER = "user:{id}";
-    const USER_ID_KEY = "{id}";
+    const KEY_USER = "user:";
 
     private UserRepository $userRepository;
 
@@ -51,6 +50,6 @@ class RedisUserRepository extends RedisRepository implements UserRepository
 
     protected function getKey(int $id): string
     {
-        return str_replace(self::USER_ID_KEY, strval($id), self::KEY_USER);
+        return self::KEY_USER . strval($id);
     }
 }

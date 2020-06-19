@@ -13,11 +13,11 @@
         <field name="createAt" column="create_at" type="datetime" />
         <field name="updateAt" column="update_at" type="datetime" />
 
-        <many-to-one field="room" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Room">
+        <many-to-one field="room" fetch= "EAGER" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Room">
             <join-column name="room_id" referenced-column-name="id" on-delete="CASCADE"  />
         </many-to-one>
 
-        <one-to-one field="firstPill" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Pill">
+        <one-to-one field="firstPill" fetch= "EAGER" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Pill">
             <join-column name="first_pill" referenced-column-name="id" on-delete="CASCADE" />
         </one-to-one>
     </entity>

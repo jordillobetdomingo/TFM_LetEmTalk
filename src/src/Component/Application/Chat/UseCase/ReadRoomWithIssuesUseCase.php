@@ -35,6 +35,7 @@ class ReadRoomWithIssuesUseCase
         if (!$userPermission->hasReadRoomPermission($room)) {
             throw new \InvalidArgumentException();
         }
+
         $issues = $this->userAuthorization->getIssuesFromRoom($request->getUserId(), $room);
         return new ReadRoomWithIssuesResponse($room, $issues, $userPermission);
     }

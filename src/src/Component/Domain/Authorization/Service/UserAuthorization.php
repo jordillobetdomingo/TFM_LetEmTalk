@@ -71,7 +71,7 @@ class UserAuthorization
         $userToIssuePermissions = $this->userToIssuePermissionRepository->getIssuesPermissionByUser($userId);
         $issues = array();
         foreach ($userToIssuePermissions as $userToIssuePermission) {
-            if ($userToIssuePermission->getIssue()->getRoom() == $room) {
+            if ($userToIssuePermission->getIssue()->getRoom()->getId() == $room->getId()) {
                 $issues[] = $userToIssuePermission->getIssue();
             }
         }

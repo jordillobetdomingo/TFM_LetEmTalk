@@ -189,23 +189,38 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userCredentials'
 
-    letemtalk.repository.room:
+    letemtalk.repository.doctrine.room:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineRoomRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.room'
 
-    letemtalk.repository.issue:
+    letemtalk.repository.room:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisRoomRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.room'
+
+    letemtalk.repository.doctrine.issue:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineIssueRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.issue'
 
-    letemtalk.repository.pill:
+    letemtalk.repository.issue:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisIssueRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.issue'
+
+    letemtalk.repository.doctrine.pill:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrinePillRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.pill'
+
+    letemtalk.repository.pill:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisPillRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.pill'
 
     letemtalk.repository.role:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineRoleRepository
