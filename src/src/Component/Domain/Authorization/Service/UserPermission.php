@@ -22,7 +22,7 @@ class UserPermission
         $this->userId = $userId;
     }
 
-    public function allowReadPill(Pill $pill): bool
+    public function hasReadPillPermission(Pill $pill): bool
     {
         return $this->userAuthorization->hasIssueAccess(
             $this->userId,
@@ -31,7 +31,7 @@ class UserPermission
         );
     }
 
-    public function allowCreatePill(Issue $issue): bool
+    public function hasCreatePillPermission(Issue $issue): bool
     {
         return $this->userAuthorization->hasIssueAccess(
             $this->userId,
@@ -40,7 +40,7 @@ class UserPermission
         );
     }
 
-    public function allowUpdatePill(Pill $pill): bool
+    public function hasUpdatePillPermission(Pill $pill): bool
     {
         return $this->userAuthorization->hasIssueAccess(
                 $this->userId,
@@ -53,7 +53,7 @@ class UserPermission
                 ) && ($this->userId == $pill->getAuthor()->getId()));
     }
 
-    public function allowDeletePill(Pill $pill): bool
+    public function hasDeletePillPermission(Pill $pill): bool
     {
         // if the pill is the first of the issue it isn't be able to delete
         if ($pill === $pill->getIssue()->getFirstPill()) return false;
@@ -69,12 +69,12 @@ class UserPermission
                 ) && ($this->userId == $pill->getAuthor()->getId()));
     }
 
-    public function allowReadIssue(Issue $issue): bool
+    public function hasReadIssuePermission(Issue $issue): bool
     {
         return $this->userAuthorization->hasIssueAccess($this->userId, $issue->getId(), UserAuthorization::ACTION_READ);
     }
 
-    public function allowCreateIssue(Room $room): bool
+    public function hasCreateIssuePermission(Room $room): bool
     {
         return $this->userAuthorization->hasRoomAccess(
             $this->userId,
@@ -83,7 +83,7 @@ class UserPermission
         );
     }
 
-    public function allowUpdateIssue(Issue $issue): bool
+    public function hasUpdateIssuePermission(Issue $issue): bool
     {
         return $this->userAuthorization->hasIssueAccess(
                 $this->userId,
@@ -96,7 +96,7 @@ class UserPermission
                 ) && ($this->userId == $issue->getFirstPill()->getAuthor()->getId()));
     }
 
-    public function allowDeleteIssue(Issue $issue): bool
+    public function hasDeleteIssuePermission(Issue $issue): bool
     {
         return $this->userAuthorization->hasIssueAccess(
                 $this->userId,
@@ -109,7 +109,7 @@ class UserPermission
                 ) && ($this->userId == $issue->getFirstPill()->getAuthor()->getId()));
     }
 
-    public function allowReadRoom(Room $room): bool
+    public function hasReadRoomPermission(Room $room): bool
     {
         return $this->userAuthorization->hasRoomAccess($this->userId, $room->getId(), UserAuthorization::ACTION_READ);
     }

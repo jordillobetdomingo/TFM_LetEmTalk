@@ -27,7 +27,7 @@ class DeleteIssueUseCase
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 
-        if (!$userPermission->allowDeleteIssue($issue)) {
+        if (!$userPermission->hasDeleteIssuePermission($issue)) {
             throw new \InvalidArgumentException();
         }
 

@@ -28,8 +28,8 @@ class CreateIssueResponse
             "firstNameAuthor" => $this->issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $this->issue->getFirstPill()->getAuthor()->getLastName(),
             "createAt" => $this->issue->getFirstPill()->getCreateAt()->format(\DateTime::ATOM),
-            "allowUpdate" => $this->userPermissions->allowUpdateIssue($this->issue),
-            "allowDelete" => $this->userPermissions->allowDeleteIssue($this->issue)
+            "allowUpdate" => $this->userPermissions->hasUpdateIssuePermission($this->issue),
+            "allowDelete" => $this->userPermissions->hasDeleteIssuePermission($this->issue)
         ];
     }
 }

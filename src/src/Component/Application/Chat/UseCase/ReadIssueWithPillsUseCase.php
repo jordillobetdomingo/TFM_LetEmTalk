@@ -33,7 +33,7 @@ class ReadIssueWithPillsUseCase
 
         $issue = $this->issueRepository->getIssue($request->getIssueId());
 
-        if (!$userPermission->allowReadIssue($issue)) {
+        if (!$userPermission->hasReadIssuePermission($issue)) {
             throw new \InvalidArgumentException();
         }
         $pills = $this->pillRepository->getPillsByIssue($issue);

@@ -38,7 +38,7 @@ class ReadRoomWithIssuesResponse
             "userId" => $room->getUser()->getId(),
             "firstName" => $room->getUser()->getFirstName(),
             "lastName" => $room->getUser()->getLastName(),
-            "allowCreateIssues" => $this->userPermissions->allowCreateIssue($room)
+            "allowCreateIssues" => $this->userPermissions->hasCreateIssuePermission($room)
         ];
     }
 
@@ -52,8 +52,8 @@ class ReadRoomWithIssuesResponse
             "firstNameAuthor" => $issue->getFirstPill()->getAuthor()->getFirstName(),
             "lastNameAuthor" => $issue->getFirstPill()->getAuthor()->getLastName(),
             "createAt" => $issue->getFirstPill()->getCreateAt()->format(\DateTime::ATOM),
-            "allowUpdate" => $this->userPermissions->allowUpdateIssue($issue),
-            "allowDelete" => $this->userPermissions->allowDeleteIssue($issue)
+            "allowUpdate" => $this->userPermissions->hasUpdateIssuePermission($issue),
+            "allowDelete" => $this->userPermissions->hasDeleteIssuePermission($issue)
         ];
     }
 

@@ -32,7 +32,7 @@ class ReadRoomWithIssuesUseCase
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
 
-        if (!$userPermission->allowReadRoom($room)) {
+        if (!$userPermission->hasReadRoomPermission($room)) {
             throw new \InvalidArgumentException();
         }
         $issues = $this->userAuthorization->getIssuesFromRoom($request->getUserId(), $room);

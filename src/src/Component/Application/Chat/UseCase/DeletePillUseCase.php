@@ -27,7 +27,7 @@ class DeletePillUseCase
 
         $pill = $this->pillRepository->getPill($request->getPillId());
 
-        if (!$userPermission->allowDeletePill($pill)) {
+        if (!$userPermission->hasDeletePillPermission($pill)) {
             throw new \InvalidArgumentException();
         }
 

@@ -45,7 +45,7 @@ class CreateIssueUseCase
 
         $room = $this->roomRepository->getRoom($request->getRoomId());
 
-        if (!$userPermission->allowCreateIssue($room)) {
+        if (!$userPermission->hasCreateIssuePermission($room)) {
             throw new \InvalidArgumentException();
         }
 
