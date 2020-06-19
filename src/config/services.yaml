@@ -172,11 +172,16 @@ services:
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments: [ LetEmTalk\Component\Domain\Authorization\Entity\AdminPermission ]
 
-    letemtalk.repository.user:
+    letemtalk.repository.doctrine.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\DoctrineUserRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.user'
+
+    letemtalk.repository.user:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\User\RedisUserRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.user'
 
     letemtalk.repository.userCredentials:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\DoctrineUserCredentialsRepository
