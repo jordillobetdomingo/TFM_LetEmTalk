@@ -10,13 +10,6 @@ use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 
 class ManageIssuePermission
 {
-    const PERMISSION_READ_ISSUE_OWNER_DEFAULT = true;
-    const PERMISSION_WRITE_ISSUE_OWNER_DEFAULT = true;
-    const PERMISSION_MANAGE_ISSUE_OWNER_DEFAULT = false;
-    const PERMISSION_READ_ISSUE_MANAGER_DEFAULT = true;
-    const PERMISSION_WRITE_ISSUE_MANAGER_DEFAULT = true;
-    const PERMISSION_MANAGE_ISSUE_MANAGER_DEFAULT = true;
-
     private UserToIssuePermissionRepository $userTotIssuePermissionRepository;
     private UserToRoomPermissionRepository $userToRoomPermissionRepository;
 
@@ -30,12 +23,16 @@ class ManageIssuePermission
 
     public function addIssuePermissions(Issue $issue): void
     {
+        $userToRoomPermission = $this->userToRoomPermissionRepository->getRoomPermission(
+            $issue->getFirstPill()->getAuthor()->getId(),
+            $issue->getRoom()->getId()
+        );
         $userToIssuePermission = new UserToIssuePermission(
             $issue->getFirstPill()->getAuthor(),
             $issue,
-            self::PERMISSION_READ_ISSUE_OWNER_DEFAULT,
-            self::PERMISSION_WRITE_ISSUE_OWNER_DEFAULT,
-            self::PERMISSION_MANAGE_ISSUE_OWNER_DEFAULT
+            $userToRoomPermission->getRole()->getPermissionIssueRead(),
+            $userToRoomPermission->getRole()->getPermissionIssueWrite(),
+            $userToRoomPermission->getRole()->getPermissionIssueManage()
         );
         $this->userTotIssuePermissionRepository->save($userToIssuePermission);
 
@@ -49,9 +46,9 @@ class ManageIssuePermission
             $userToIssuePermission = new UserToIssuePermission(
                 $userToRoomPermission->getUser(),
                 $issue,
-                self::PERMISSION_READ_ISSUE_MANAGER_DEFAULT,
-                self::PERMISSION_WRITE_ISSUE_MANAGER_DEFAULT,
-                self::PERMISSION_MANAGE_ISSUE_MANAGER_DEFAULT
+                $userToRoomPermission->getRole()->getPermissionIssueRead(),
+                $userToRoomPermission->getRole()->getPermissionIssueWrite(),
+                $userToRoomPermission->getRole()->getPermissionIssueManage()
             );
 
             $this->userTotIssuePermissionRepository->save($userToIssuePermission);

@@ -10,6 +10,10 @@
         <field name="writePermission" column="permission_write" type="boolean" />
         <field name="managePermission" column="permission_manage" type="boolean" />
 
+        <many-to-one field="role" target-entity="LetEmTalk\Component\Domain\Authorization\Entity\Role">
+            <join-column name="role_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
+
         <many-to-one field="user" target-entity="LetEmTalk\Component\Domain\User\Entity\User">
             <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE"/>
         </many-to-one>
