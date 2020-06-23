@@ -25,7 +25,7 @@ class UpdateIssueUseCase
     {
         $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
-        $issue = $this->issueRepository->getIssue($request->getIssueId());
+        $issue = $this->issueRepository->getIssue($request->getIssueId(), true);
 
         if (!$userPermission->hasUpdateIssuePermission($issue)) {
             throw new \InvalidArgumentException();

@@ -34,7 +34,7 @@ class CreatePillUseCase
     {
         $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
-        $issue = $this->issueRepository->getIssue($request->getIssueId());
+        $issue = $this->issueRepository->getIssue($request->getIssueId(), true);
 
 
         if (!$userPermission->hasCreatePillPermission($issue)) {
@@ -44,8 +44,9 @@ class CreatePillUseCase
         $pill = new Pill(
             $issue,
             $request->getText(),
-            $this->userRepository->getUser($request->getAuthorId())
+            $this->userRepository->getUser($request->getAuthorId(), true)
         );
+
         $this->pillRepository->save($pill);
 
         return new CreatePillResponse($pill, $userPermission);

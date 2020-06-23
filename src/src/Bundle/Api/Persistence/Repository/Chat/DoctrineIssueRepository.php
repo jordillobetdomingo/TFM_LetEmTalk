@@ -18,7 +18,7 @@ class DoctrineIssueRepository extends EntityRepository implements IssueRepositor
         $this->getEntityManager()->flush();
     }
 
-    public function getIssue(int $issueId): Issue
+    public function getIssue(int $issueId, bool $noCache = false): Issue
     {
         return $this->findOneBy(["id" => $issueId]);
     }

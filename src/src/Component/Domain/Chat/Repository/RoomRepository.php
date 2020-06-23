@@ -10,7 +10,7 @@ interface RoomRepository
 {
     public function save(Room $room): void;
 
-    public function getRoom(int $roomId): Room;
+    public function getRoom(int $roomId, bool $noCache = false): Room;
 
     public function getAllRooms(): array;
 

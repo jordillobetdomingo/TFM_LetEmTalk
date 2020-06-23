@@ -27,8 +27,11 @@ class RedisPillRepository extends RedisRepository implements PillRepository
         $this->set($pill->getId(), $pill);
     }
 
-    public function getPill(int $pillId): Pill
+    public function getPill(int $pillId, bool $noCache = false): Pill
     {
+        if ($noCache) {
+            return $this->pillRepository->getPill($pillId);
+        }
         if($this->exists($pillId)) {
             return $this->get($pillId);
         } else {

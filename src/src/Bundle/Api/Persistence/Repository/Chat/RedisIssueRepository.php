@@ -27,8 +27,11 @@ class RedisIssueRepository extends RedisRepository implements IssueRepository
         $this->set($issue->getId(), $issue);
     }
 
-    public function getIssue(int $issueId): Issue
+    public function getIssue(int $issueId, bool $noCache = false): Issue
     {
+        if ($noCache) {
+            return $this->issueRepository->getIssue($issueId);
+        }
         if($this->exists($issueId)) {
             return $this->get($issueId);
         }

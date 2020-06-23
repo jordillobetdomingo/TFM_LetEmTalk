@@ -23,7 +23,7 @@ class UpdatePillUseCase
     {
         $userPermission = $this->userAuthorization->forUser($request->getUserId());
 
-        $pill = $this->pillRepository->getPill($request->getPillId());
+        $pill = $this->pillRepository->getPill($request->getPillId(), true);
 
         if (!$userPermission->hasUpdatePillPermission($pill)) {
             throw new \InvalidArgumentException();

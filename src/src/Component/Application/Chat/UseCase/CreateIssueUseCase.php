@@ -43,7 +43,7 @@ class CreateIssueUseCase
     {
         $userPermission= $this->userAuthorization->forUser($request->getUserId());
 
-        $room = $this->roomRepository->getRoom($request->getRoomId());
+        $room = $this->roomRepository->getRoom($request->getRoomId(), true);
 
         if (!$userPermission->hasCreateIssuePermission($room)) {
             throw new \InvalidArgumentException();
@@ -51,7 +51,7 @@ class CreateIssueUseCase
 
         $issue = new Issue($room, $request->getTitle());
         $this->issueRepository->save($issue);
-        $firstPill = new Pill($issue, $request->getText(), $this->userRepository->getUser($request->getAuthorId()));
+        $firstPill = new Pill($issue, $request->getText(), $this->userRepository->getUser($request->getAuthorId(), true));
         $this->pillRepository->save($firstPill);
         $issue->setFirstPill($firstPill);
         $this->issueRepository->save($issue);

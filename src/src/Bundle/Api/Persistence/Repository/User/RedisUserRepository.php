@@ -37,8 +37,11 @@ class RedisUserRepository extends RedisRepository implements UserRepository
         return $this->userRepository->findAllUsers();
     }
 
-    public function getUser(int $userId): ?User
+    public function getUser(int $userId, bool $noCache = false): ?User
     {
+        if ($noCache) {
+            return $this->userRepository->getUser($userId);
+        }
         if ($this->exists($userId)) {
             return $this->get($userId);
         } else {
