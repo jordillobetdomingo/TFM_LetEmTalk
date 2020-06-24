@@ -4,13 +4,14 @@
 namespace LetEmTalk\Bundle\Api\Persistence\Repository\Chat;
 
 
+use LetEmTalk\Bundle\Api\Persistence\Repository\RedisKey;
 use LetEmTalk\Bundle\Api\Persistence\Repository\RedisRepository;
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 use LetEmTalk\Component\Domain\Chat\Repository\RoomRepository;
 
 class RedisRoomRepository extends RedisRepository implements RoomRepository
 {
-    const KEY_ROOM = "room:";
+    const KEY_ROOM_NAME = array("room");
 
     private RoomRepository $roomRepository;
 
@@ -20,27 +21,20 @@ class RedisRoomRepository extends RedisRepository implements RoomRepository
         $this->roomRepository = $roomRepository;
     }
 
-    protected function getKey(int $id): string
-    {
-        return self::KEY_ROOM . strval($id);
-    }
-
     public function save(Room $room): void
     {
         $this->roomRepository->save($room);
-        $this->set($room->getId(), $room);
+        $this->set(new RedisKey(self::KEY_ROOM_NAME,array($room->getId())), $room);
     }
 
     public function getRoom(int $roomId, bool $noCache = false): Room
     {
-        if ($noCache) {
-            return $this->roomRepository->getRoom($roomId);
-        }
-        if($this->exists($roomId)) {
-            return $this->get($roomId);
+        $key = new RedisKey(self::KEY_ROOM_NAME, array($roomId));
+        if($this->exists($key) && !$noCache) {
+            return $this->get($key);
         } else {
             $room = $this->roomRepository->getRoom($roomId);
-            $this->set($roomId, $room);
+            $this->set($key, $room);
             return $room;
         }
     }
@@ -52,7 +46,7 @@ class RedisRoomRepository extends RedisRepository implements RoomRepository
 
     public function delete(int $roomId): void
     {
-        $this->del($roomId);
+        $this->del(new RedisKey(self::KEY_ROOM_NAME, array($roomId)));
         $this->roomRepository->delete($roomId);
     }
 }

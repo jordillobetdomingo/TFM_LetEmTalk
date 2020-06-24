@@ -4,13 +4,14 @@
 namespace LetEmTalk\Bundle\Api\Persistence\Repository\User;
 
 
+use LetEmTalk\Bundle\Api\Persistence\Repository\RedisKey;
 use LetEmTalk\Bundle\Api\Persistence\Repository\RedisRepository;
 use LetEmtalk\Component\Domain\User\Entity\User;
 use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 
 class RedisUserRepository extends RedisRepository implements UserRepository
 {
-    const KEY_USER = "user:";
+    const KEY_USER_NAME = array("user");
 
     private UserRepository $userRepository;
 
@@ -23,13 +24,13 @@ class RedisUserRepository extends RedisRepository implements UserRepository
     public function save(User $user): void
     {
         $this->userRepository->save($user);
-        $this->set($user->getId(), $user);
+        $this->set(new RedisKey(self::KEY_USER_NAME, array($user->getId())), $user);
     }
 
     public function delete(int $userId): void
     {
         $this->userRepository->delete($userId);
-        $this->del($userId);
+        $this->del(new RedisKey(self::KEY_USER_NAME, array($userId)));
     }
 
     public function findAllUsers(): array
@@ -39,20 +40,13 @@ class RedisUserRepository extends RedisRepository implements UserRepository
 
     public function getUser(int $userId, bool $noCache = false): ?User
     {
-        if ($noCache) {
-            return $this->userRepository->getUser($userId);
-        }
-        if ($this->exists($userId)) {
-            return $this->get($userId);
+        $key = new RedisKey(self::KEY_USER_NAME, array($userId));
+        if ($this->exists($key) && !$noCache) {
+            return $this->get($key);
         } else {
             $user = $this->userRepository->getUser($userId);
-            $this->set($userId, $user);
+            $this->set($key, $user);
             return $user;
         }
-    }
-
-    protected function getKey(int $id): string
-    {
-        return self::KEY_USER . strval($id);
     }
 }

@@ -222,29 +222,50 @@ services:
         arguments:
             - '@letemtalk.repository.doctrine.pill'
 
-    letemtalk.repository.role:
+    letemtalk.repository.doctrine.role:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineRoleRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.role'
 
-    letemtalk.repository.userToRoomPermission:
+    letemtalk.repository.role:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisRoleRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.role'
+
+    letemtalk.repository.doctrine.userToRoomPermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToRoomPermissionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userToRoomPermission'
 
-    letemtalk.repository.adminPermission:
-        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineAdminPermission
+    letemtalk.repository.userToRoomPermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisUserToRoomPermissionRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.userToRoomPermission'
+
+    letemtalk.repository.doctrine.adminPermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineAdminPermissionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.adminPermission'
 
-    letemtalk.repository.userToIssuePermission:
+    letemtalk.repository.adminPermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisAdminPermissionRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.adminPermission'
+
+
+    letemtalk.repository.doctrine.userToIssuePermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToIssuePermissionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userToIssuePermission'
+
+    letemtalk.repository.userToIssuePermission:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisUserToIssuePermissionRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.userToIssuePermission'
 
 
     letemtalk.useCase.createUser:

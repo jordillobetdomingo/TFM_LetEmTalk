@@ -24,6 +24,11 @@ class UserToIssuePermission
         $this->managePermission = $managePermission;
     }
 
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
     public function getIssue(): Issue
     {
         return $this->issue;
