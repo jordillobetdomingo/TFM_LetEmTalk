@@ -183,11 +183,16 @@ services:
         arguments:
             - '@letemtalk.repository.doctrine.user'
 
-    letemtalk.repository.userCredentials:
+    letemtalk.repository.doctrine.userCredentials:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\DoctrineUserCredentialsRepository
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userCredentials'
+
+    letemtalk.repository.userCredentials:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\RedisUserCredentialsRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.userCredentials'
 
     letemtalk.repository.doctrine.room:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\DoctrineRoomRepository
