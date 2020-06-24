@@ -3,21 +3,23 @@
 
 namespace LetEmTalk\Bundle\Api\Persistence\Repository;
 
-use phpDocumentor\Reflection\Types\Mixed_;
 use Predis\Client;
 
 abstract class RedisRepository
 {
-    private Client $redis;
+    const ENV_REDIS_CONFIG_SCHEME = "REDIS_SCHEME";
+    const ENV_REDIS_CONFIG_HOST = "REDIS_HOST";
+    const ENV_REDIS_CONFIG_PORT = "REDIS_PORT";
 
+    private Client $redis;
 
     public function __construct()
     {
         $this->redis = new Client(
             [
-                'scheme' => 'tcp',
-                'host' => 'redis',
-                'port' => 6379
+                'scheme' => $_ENV[self::ENV_REDIS_CONFIG_SCHEME],
+                'host' => $_ENV[self::ENV_REDIS_CONFIG_HOST],
+                'port' => $_ENV[self::ENV_REDIS_CONFIG_PORT]
             ]
         );
     }
