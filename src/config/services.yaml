@@ -346,7 +346,7 @@ services:
             - '@letemtalk.repository.redis.pill'
             - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.service.userAuthorization'
-            - '@letemtalk.service.manageIssuePermission'
+            - '@letemtalk.application.service.createIssuePermission'
 
     letemtalk.useCase.readIssueWithPills:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
@@ -440,8 +440,8 @@ services:
             - '@letemtalk.repository.redis.adminPermission'
             - '@letemtalk.repository.redis.user'
 
-    letemtalk.service.manageIssuePermission:
-        class: LetEmTalk\Component\Domain\Authorization\Service\ManageIssuePermission
+    letemtalk.application.service.createIssuePermission:
+        class: LetEmTalk\Component\Application\Authorization\Service\CreateIssuePermission
         arguments:
             - '@letemtalk.repository.redis.userToIssuePermission'
             - '@letemtalk.repository.redis.userToRoomPermission'

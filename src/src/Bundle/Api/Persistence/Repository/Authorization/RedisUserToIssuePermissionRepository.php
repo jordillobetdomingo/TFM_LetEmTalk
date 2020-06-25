@@ -32,10 +32,7 @@ class RedisUserToIssuePermissionRepository extends RedisRepository implements Us
             ),
             $userToIssuePermission
         );
-        $this->addElemList(
-            new RedisKey(self::KEY_USER_LIST_NAME, array($userToIssuePermission->getUser()->getId())),
-            $userToIssuePermission
-        );
+        $this->del(new RedisKey(self::KEY_USER_LIST_NAME, array($userToIssuePermission->getUser()->getId())));
     }
 
     public function delete(int $userId, int $issueId): void

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace LetEmTalk\Component\Domain\Authorization\Service;
+namespace LetEmTalk\Component\Application\Authorization\Service;
 
 use LetEmTalk\Component\Domain\Authorization\Entity\UserToIssuePermission;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRepository;
 use LetEmTalk\Component\Domain\Authorization\Repository\UserToRoomPermissionRepository;
 use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 
-class ManageIssuePermission
+class CreateIssuePermission
 {
     private UserToIssuePermissionRepository $userTotIssuePermissionRepository;
     private UserToRoomPermissionRepository $userToRoomPermissionRepository;
