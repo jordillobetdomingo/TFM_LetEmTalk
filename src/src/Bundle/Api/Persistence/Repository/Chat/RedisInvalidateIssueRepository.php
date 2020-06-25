@@ -10,7 +10,7 @@ use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Room;
 use LetEmTalk\Component\Domain\Chat\Repository\IssueRepository;
 
-class RedisIssueRepository extends RedisRepository implements IssueRepository
+class RedisInvalidateIssueRepository extends RedisRepository implements IssueRepository
 {
     const KEY_ISSUE_NAME = array("issue");
     const KEY_ISSUES_ROOM_NAME = array("issuesRoom");
@@ -26,35 +26,25 @@ class RedisIssueRepository extends RedisRepository implements IssueRepository
     public function save(Issue $issue): void
     {
         $this->issueRepository->save($issue);
-        $this->set(new RedisKey(self::KEY_ISSUE_NAME, array($issue->getId())), $issue);
+        $this->del(new RedisKey(self::KEY_ISSUE_NAME, array($issue->getId())));
+        $this->del(new RedisKey(self::KEY_ISSUES_ROOM_NAME, array($issue->getRoom()->getId())));
     }
 
     public function getIssue(int $issueId): Issue
     {
-        $key = new RedisKey(self::KEY_ISSUE_NAME, array($issueId));
-        if($this->exists($key)) {
-            return $this->get($key);
-        } else {
-            $issue = $this->issueRepository->getIssue($issueId);
-            $this->set($key, $issue);
-            return $issue;
-        }
+        return $this->issueRepository->getIssue($issueId);
     }
 
     public function getIssuesByRoom(Room $room): array
     {
-        $key = new RedisKey(self::KEY_ISSUES_ROOM_NAME, array($room->getId()));
-        if($this->exists($key)) {
-            return $this->get($key);
-        } else {
-            $listIssuesByRoom = $this->issueRepository->getIssuesByRoom($room);
-            $this->setList($key, $listIssuesByRoom);
-            return $listIssuesByRoom;
-        }
+        return $this->issueRepository->getIssuesByRoom($room);
     }
 
     public function delete(int $issueId): void
     {
+        $this->del(new RedisKey(self::KEY_ISSUE_NAME, array($issueId)));
+        $issue = $this->issueRepository->getIssue($issueId);
+        $this->del(new RedisKey(self::KEY_ISSUES_ROOM_NAME, array($issue->getRoom()->getId())));
         $this->issueRepository->delete($issueId);
     }
 }

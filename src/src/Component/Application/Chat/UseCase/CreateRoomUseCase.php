@@ -22,7 +22,7 @@ class CreateRoomUseCase
 
     public function execute(CreateRoomRequest $request): void
     {
-        $room = new Room($this->userRepository->getUser($request->getUserId(), true));
+        $room = new Room($this->userRepository->getUser($request->getUserId()));
         $this->roomRepository->save($room);
     }
 }

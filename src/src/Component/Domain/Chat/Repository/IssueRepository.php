@@ -11,7 +11,7 @@ Interface IssueRepository
 {
     public function save(Issue $issue): void;
 
-    public function getIssue(int $issueId, bool $noCache = false): Issue;
+    public function getIssue(int $issueId): Issue;
 
     public function getIssuesByRoom(Room $room): array;
 

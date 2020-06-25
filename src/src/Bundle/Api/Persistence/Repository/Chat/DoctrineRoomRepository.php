@@ -18,7 +18,7 @@ class DoctrineRoomRepository extends EntityRepository implements RoomRepository
         $this->getEntityManager()->flush();
     }
 
-    public function getRoom(int $roomId, bool $noCache = false): Room
+    public function getRoom(int $roomId): Room
     {
         return $this->findOneBy(["id" => $roomId]);
     }

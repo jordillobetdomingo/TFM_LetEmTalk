@@ -10,7 +10,7 @@ use LetEmTalk\Component\Domain\Chat\Entity\Issue;
 use LetEmTalk\Component\Domain\Chat\Entity\Pill;
 use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
 
-class RedisPillRepository extends RedisRepository implements PillRepository
+class RedisInvalidatePillRepository extends RedisRepository implements PillRepository
 {
     const KEY_PILL_NAME = array("pill");
 
@@ -25,19 +25,12 @@ class RedisPillRepository extends RedisRepository implements PillRepository
     public function save(Pill $pill): void
     {
         $this->pillRepository->save($pill);
-        $this->set(new RedisKey(self::KEY_PILL_NAME, array($pill->getId())), $pill);
+        $this->del(new RedisKey(self::KEY_PILL_NAME, array($pill->getId())));
     }
 
     public function getPill(int $pillId): Pill
     {
-        $key = new RedisKey(self::KEY_PILL_NAME, array($pillId));
-        if($this->exists($key)) {
-            return $this->get($key);
-        } else {
-            $pill = $this->pillRepository->getPill($pillId);
-            $this->set($key, $pill);
-            return $pill;
-        }
+        return $this->pillRepository->getPill($pillId);
     }
 
     public function getPillsByIssue(Issue $issue): array

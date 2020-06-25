@@ -134,7 +134,7 @@ services:
 
     LetEmTalk\Bundle\Api\Controller\Authentication\LoginAuthenticator:
         arguments:
-            - '@letemtalk.repository.userCredentials'
+            - '@letemtalk.repository.redis.userCredentials'
 
     letemtalk.metadata.user:
         class: Doctrine\ORM\Mapping\ClassMetadata
@@ -178,7 +178,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.user'
 
-    letemtalk.repository.user:
+    letemtalk.repository.redis.user:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\User\RedisUserRepository
         arguments:
             - '@letemtalk.repository.doctrine.user'
@@ -189,7 +189,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userCredentials'
 
-    letemtalk.repository.userCredentials:
+    letemtalk.repository.redis.userCredentials:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authentication\RedisUserCredentialsRepository
         arguments:
             - '@letemtalk.repository.doctrine.userCredentials'
@@ -200,7 +200,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.room'
 
-    letemtalk.repository.room:
+    letemtalk.repository.redis.room:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisRoomRepository
         arguments:
             - '@letemtalk.repository.doctrine.room'
@@ -211,8 +211,13 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.issue'
 
-    letemtalk.repository.issue:
+    letemtalk.repository.redis.issue:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisIssueRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.issue'
+
+    letemtalk.repository.redisInvalidate.issue:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisInvalidateIssueRepository
         arguments:
             - '@letemtalk.repository.doctrine.issue'
 
@@ -222,8 +227,13 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.pill'
 
-    letemtalk.repository.pill:
+    letemtalk.repository.redis.pill:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisPillRepository
+        arguments:
+            - '@letemtalk.repository.doctrine.pill'
+
+    letemtalk.repository.redisInvalidate.pill:
+        class: LetEmTalk\Bundle\Api\Persistence\Repository\Chat\RedisInvalidatePillRepository
         arguments:
             - '@letemtalk.repository.doctrine.pill'
 
@@ -233,7 +243,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.role'
 
-    letemtalk.repository.role:
+    letemtalk.repository.redis.role:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisRoleRepository
         arguments:
             - '@letemtalk.repository.doctrine.role'
@@ -244,7 +254,7 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userToRoomPermission'
 
-    letemtalk.repository.userToRoomPermission:
+    letemtalk.repository.redis.userToRoomPermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisUserToRoomPermissionRepository
         arguments:
             - '@letemtalk.repository.doctrine.userToRoomPermission'
@@ -255,11 +265,10 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.adminPermission'
 
-    letemtalk.repository.adminPermission:
+    letemtalk.repository.redis.adminPermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisAdminPermissionRepository
         arguments:
             - '@letemtalk.repository.doctrine.adminPermission'
-
 
     letemtalk.repository.doctrine.userToIssuePermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\DoctrineUserToIssuePermissionRepository
@@ -267,53 +276,54 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@letemtalk.metadata.userToIssuePermission'
 
-    letemtalk.repository.userToIssuePermission:
+    letemtalk.repository.redis.userToIssuePermission:
         class: LetEmTalk\Bundle\Api\Persistence\Repository\Authorization\RedisUserToIssuePermissionRepository
         arguments:
             - '@letemtalk.repository.doctrine.userToIssuePermission'
 
 
+
     letemtalk.useCase.createUser:
         class: LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase
         arguments:
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.user'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.readUsers:
         class: LetEmTalk\Component\Application\User\UseCase\ReadUsersUseCase
         arguments:
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.user'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.readUser:
         class: LetEmTalk\Component\Application\User\UseCase\ReadUserUseCase
         arguments:
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.user'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.deleteUser:
         class: LetEmTalk\Component\Application\User\UseCase\DeleteUserUseCase
         arguments:
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.user'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserCredentials:
         class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
         arguments:
-            - '@letemtalk.repository.userCredentials'
+            - '@letemtalk.repository.redis.userCredentials'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createRoom:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreateRoomUseCase
         arguments:
-            - '@letemtalk.repository.room'
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.room'
+            - '@letemtalk.repository.doctrine.user'
 
     letemtalk.useCase.readRoomWithIssues:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadRoomWithIssuesUseCase
         arguments:
-            - '@letemtalk.repository.room'
-            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.redis.room'
+            - '@letemtalk.repository.redis.issue'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.readRooms:
@@ -321,120 +331,120 @@ services:
         arguments:
             - '@letemtalk.service.userAuthorization'
             - '@letemtalk.service.adminAuthorization'
-            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.redis.room'
 
     letemtalk.useCase.deleteRoom:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase
         arguments:
-            - '@letemtalk.repository.room'
+            - '@letemtalk.repository.redis.room'
 
     letemtalk.useCase.createIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreateIssueUseCase
         arguments:
-            - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.room'
-            - '@letemtalk.repository.pill'
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.issue'
+            - '@letemtalk.repository.doctrine.room'
+            - '@letemtalk.repository.redis.pill'
+            - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.service.userAuthorization'
             - '@letemtalk.service.manageIssuePermission'
 
     letemtalk.useCase.readIssueWithPills:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadIssueWithPillsUseCase
         arguments:
-            - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.redis.issue'
+            - '@letemtalk.repository.redis.pill'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.updateIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdateIssueUseCase
         arguments:
-            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.redisInvalidate.issue'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.deleteIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteIssueUseCase
         arguments:
-            - '@letemtalk.repository.issue'
+            - '@letemtalk.repository.redisInvalidate.issue'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.createPill:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase
         arguments:
-            - '@letemtalk.repository.pill'
-            - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.pill'
+            - '@letemtalk.repository.doctrine.issue'
+            - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.updatePill:
         class: LetEmTalk\Component\Application\Chat\UseCase\UpdatePillUseCase
         arguments:
-            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.redisInvalidate.pill'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.deletePill:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeletePillUseCase
         arguments:
-            - '@letemtalk.repository.pill'
+            - '@letemtalk.repository.redisInvalidate.pill'
             - '@letemtalk.service.userAuthorization'
 
     letemtalk.useCase.readRoles:
         class: LetEmTalk\Component\Application\Authorization\UseCase\ReadRolesUseCase
         arguments:
-            - '@letemtalk.repository.role'
+            - '@letemtalk.repository.redis.role'
 
     letemtalk.useCase.assignRoleToUser:
         class: LetEmTalk\Component\Application\Authorization\UseCase\AssignRoleToUserUseCase
         arguments:
-            - '@letemtalk.repository.room'
-            - '@letemtalk.repository.role'
-            - '@letemtalk.repository.user'
-            - '@letemtalk.repository.userToRoomPermission'
+            - '@letemtalk.repository.doctrine.room'
+            - '@letemtalk.repository.doctrine.role'
+            - '@letemtalk.repository.doctrine.user'
+            - '@letemtalk.repository.redis.userToRoomPermission'
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserToRoomPermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToRoomPermissionUseCase
         arguments:
-            - '@letemtalk.repository.userToRoomPermission'
-            - '@letemtalk.repository.user'
-            - '@letemtalk.repository.room'
-            - '@letemtalk.repository.role'
+            - '@letemtalk.repository.redis.userToRoomPermission'
+            - '@letemtalk.repository.doctrine.user'
+            - '@letemtalk.repository.doctrine.room'
+            - '@letemtalk.repository.doctrine.role'
 
     letemtalk.useCase.deleteUserToRoomPermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToRoomPermissionUseCase
         arguments:
-            - '@letemtalk.repository.userToRoomPermission'
+            - '@letemtalk.repository.redis.userToRoomPermission'
 
     letemtalk.useCase.createUserToIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionUseCase
         arguments:
-            - '@letemtalk.repository.userToIssuePermission'
-            - '@letemtalk.repository.user'
-            - '@letemtalk.repository.issue'
-            - '@letemtalk.repository.role'
+            - '@letemtalk.repository.redis.userToIssuePermission'
+            - '@letemtalk.repository.doctrine.user'
+            - '@letemtalk.repository.doctrine.issue'
+            - '@letemtalk.repository.redis.role'
 
     letemtalk.useCase.deleteUserToIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToIssuePermissionUseCase
         arguments:
-            - '@letemtalk.repository.userToIssuePermission'
+            - '@letemtalk.repository.redis.userToIssuePermission'
 
     letemtalk.service.userAuthorization:
         class: LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization
         arguments:
-            - '@letemtalk.repository.userToRoomPermission'
-            - '@letemtalk.repository.userToIssuePermission'
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.userToRoomPermission'
+            - '@letemtalk.repository.redis.userToIssuePermission'
+            - '@letemtalk.repository.redis.user'
 
     letemtalk.service.adminAuthorization:
         class: LetEmTalk\Component\Domain\Authorization\Service\AdminAuthorization
         arguments:
-            - '@letemtalk.repository.adminPermission'
-            - '@letemtalk.repository.user'
+            - '@letemtalk.repository.redis.adminPermission'
+            - '@letemtalk.repository.redis.user'
 
     letemtalk.service.manageIssuePermission:
         class: LetEmTalk\Component\Domain\Authorization\Service\ManageIssuePermission
         arguments:
-            - '@letemtalk.repository.userToIssuePermission'
-            - '@letemtalk.repository.userToRoomPermission'
+            - '@letemtalk.repository.redis.userToIssuePermission'
+            - '@letemtalk.repository.redis.userToRoomPermission'
 
 
     letemtalk.event.ResponseHeaders:

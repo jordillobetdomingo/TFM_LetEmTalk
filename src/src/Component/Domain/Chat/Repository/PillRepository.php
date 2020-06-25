@@ -11,7 +11,7 @@ interface PillRepository
 {
     public function save(Pill $pill): void;
 
-    public function getPill(int $pillId, bool $noCache = false): Pill;
+    public function getPill(int $pillId): Pill;
 
     public function getPillsByIssue(Issue $issue): array;
 

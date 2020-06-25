@@ -27,10 +27,10 @@ class RedisRoomRepository extends RedisRepository implements RoomRepository
         $this->set(new RedisKey(self::KEY_ROOM_NAME,array($room->getId())), $room);
     }
 
-    public function getRoom(int $roomId, bool $noCache = false): Room
+    public function getRoom(int $roomId): Room
     {
         $key = new RedisKey(self::KEY_ROOM_NAME, array($roomId));
-        if($this->exists($key) && !$noCache) {
+        if($this->exists($key)) {
             return $this->get($key);
         } else {
             $room = $this->roomRepository->getRoom($roomId);

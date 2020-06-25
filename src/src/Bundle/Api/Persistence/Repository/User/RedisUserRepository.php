@@ -12,6 +12,7 @@ use LetEmTalk\Component\Domain\User\Repository\UserRepository;
 class RedisUserRepository extends RedisRepository implements UserRepository
 {
     const KEY_USER_NAME = array("user");
+    const KEY_ALL_USERS_VALUE = array("all");
 
     private UserRepository $userRepository;
 
@@ -25,17 +26,26 @@ class RedisUserRepository extends RedisRepository implements UserRepository
     {
         $this->userRepository->save($user);
         $this->set(new RedisKey(self::KEY_USER_NAME, array($user->getId())), $user);
+        $this->del(new RedisKey(self::KEY_USER_NAME, self::KEY_ALL_USERS_VALUE));
     }
 
     public function delete(int $userId): void
     {
         $this->userRepository->delete($userId);
         $this->del(new RedisKey(self::KEY_USER_NAME, array($userId)));
+        $this->del(new RedisKey(self::KEY_USER_NAME, self::KEY_ALL_USERS_VALUE));
     }
 
     public function findAllUsers(): array
     {
-        return $this->userRepository->findAllUsers();
+        $key = new RedisKey(self::KEY_USER_NAME, self::KEY_ALL_USERS_VALUE);
+        if ($this->exists($key)) {
+            return $this->get($key);
+        } else {
+            $allUsers = $this->userRepository->findAllUsers();
+            $this->set($key, $allUsers);
+            return $allUsers;
+        }
     }
 
     public function getUser(int $userId, bool $noCache = false): ?User
