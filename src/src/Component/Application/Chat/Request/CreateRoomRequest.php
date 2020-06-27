@@ -3,16 +3,15 @@
 
 namespace LetEmTalk\Component\Application\Chat\Request;
 
-
-use LetEmTalk\Component\Domain\User\Entity\User;
-
 class CreateRoomRequest
 {
     private int $userId;
+    private int $userIdentified;
 
-    public function __construct(int $userId)
+    public function __construct(int $userId, int $userIdentified)
     {
         $this->userId = $userId;
+        $this->userIdentified = $userIdentified;
     }
 
     public function getUserId(): int
@@ -20,4 +19,8 @@ class CreateRoomRequest
         return $this->userId;
     }
 
+    public function getUserIdentified(): int
+    {
+        return $this->userIdentified;
+    }
 }

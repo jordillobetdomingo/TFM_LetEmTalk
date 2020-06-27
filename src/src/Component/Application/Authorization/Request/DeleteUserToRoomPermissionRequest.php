@@ -8,8 +8,9 @@ class DeleteUserToRoomPermissionRequest
 {
     private int $userId;
     private int $roomId;
+    private int $userIdentified;
 
-    public function __construct(int $userId, int $roomId)
+    public function __construct(int $userId, int $roomId, int $userIdentified)
     {
         $this->userId = $userId;
         $this->roomId = $roomId;
@@ -23,6 +24,11 @@ class DeleteUserToRoomPermissionRequest
     public function getRoomId(): int
     {
         return $this->roomId;
+    }
+
+    public function getUserIdentified(): int
+    {
+        return $this->userIdentified;
     }
 
 }

@@ -9,12 +9,14 @@ class CreateUserToRoomPermissionRequest
     private int $userId;
     private int $roomId;
     private int $roleId;
+    private int $userIdentified;
 
-    public function __construct(int $userId, int $roomId, int $roleId)
+    public function __construct(int $userId, int $roomId, int $roleId, int $userIdentified)
     {
         $this->userId = $userId;
         $this->roomId = $roomId;
         $this->roleId = $roleId;
+        $this->userIdentified = $userIdentified;
     }
 
     public function getUserId(): int
@@ -30,5 +32,10 @@ class CreateUserToRoomPermissionRequest
     public function getRoleId(): int
     {
         return $this->roleId;
+    }
+
+    public function getUserIdentified(): int
+    {
+        return $this->userIdentified;
     }
 }

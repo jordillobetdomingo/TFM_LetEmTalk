@@ -318,6 +318,7 @@ services:
         arguments:
             - '@letemtalk.repository.redis.room'
             - '@letemtalk.repository.doctrine.user'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.readRoomWithIssues:
         class: LetEmTalk\Component\Application\Chat\UseCase\ReadRoomWithIssuesUseCase
@@ -337,6 +338,7 @@ services:
         class: LetEmTalk\Component\Application\Chat\UseCase\DeleteRoomUseCase
         arguments:
             - '@letemtalk.repository.redis.room'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createIssue:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreateIssueUseCase
@@ -408,11 +410,13 @@ services:
             - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.repository.doctrine.room'
             - '@letemtalk.repository.doctrine.role'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.deleteUserToRoomPermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToRoomPermissionUseCase
         arguments:
             - '@letemtalk.repository.redis.userToRoomPermission'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserToIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\CreateUserToIssuePermissionUseCase
@@ -421,11 +425,13 @@ services:
             - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.repository.doctrine.issue'
             - '@letemtalk.repository.redis.role'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.deleteUserToIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\UseCase\DeleteUserToIssuePermissionUseCase
         arguments:
             - '@letemtalk.repository.redis.userToIssuePermission'
+            - '@letemtalk.service.adminAuthorization'
 
     letemtalk.service.userAuthorization:
         class: LetEmTalk\Component\Domain\Authorization\Service\UserAuthorization
