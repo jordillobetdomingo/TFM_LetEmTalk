@@ -42,18 +42,6 @@ abstract class RedisRepository
         $this->redis->set($key->getKey(), serialize($value));
     }
 
-    protected function setList(RedisKey $key, array $values): void
-    {
-        $this->redis->lpush($key->getKey(), array_map(function($value) {
-            return serialize($value);
-        },$values));
-    }
-
-    protected function addElemList(RedisKey $key, $value): void
-    {
-        $this->redis->lpush($key, [$value]);
-    }
-
     protected function del(RedisKey $key): void
     {
         $this->redis->del([$key->getKey()]);

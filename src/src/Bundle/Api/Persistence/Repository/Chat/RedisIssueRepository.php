@@ -48,7 +48,7 @@ class RedisIssueRepository extends RedisRepository implements IssueRepository
             return $this->get($key);
         } else {
             $listIssuesByRoom = $this->issueRepository->getIssuesByRoom($room);
-            $this->setList($key, $listIssuesByRoom);
+            $this->set($key, $listIssuesByRoom);
             return $listIssuesByRoom;
         }
     }
