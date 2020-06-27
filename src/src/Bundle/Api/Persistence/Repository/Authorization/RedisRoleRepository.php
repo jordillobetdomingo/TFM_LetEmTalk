@@ -23,10 +23,10 @@ class RedisRoleRepository extends RedisRepository implements RoleRepository
         $this->roleRepository = $roleRepository;
     }
 
-    public function getRole(int $roleId, bool $noCache = false): Role
+    public function getRole(int $roleId): Role
     {
-        $key = new RedisKey(self::KEY_ROLE_NAME, $roleId);
-        if ($this->exists($key) && !$noCache) {
+        $key = new RedisKey(self::KEY_ROLE_NAME, array($roleId));
+        if ($this->exists($key)) {
             return $this->get($key);
         } else {
             $role = $this->roleRepository->getRole($roleId);

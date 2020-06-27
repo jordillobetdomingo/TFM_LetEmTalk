@@ -11,8 +11,8 @@ use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRep
 
 class RedisUserToIssuePermissionRepository extends RedisRepository implements UserToIssuePermissionRepository
 {
-    const KEY_USER_LIST_NAME = array("userPermission");
-    const KEY_NAMES = array("userPermission", "issuePermission");
+    const KEY_USER_LIST_NAME = array("userIssuePermission");
+    const KEY_NAMES = array("userIssuePermission", "issuePermission");
 
     private UserToIssuePermissionRepository $userToIssuePermissionRepository;
 

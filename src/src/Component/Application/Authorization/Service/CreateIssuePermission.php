@@ -43,15 +43,17 @@ class CreateIssuePermission
     {
         $userToRoomPermissions = $this->userToRoomPermissionRepository->getUserByManageRoom($issue->getRoom());
         foreach ($userToRoomPermissions as $userToRoomPermission) {
-            $userToIssuePermission = new UserToIssuePermission(
-                $userToRoomPermission->getUser(),
-                $issue,
-                $userToRoomPermission->getRole()->getPermissionIssueRead(),
-                $userToRoomPermission->getRole()->getPermissionIssueWrite(),
-                $userToRoomPermission->getRole()->getPermissionIssueManage()
-            );
+            if ($userToRoomPermission->getUser() != $issue->getFirstPill()->getAuthor()) {
+                $userToIssuePermission = new UserToIssuePermission(
+                    $userToRoomPermission->getUser(),
+                    $issue,
+                    $userToRoomPermission->getRole()->getPermissionIssueRead(),
+                    $userToRoomPermission->getRole()->getPermissionIssueWrite(),
+                    $userToRoomPermission->getRole()->getPermissionIssueManage()
+                );
 
-            $this->userTotIssuePermissionRepository->save($userToIssuePermission);
+                $this->userTotIssuePermissionRepository->save($userToIssuePermission);
+            }
         }
     }
 }
