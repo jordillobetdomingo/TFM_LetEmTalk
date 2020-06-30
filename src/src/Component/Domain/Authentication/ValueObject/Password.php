@@ -7,6 +7,7 @@ namespace LetEmTalk\Component\Domain\Authentication\ValueObject;
 class Password
 {
     const MINIMUM_LENGTH_PASSWORD = 8;
+    const MAXIMUM_LENGTH_PASSWORD = 32;
 
     private string $password;
 
@@ -14,6 +15,10 @@ class Password
     {
         // Minimum length
         if (strlen($password) < self::MINIMUM_LENGTH_PASSWORD) {
+            throw new \InvalidArgumentException();
+        }
+        // Máximum length
+        if (strlen($password) > self::MAXIMUM_LENGTH_PASSWORD) {
             throw new \InvalidArgumentException();
         }
         // Password no contain a digit
