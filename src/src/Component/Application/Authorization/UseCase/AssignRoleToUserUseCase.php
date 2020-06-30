@@ -55,8 +55,8 @@ class AssignRoleToUserUseCase
         $userToRoomPermission = new UserToRoomPermission(
             $user,
             $room,
-            $role->getPermissionIssueWrite(),
-            $role->getPermissionIssueWrite(),
+            $role->getPermissionRoomWrite(),
+            $role->getPermissionRoomManage(),
             $role
         );
         $this->userToRoomPermissionRepository->save($userToRoomPermission);

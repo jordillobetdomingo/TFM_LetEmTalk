@@ -449,8 +449,8 @@ services:
     letemtalk.application.service.createIssuePermission:
         class: LetEmTalk\Component\Application\Authorization\Service\CreateIssuePermission
         arguments:
-            - '@letemtalk.repository.redis.userToIssuePermission'
-            - '@letemtalk.repository.redis.userToRoomPermission'
+            - '@letemtalk.repository.doctrine.userToIssuePermission'
+            - '@letemtalk.repository.doctrine.userToRoomPermission'
 
 
     letemtalk.event.ResponseHeaders:

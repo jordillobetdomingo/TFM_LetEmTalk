@@ -43,7 +43,7 @@ class CreateIssuePermission
     {
         $userToRoomPermissions = $this->userToRoomPermissionRepository->getUserByManageRoom($issue->getRoom());
         foreach ($userToRoomPermissions as $userToRoomPermission) {
-            if ($userToRoomPermission->getUser() != $issue->getFirstPill()->getAuthor()) {
+            if ($userToRoomPermission->getUser()->getId() != $issue->getFirstPill()->getAuthor()->getId()) {
                 $userToIssuePermission = new UserToIssuePermission(
                     $userToRoomPermission->getUser(),
                     $issue,

@@ -11,7 +11,6 @@ use LetEmTalk\Component\Domain\Authorization\Repository\UserToIssuePermissionRep
 
 class RedisUserToIssuePermissionRepository extends RedisRepository implements UserToIssuePermissionRepository
 {
-    const KEY_USER_LIST_NAME = array("userIssuePermission");
     const KEY_NAMES = array("userIssuePermission", "issuePermission");
 
     private UserToIssuePermissionRepository $userToIssuePermissionRepository;
@@ -32,14 +31,12 @@ class RedisUserToIssuePermissionRepository extends RedisRepository implements Us
             ),
             $userToIssuePermission
         );
-        $this->del(new RedisKey(self::KEY_USER_LIST_NAME, array($userToIssuePermission->getUser()->getId())));
     }
 
     public function delete(int $userId, int $issueId): void
     {
         $this->userToIssuePermissionRepository->delete($userId, $issueId);
         $this->del(new RedisKey(self::KEY_NAMES, array($userId, $issueId)));
-        $this->del(new RedisKey(self::KEY_USER_LIST_NAME, array($userId)));
     }
 
     public function getIssuePermission(int $userId, int $issueId): ?UserToIssuePermission
@@ -56,13 +53,6 @@ class RedisUserToIssuePermissionRepository extends RedisRepository implements Us
 
     public function getIssuesPermissionByUser(int $userId): array
     {
-        $key = new RedisKey(self::KEY_USER_LIST_NAME, array($userId));
-        if ($this->exists($key)) {
-            return $this->getList($key);
-        } else {
-            $listUserToIssuePermission = $this->userToIssuePermissionRepository->getIssuesPermissionByUser($userId);
-            $this->setList($key, $listUserToIssuePermission);
-            return $listUserToIssuePermission;
-        }
+        return $this->userToIssuePermissionRepository->getIssuesPermissionByUser($userId);
     }
 }

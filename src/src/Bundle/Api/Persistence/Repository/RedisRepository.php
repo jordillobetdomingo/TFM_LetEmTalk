@@ -29,14 +29,6 @@ abstract class RedisRepository
         return unserialize($this->redis->get($key->getKey()));
     }
 
-    protected function getList(RedisKey $key): array
-    {
-        $values = $this->redis->lrange($key->getKey(), 0, $this->redis->llen($key->getKey()));
-        return array_map(function ($value) {
-            return unserialize($value);
-        }, $values);
-    }
-
     protected function set(RedisKey $key, $value): void
     {
         $this->redis->set($key->getKey(), serialize($value));

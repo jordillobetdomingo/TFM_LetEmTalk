@@ -9,9 +9,9 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="text" column="title" type="string" />
-        <field name="createAt" column="create_at" type="datetime" />
-        <field name="updateAt" column="update_at" type="datetime" />
+        <field name="text" column="text" type="string" length="2000"/>
+        <field name="createAt" column="created_at" type="datetime" />
+        <field name="updateAt" column="updated_at" type="datetime" />
 
         <many-to-one field="issue" fetch= "EAGER" target-entity="LetEmTalk\Component\Domain\Chat\Entity\Issue" >
             <join-column name="issue_id" referenced-column-name="id" on-delete="CASCADE" />

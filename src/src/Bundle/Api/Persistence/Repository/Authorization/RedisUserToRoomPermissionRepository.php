@@ -14,7 +14,6 @@ class RedisUserToRoomPermissionRepository extends RedisRepository implements Use
 {
     const KEY_ROOM_PERMISSION_NAMES = array("userRoomPermission", "roomPermission");
     const KEY_ROOM_PERMISSION_MANAGE_USER_BY_ROOM_NAMES = array("manageUserRoomPermission");
-    const KEY_ROOM_PERMISSION_BY_USER_NAMES = array("userRoomPermission");
 
     private UserToRoomPermissionRepository $userToRoomPermissionRepository;
 
@@ -35,9 +34,6 @@ class RedisUserToRoomPermissionRepository extends RedisRepository implements Use
             $userToRoomPermission
         );
         $this->del(
-            new RedisKey(self::KEY_ROOM_PERMISSION_BY_USER_NAMES, array($userToRoomPermission->getUser()->getId()))
-        );
-        $this->del(
             new RedisKey(
                 self::KEY_ROOM_PERMISSION_MANAGE_USER_BY_ROOM_NAMES,
                 array($userToRoomPermission->getRoom()->getId())
@@ -49,7 +45,6 @@ class RedisUserToRoomPermissionRepository extends RedisRepository implements Use
     {
         $this->userToRoomPermissionRepository->delete($userId, $roomId);
         $this->del(new RedisKey(self::KEY_ROOM_PERMISSION_NAMES, array($userId, $roomId)));
-        $this->del(new RedisKey(self::KEY_ROOM_PERMISSION_BY_USER_NAMES, array($userId)));
         $this->del(new RedisKey(self::KEY_ROOM_PERMISSION_MANAGE_USER_BY_ROOM_NAMES,array($roomId)));
     }
 
@@ -72,14 +67,7 @@ class RedisUserToRoomPermissionRepository extends RedisRepository implements Use
 
     public function getRoomsPermission(int $userId): array
     {
-        $key = new RedisKey(self::KEY_ROOM_PERMISSION_BY_USER_NAMES, array($userId));
-        if ($this->exists($key)) {
-            return $this->get($key);
-        } else {
-            $roomsPermission = $this->userToRoomPermissionRepository->getRoomsPermission($userId);
-            $this->set($key, $roomsPermission);
-            return $roomsPermission;
-        }
+        return $this->userToRoomPermissionRepository->getRoomsPermission($userId);
     }
 
     public function getUserByManageRoom(Room $room): array

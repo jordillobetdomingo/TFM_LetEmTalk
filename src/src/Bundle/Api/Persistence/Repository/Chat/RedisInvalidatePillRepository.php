@@ -13,6 +13,7 @@ use LetEmTalk\Component\Domain\Chat\Repository\PillRepository;
 class RedisInvalidatePillRepository extends RedisRepository implements PillRepository
 {
     const KEY_PILL_NAME = array("pill");
+    const KEY_PILL_BY_ISSUE_NAME = array("pillsIssue");
 
     private PillRepository $pillRepository;
 
@@ -26,6 +27,7 @@ class RedisInvalidatePillRepository extends RedisRepository implements PillRepos
     {
         $this->pillRepository->save($pill);
         $this->del(new RedisKey(self::KEY_PILL_NAME, array($pill->getId())));
+        $this->del(new RedisKey(self::KEY_PILL_BY_ISSUE_NAME, array($pill->getIssue()->getId())));
     }
 
     public function getPill(int $pillId): Pill
