@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Security;
 
 class CreateRoomController
 {
-    const INPUT_USER_ID = "userId";
+    const INPUT_USER_ID = 'userId';
 
     private CreateRoomUseCase $createRoomUseCase;
     private Security $security;

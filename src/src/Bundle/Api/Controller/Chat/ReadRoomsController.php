@@ -25,14 +25,14 @@ class ReadRoomsController
     {
         $user = $this->security->getUser();
         if (!$user) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
 
         try {
             $roomsResponse = $this->readRoomsUseCase->execute(new ReadRoomsRequest($user->getUserId()));
             return new JsonResponse($roomsResponse->getRoomsAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
 }

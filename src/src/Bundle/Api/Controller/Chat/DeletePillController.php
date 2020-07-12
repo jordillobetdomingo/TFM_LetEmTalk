@@ -24,14 +24,14 @@ class DeletePillController
     {
         $user = $this->security->getUser();
         if (!$user) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
 
         try {
             $this->deletePillUseCase->execute(new DeletePillRequest($pillId, $user->getUserId()));
-            return new Response("", Response::HTTP_NO_CONTENT);
+            return new Response('', Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
 

@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Security;
 
 class UpdateIssueController
 {
-    const INPUT_TITLE = "title";
+    const INPUT_TITLE = 'title';
 
     private UpdateIssueUseCase $updateIssueUseCase;
     private Security $security;
@@ -33,16 +33,16 @@ class UpdateIssueController
 
         $user = $this->security->getUser();
         if (!$user) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
 
         $title = $json[self::INPUT_TITLE];
 
         try {
             $this->updateIssueUseCase->execute(new UpdateIssueRequest($issueId, $title, $user->getUserId()));
-            return new Response("", Response::HTTP_NO_CONTENT);
+            return new Response('', Response::HTTP_NO_CONTENT);
         } catch (\InvalidArgumentException $argumentException) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
 

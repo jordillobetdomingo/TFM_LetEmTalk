@@ -15,11 +15,11 @@ use Symfony\Component\Security\Core\Security;
 
 class CreateUserController
 {
-    const INPUT_FIRST_NAME = "firstName";
-    const INPUT_LAST_NAME = "lastName";
-    const INPUT_EMAIL = "email";
-    const INPUT_USERNAME = "username";
-    const INPUT_PASSWORD = "password";
+    const INPUT_FIRST_NAME = 'firstName';
+    const INPUT_LAST_NAME = 'lastName';
+    const INPUT_EMAIL = 'email';
+    const INPUT_USERNAME = 'username';
+    const INPUT_PASSWORD = 'password';
 
     private CreateUserUseCase $createUserUseCase;
     private CreateUserCredentialsUseCase $createUserCredentialsUseCase;
@@ -46,7 +46,7 @@ class CreateUserController
 
         $user = $this->security->getUser();
         if (!$user) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
 
         $firstName = $json[self::INPUT_FIRST_NAME];

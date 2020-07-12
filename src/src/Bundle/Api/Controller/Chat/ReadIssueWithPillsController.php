@@ -27,7 +27,7 @@ class ReadIssueWithPillsController
     {
         $user = $this->security->getUser();
         if (!$user) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
 
         try {

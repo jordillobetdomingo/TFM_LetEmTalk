@@ -15,10 +15,10 @@ use Symfony\Component\Security\Core\Security;
 
 class CreateIssueController
 {
-    const INPUT_ROOM_ID = "roomId";
-    const INPUT_TITLE = "title";
-    const INPUT_TEXT = "text";
-    const INPUT_AUTHOR_ID = "authorId";
+    const INPUT_ROOM_ID = 'roomId';
+    const INPUT_TITLE = 'title';
+    const INPUT_TEXT = 'text';
+    const INPUT_AUTHOR_ID = 'authorId';
 
     private CreateIssueUseCase $createIssueUseCase;
     private Security $security;

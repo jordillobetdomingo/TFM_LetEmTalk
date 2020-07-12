@@ -11,9 +11,9 @@ use Symfony\Component\Security\Core\Security;
 
 class AssignRoleToUserController
 {
-    const INPUT_USER_ID = "userId";
-    const INPUT_ROLE_ID = "roleId";
-    const INPUT_ROOM_ID = "roomId";
+    const INPUT_USER_ID = 'userId';
+    const INPUT_ROLE_ID = 'roleId';
+    const INPUT_ROOM_ID = 'roomId';
 
     private AssignRoleToUserUseCase $assignRoleToUserUseCase;
     private Security $security;

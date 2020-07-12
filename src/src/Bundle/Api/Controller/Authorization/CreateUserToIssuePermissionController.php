@@ -12,9 +12,9 @@ use Symfony\Component\Security\Core\Security;
 
 class CreateUserToIssuePermissionController
 {
-    const INPUT_USER_ID = "userId";
-    const INPUT_ROLE_ID = "roleId";
-    const INPUT_ISSUE_ID = "issueId";
+    const INPUT_USER_ID = 'userId';
+    const INPUT_ROLE_ID = 'roleId';
+    const INPUT_ISSUE_ID = 'issueId';
 
     private CreateUserToIssuePermissionUseCase $createUserToIssuePermissionsUseCase;
     private Security $security;

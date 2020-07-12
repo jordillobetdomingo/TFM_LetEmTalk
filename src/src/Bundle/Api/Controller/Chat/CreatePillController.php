@@ -13,9 +13,9 @@ use Symfony\Component\Security\Core\Security;
 
 class CreatePillController
 {
-    const INPUT_ISSUE_ID = "issueId";
-    const INPUT_TEXT = "text";
-    const INPUT_AUTHOR_ID = "authorId";
+    const INPUT_ISSUE_ID = 'issueId';
+    const INPUT_TEXT = 'text';
+    const INPUT_AUTHOR_ID = 'authorId';
 
     private CreatePillUseCase $createPillUseCase;
     private Security $security;
@@ -50,7 +50,7 @@ class CreatePillController
             );
             return new JSONResponse($response->getPillAsArray(), Response::HTTP_OK);
         } catch (\InvalidArgumentException $argumentException) {
-            return new Response("", Response::HTTP_UNAUTHORIZED);
+            return new Response('', Response::HTTP_UNAUTHORIZED);
         }
     }
 

@@ -22,8 +22,8 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
     use TargetPathTrait;
 
     private const LOGIN_ROUTE = 'api_login';
-    private const FIELD_USERNAME = "username";
-    private const FIELD_PASSWORD = "password";
+    private const FIELD_USERNAME = 'username';
+    private const FIELD_PASSWORD = 'password';
 
     private $userCredentialsRepository;
     private $urlGenerator;
@@ -76,7 +76,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
             return new RedirectResponse($targetPath);
         }
 
-        return new Response("", Response::HTTP_NO_CONTENT);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     protected function getLoginUrl()
