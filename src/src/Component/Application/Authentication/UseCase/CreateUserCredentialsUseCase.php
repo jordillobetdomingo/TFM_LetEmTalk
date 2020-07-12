@@ -1,7 +1,7 @@
 <?php
 
 
-namespace LetEmTalk\Component\ApiLet\Application\Authentication\UserCase;
+namespace LetEmTalk\Component\Application\Authentication\UseCase;
 
 use LetEmTalk\Component\Application\Authentication\Request\CreateUserCredentialsRequest;
 use LetEmTalk\Component\Domain\Authentication\Entity\UserCredentials;

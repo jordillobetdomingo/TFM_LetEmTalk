@@ -4,7 +4,7 @@
 namespace LetEmTalk\Bundle\Api\Controller\User;
 
 
-use LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase;
+use LetEmTalk\Component\Application\Authentication\UseCase\CreateUserCredentialsUseCase;
 use LetEmTalk\Component\Application\Authentication\Request\CreateUserCredentialsRequest;
 use LetEmTalk\Component\Application\User\Request\CreateUserRequest;
 use LetEmTalk\Component\Application\User\UseCase\CreateUserUseCase;

@@ -308,7 +308,7 @@ services:
             - '@letemtalk.service.adminAuthorization'
 
     letemtalk.useCase.createUserCredentials:
-        class: LetEmTalk\Component\ApiLet\Application\Authentication\UserCase\CreateUserCredentialsUseCase
+        class: LetEmTalk\Component\Application\Authentication\UseCase\CreateUserCredentialsUseCase
         arguments:
             - '@letemtalk.repository.redis.userCredentials'
             - '@letemtalk.service.adminAuthorization'
