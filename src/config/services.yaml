@@ -372,7 +372,7 @@ services:
     letemtalk.useCase.createPill:
         class: LetEmTalk\Component\Application\Chat\UseCase\CreatePillUseCase
         arguments:
-            - '@letemtalk.repository.redis.pill'
+            - '@letemtalk.repository.redisInvalidate.pill'
             - '@letemtalk.repository.doctrine.issue'
             - '@letemtalk.repository.doctrine.user'
             - '@letemtalk.service.userAuthorization'

@@ -42,7 +42,9 @@ class RedisInvalidatePillRepository extends RedisRepository implements PillRepos
 
     public function delete(int $pillId): void
     {
+        $pill = $this->pillRepository->getPill($pillId);
         $this->del(new RedisKey(self::KEY_PILL_NAME, array($pillId)));
+        $this->del(new RedisKey(self::KEY_PILL_BY_ISSUE_NAME, array($pill->getIssue()->getId())));
         $this->pillRepository->delete($pillId);
     }
 }
